@@ -15,8 +15,12 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React
+          HOF
+          
         </a>
+        <h3>
+        Produced by Oleh Hoba and Oleh Foliush
+        </h3>
       </header>
     </div>
   );
