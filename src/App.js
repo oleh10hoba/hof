@@ -1,29 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {Component} from 'react';
+import { render } from 'react-dom';
+import { connect } from 'react-redux';
+import { setProducts } from './actions/products';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          HOF
-          
-        </a>
-        <h3>
-        Produced by Oleh Hoba and Oleh Foliush
-        </h3>
-      </header>
-    </div>
-  );
+class App extends Component{
+  render() {
+    const { products } = this.props.products ;
+    const { setProducts } = this.props;
+    const newProducts = [
+      {
+        id: 0,
+        title: 'Shopping Cart' + ' ' + new Date()
+      }
+    ];
+    return (
+      <div className="container ">
+        <h1>HOF</h1>
+        <h2>{newProducts[0].title}</h2> 
+        <button onClick={setProducts.bind(this, newProducts)}>SET NEW PRODUCTS</button>
+      </div>
+    );
+  }
 }
+const mapStateToProps = state => ({
+  ...state
+});
 
-export default App;
+const mapDispatchToProps = dispatch => ({
+  setProducts: products => dispatch(setProducts(products))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
