@@ -2,28 +2,35 @@ import React, {Component} from 'react';
 import { render } from 'react-dom';
 import { connect } from 'react-redux';
 import { setProducts } from './actions/products';
+import products from './products.json';
+import axios from 'axios';
 
 class App extends Component{
-  render() {
-    const { products } = this.props.products ;
+  componentWillMount(){
     const { setProducts } = this.props;
-    const newProducts = [
-      {
-        id: 0,
-        title: 'Shopping Cart' + ' ' + new Date()
-      }
-    ];
+    axios.get('./products.json').then(({ data }) => {
+      setProducts(data);
+    });
+  }
+
+  render() {
     return (
+      
       <div className="container ">
+        <ul>
+          {!products
+          ? '...Loading...' 
+          : products.map(product => (
+            <li><b>{product.title}</b> - {product.author}</li>
+          ))}
+        </ul>
         <h1>HOF</h1>
-        <h2>{newProducts[0].title}</h2> 
-        <button onClick={setProducts.bind(this, newProducts)}>SET NEW PRODUCTS</button>
       </div>
     );
   }
 }
-const mapStateToProps = state => ({
-  ...state
+const mapStateToProps = ({ products }) => ({
+  products: products.items
 });
 
 const mapDispatchToProps = dispatch => ({
