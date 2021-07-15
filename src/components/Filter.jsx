@@ -1,7 +1,8 @@
 import React from 'react';
 import { Input, Menu } from 'semantic-ui-react';
+import { setSearchQuery } from '../actions/filter';
 
-const Filter = ({ setFilter, filterBy }) =>(
+const Filter = ({ setFilter, filterBy, searchQuery, setSearchQuery }) =>(
 
     <Menu secondary>
         <Menu.Item 
@@ -27,6 +28,13 @@ const Filter = ({ setFilter, filterBy }) =>(
             onClick={setFilter.bind(this, 'price_low')}
         >
             Tanie    
+        </Menu.Item>
+        <Menu.Item>
+            <Input 
+                icon='search' 
+                value={searchQuery} 
+                onChange={ e=> setSearchQuery(e.target.value)}
+                placeholder="Szukaj..."/>
         </Menu.Item>
     </Menu>
     

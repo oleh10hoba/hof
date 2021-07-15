@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import Menu from './Menu';
+import Menu from '../containers/Menu';
 import { Card, Container } from 'semantic-ui-react';
-import ProductCard from './ProductCard';
+import ProductCard from '../containers/ProductCard';
 import Filter from '../containers/Filter';
 
 class App extends Component{
@@ -14,19 +14,19 @@ class App extends Component{
   }
 
   render() {
-    const { products, isReady, filterBy } = this.props;
+    const { products, isReady } = this.props;
     return (
       <Container>
         <Menu/>
         <Filter />
-        {/* <Card.Group itemsPerRow={4}> */}
+        <Card.Group itemsPerRow={4}>
           {!isReady
             ? 'Loading...'
             : products.map((product, i) => 
               <ProductCard key={i} {...product}/>
             )
           }
-        {/* </Card.Group> */}
+        </Card.Group>
         <h1>HOF</h1>
   
       </Container>

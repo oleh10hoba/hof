@@ -7,20 +7,14 @@ export default (state = initialState, action) => {
         case 'ADD_PRODUCT_TO_CART':
             return {
                 ...state,
-                items: [
-                    ...state.items,
-                    action.payload    
-                ]
+                items: [...state.items, action.payload]
             };
-            break;
         case 'REMOVE_PRODUCT_FROM_CART':
             return {
                 ...state,
-                items: action.items.filter(o => o.id != action.payload.id)
+                items: state.items.filter(o => o.id != action.payload)
             };
-            break;
         default:
             return state;
-            break;
     }
 }
