@@ -21,9 +21,9 @@ const sortBy = (products, filterBy) => {
 const filterProducts = (products, searchQuery) =>
   products.filter(
     o =>
-      o.title.toLowerCase().indexOf(searchQuery.toLowerCase()) >=0 
+      o.name.toLowerCase().indexOf(searchQuery.toLowerCase()) >=0 
       || 
-      o.author.toLowerCase().indexOf(searchQuery.toLowerCase()) >= 0
+      o.description.toLowerCase().indexOf(searchQuery.toLowerCase()) >= 0
 );
 const searchProducts = (products, filterBy, searchQuery) => {
   return sortBy(filterProducts(products, searchQuery), filterBy);

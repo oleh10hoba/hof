@@ -4,19 +4,19 @@ import { addToCart } from '../actions/cart';
 
 
 const ProductCard = product => {
-    const { id, title, author, image, price, rating, addToCart, addedCount} = product;
+    const { id, name, description, image, price, rating, addToCart, addedCount} = product;
     return(
     <Card>
         <Image src={image}/>
         <Card.Content>
-        <Card.Header>{title}</Card.Header>
+        <Card.Header>{name}</Card.Header>
         <Card.Meta>
-          <span className="date">{author}</span>
+          <span className="date">{description}</span>
         </Card.Meta>
       </Card.Content>
       <Card.Content extra>
         <a>
-          <Icon name="rub" />
+          <Icon name="money" />
           {price}
         </a>
       </Card.Content>

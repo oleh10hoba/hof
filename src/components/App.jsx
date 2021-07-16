@@ -19,7 +19,7 @@ class App extends Component{
       <Container>
         <Menu/>
         <Filter />
-        <Card.Group itemsPerRow={4}>
+        <Card.Group itemsPerRow={8}>
           {!isReady
             ? 'Loading...'
             : products.map((product, i) => 

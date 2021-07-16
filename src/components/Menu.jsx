@@ -20,7 +20,7 @@ const MenuComponents = ({ totalPrice, count, items }) => (
         <Menu.Item
           name='editorials'
         >
-          Sklep
+          HOF
         </Menu.Item>
         <Menu.Menu position="right">
           <Menu.Item
