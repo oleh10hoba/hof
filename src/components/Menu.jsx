@@ -22,6 +22,11 @@ const MenuComponents = ({ totalPrice, count, items }) => (
         >
           HOF
         </Menu.Item>
+        <Menu.Item
+          name='editorials'
+        >
+          Ulubione
+        </Menu.Item>
         <Menu.Menu position="right">
           <Menu.Item
             name='reviews'
