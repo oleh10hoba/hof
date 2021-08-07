@@ -6,6 +6,7 @@ import { Card, Container } from 'semantic-ui-react';
 import ProductCard from '../containers/ProductCard';
 import Filter from '../containers/Filter';
 import Login from '../components/Login'
+import Favorite from './Favorite';
 
 class App extends Component{
   componentWillMount(){ 
@@ -35,21 +36,24 @@ class App extends Component{
           <Route path="/login">
             <Login />
           </Route>
+          <Route path="/favorite">
+            <Favorite/>
+          </Route>
           <Route path="/shop">
-      <Container>
-        <Menu/>
-        <Filter />
-        <Card.Group itemsPerRow={8}>
-          {!isReady
-            ? 'Loading...'
-            : products.map((product, i) => 
-              <ProductCard key={i} {...product}/>
-            )
-          }
-        </Card.Group>
-        <h1>HOF</h1>
-  
-      </Container>
+            <Container>
+              <Menu/>
+              <Filter />
+              <Card.Group itemsPerRow={8}>
+                {!isReady
+                  ? 'Loading...'
+                  : products.map((product, i) => 
+                    <ProductCard key={i} {...product}/>
+                  )
+                }
+              </Card.Group>
+              <h1>HOF</h1>
+        
+            </Container>
           </Route>
         </Router>
     );

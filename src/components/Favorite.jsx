@@ -1,20 +1,30 @@
 import React from 'react';
 import { Menu, Popup, List, Button, Image } from 'semantic-ui-react';
 
-const Favorite = () => (
+
+const Favorite = () => {
 // const Favorite = ({ title, id, image, removeFromCart }) => (
-  <List selection divided verticalAlign="middle">
-    <List.Item>
-      <List.Content floated="right">
-        <Button onClick={removeFromCart.bind(this, id)} color="red">
-          Usuń
-        </Button>
-      </List.Content>
-      {/* <Image avatar src={image} />
-      <List.Content>{title}</List.Content> */}
-    </List.Item>
-  </List>
-);
+//   <List selection divided verticalAlign="middle">
+//     <List.Item>
+//       <List.Content floated="right">
+//         {/* <Button onClick={removeFromCart.bind(this, id)} color="red">
+//           Usuń
+//         </Button> */}
+//         <h2>Qwerty</h2>
+//       </List.Content>
+//       {/* <Image avatar src={image} />
+//       <List.Content>{title}</List.Content> */}
+//     </List.Item>
+//   </List>
+console.log("ULUBIONE");
+console.log("ULUBIONE");
+return (
+<>
+  <h1>ULUBIONE</h1>
+  
+  </>
+) 
+}
 
 // const MenuComponents = ({ totalPrice, count, items }) => (
 //       <Menu>
