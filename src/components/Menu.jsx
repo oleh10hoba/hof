@@ -1,5 +1,7 @@
 import React from 'react';
 import { Menu, Popup, List, Button, Image } from 'semantic-ui-react';
+import {BrowserRouter as Router, Switch,  Route, Link} from "react-router-dom";
+import Favorite from './Favorite';
 
 const CartComponent = ({ title, id, image, removeFromCart }) => (
   <List selection divided verticalAlign="middle">
@@ -25,7 +27,7 @@ const MenuComponents = ({ totalPrice, count, items }) => (
         <Menu.Item
           name='editorials'
         >
-          Ulubione
+          <Link to="/favorite">Ulubione</Link>
         </Menu.Item>
         <Menu.Menu position="right">
           <Menu.Item
