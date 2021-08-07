@@ -1,59 +1,37 @@
 import React from 'react';
-import { Menu, Popup, List, Button, Image } from 'semantic-ui-react';
+import { Card, Image, Icon, Button } from 'semantic-ui-react';
+import { addToCart } from '../actions/cart';
+import axios from 'axios';
 
-
-const Favorite = () => {
-// const Favorite = ({ title, id, image, removeFromCart }) => (
-//   <List selection divided verticalAlign="middle">
-//     <List.Item>
-//       <List.Content floated="right">
-//         {/* <Button onClick={removeFromCart.bind(this, id)} color="red">
-//           Usuń
-//         </Button> */}
-//         <h2>Qwerty</h2>
-//       </List.Content>
-//       {/* <Image avatar src={image} />
-//       <List.Content>{title}</List.Content> */}
-//     </List.Item>
-//   </List>
-console.log("ULUBIONE");
-console.log("ULUBIONE");
-return (
-<>
-  <h1>ULUBIONE</h1>
-  
-  </>
-) 
-}
-
-// const MenuComponents = ({ totalPrice, count, items }) => (
-//       <Menu>
-//         <Menu.Item
-//           name='editorials'
-//         >
-//           HOF
-//         </Menu.Item>
-//         <Menu.Menu position="right">
-//           <Menu.Item
-//             name='reviews'
-//           >
-//             Suma: &nbsp; <b>{totalPrice}</b> zł.
-//           </Menu.Item>
-
-//           <Popup
-//             trigger={
-//               <Menu.Item name="help">
-//                 Kosz (<b>{count}</b>)
-//               </Menu.Item>
-//             }
-//             content={items.map(product => (
-//               <CartComponent {...product} />
-//             ))}
-//             on="click"
-//             hideOnScroll
-//           />
-//         </Menu.Menu>
-//       </Menu> 
-// );
+const Favorite = product => {
+  // const { setProducts } = this.props;
+    axios.get('/products.json').then(({ data }) => {
+      // setProducts(data);
+    });
+    const { id, name, description, image, price, rating, addToCart, addedCount} = product;
+    return(
+    <Card>
+        <Image src={image}/>
+        <Card.Content>
+        <Card.Header>{name}</Card.Header>
+        <Card.Meta>
+          <span className="date">{description}</span>
+        </Card.Meta>
+      </Card.Content>
+      <Card.Content extra>
+        <a>
+          <Icon name="money" />
+          {price}
+        </a>
+      </Card.Content>
+      {/* <Button 
+        onClick={addToCart.bind(this, product)}
+      >
+        Dodaj do kosza
+        {addedCount > 0  && `(${addedCount})`}
+    </Button> */}
+    </Card>
+    );
+};
 
 export default Favorite;
