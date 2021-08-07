@@ -7,6 +7,8 @@ import ProductCard from '../containers/ProductCard';
 import Filter from '../containers/Filter';
 import Login from '../components/Login'
 import Favorite from './Favorite';
+import Account from './Account';
+import Contact from './Contact';
 
 class App extends Component{
   componentWillMount(){ 
@@ -31,6 +33,12 @@ class App extends Component{
               <li>
                 <Link to="/login">Login</Link>
               </li>
+              <li>
+                <Link to="/account">Konto</Link>
+              </li>
+              <li>
+                <Link to="/contact">Kontakt</Link>
+              </li>
             </ul>
           </nav>
           <Route path="/login">
@@ -38,6 +46,12 @@ class App extends Component{
           </Route>
           <Route path="/favorite">
             <Favorite/>
+          </Route>
+          <Route path="/account">
+            <Account/>
+          </Route>
+          <Route path="/contact">
+            <Contact/>
           </Route>
           <Route path="/shop">
             <Container>

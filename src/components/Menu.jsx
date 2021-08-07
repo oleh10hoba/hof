@@ -29,6 +29,16 @@ const MenuComponents = ({ totalPrice, count, items }) => (
         >
           <Link to="/favorite">Ulubione</Link>
         </Menu.Item>
+        <Menu.Item
+          name='editorials'
+        >
+          <Link to="/account">Konto</Link>
+        </Menu.Item>
+        <Menu.Item
+          name='editorials'
+        >
+          <Link to="/contact">Kontakt</Link>
+        </Menu.Item>
         <Menu.Menu position="right">
           <Menu.Item
             name='reviews'
