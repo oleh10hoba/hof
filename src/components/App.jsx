@@ -9,6 +9,7 @@ import Login from '../components/Login'
 import Favorite from './Favorite';
 import Account from './Account';
 import Contact from './Contact';
+import Registration from './Registration';
 
 class App extends Component{
   componentWillMount(){ 
@@ -33,6 +34,9 @@ class App extends Component{
               <li>
                 <Link to="/login">Login</Link>
               </li>
+                <li>
+                    <Link to="/registration">Registration</Link>
+                </li>
               <li>
                 <Link to="/account">Konto</Link>
               </li>
@@ -44,6 +48,9 @@ class App extends Component{
           <Route path="/login">
             <Login />
           </Route>
+            <Route path="/registration">
+                <Registration />
+            </Route>
           <Route path="/favorite">
             <Favorite/>
           </Route>

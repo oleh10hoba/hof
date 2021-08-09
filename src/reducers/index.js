@@ -8,5 +8,5 @@ export default combineReducers({
         products,
         cart,
         filter,
-        form:formReducer
+        form:formReducer,
 });
