@@ -9,6 +9,7 @@ import Login from '../components/Login'
 import Favorite from './Favorite';
 import Account from './Account';
 import Contact from './Contact';
+import Registration from './Registration';
 import '../css/main.css';
 
 class App extends Component{
@@ -31,12 +32,21 @@ class App extends Component{
               <li>
                 <Link to="/login">Login</Link>
               </li>
-             
+              <li>
+                  <Link to="/registration">Registration</Link>
+              </li>
+              <li>
+                <Link to="/account">Konto</Link>
+              </li>
               <li>
                 <Link to="/contact">Kontakt</Link>
               </li>
             </ul>
-          </nav>      
+          </nav>
+     
+          <Route path="/registration">
+              <Registration />
+          </Route>
           <Route path="/favorite">
             <Favorite/>
           </Route>

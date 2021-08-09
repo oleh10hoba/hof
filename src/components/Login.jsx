@@ -2,6 +2,7 @@ import React from 'react'
 import {Field, reduxForm} from "redux-form";
 import  {required} from "../utils/validators/validator"
 import {Input} from "../utils/validators/formcontrols";
+import {setUser} from "../actions/Login";
 
 
 const FormLogin = (props) =>
@@ -33,9 +34,11 @@ const ReduxLoginForm = reduxForm({
     form: 'login'
 })(FormLogin)
 
-const Login = (props) => {
+const Login = ({setUser}, ...props) => {
+
+
     const onSubmit = (formData) =>{
-        console.log(formData);
+    console.log(formData)
     }
 
 return (
