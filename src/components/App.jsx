@@ -14,14 +14,17 @@ import '../css/main.css';
 
 class App extends Component{
   componentWillMount(){ 
-    const { setProducts } = this.props;
+    const { setProducts, setFavotites } = this.props;
+    // axios.get('/favorites.json').then(({ data }) => {
+    //   setFavotites(data);
+    // });
     axios.get('/products.json').then(({ data }) => {
       setProducts(data);
     });
   }
 
   render() {
-    const { products, isReady, isLogged } = this.props;
+    const { products, favorites, isReady, isLogged } = this.props;
     return (
         <Router>
           <nav>
@@ -48,7 +51,20 @@ class App extends Component{
               <Registration />
           </Route>
           <Route path="/favorite">
-            <Favorite/>
+            {/* <Favorite/> */}
+            <Container>
+                <Menu/>
+                <Filter />
+                <Card.Group itemsPerRow={8}>
+                  {!isReady
+                    ? 'Loading...'
+                    : products.map((product, i) => 
+                      <ProductCard key={i} {...product}/>
+                    )
+                  }
+                </Card.Group>
+                <h1>HOF</h1>
+              </Container>
           </Route>
           <Route path="/account">
             <Account/>

@@ -28,10 +28,13 @@ const filterProducts = (products, searchQuery) =>
 const searchProducts = (products, filterBy, searchQuery) => {
   return sortBy(filterProducts(products, searchQuery), filterBy);
 }
-const mapStateToProps = ({ products, filter }) => ({
+const mapStateToProps = ({ products, favorites, filter }) => ({
     products: 
       products.items &&
       searchProducts(products.items, filter.filterBy, filter.searchQuery),
+    // favorites: 
+    //   favorites.items &&
+    //   searchProducts(favorites.items, filter.filterBy, filter.searchQuery),
     isReady: products.isReady,
     isLogged: true
   });

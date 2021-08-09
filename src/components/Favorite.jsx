@@ -1,13 +1,9 @@
 import React from 'react';
 import { Card, Image, Icon, Button } from 'semantic-ui-react';
 import { addToCart } from '../actions/cart';
-import axios from 'axios';
 
-const Favorite = product => {
-  // const { setProducts } = this.props;
-    axios.get('/products.json').then(({ data }) => {
-      // setProducts(data);
-    });
+
+const ProductCard = product => {
     const { id, name, description, image, price, rating, addToCart, addedCount} = product;
     return(
     <Card>
@@ -24,14 +20,14 @@ const Favorite = product => {
           {price}
         </a>
       </Card.Content>
-      {/* <Button 
+      <Button 
         onClick={addToCart.bind(this, product)}
       >
         Dodaj do kosza
         {addedCount > 0  && `(${addedCount})`}
-    </Button> */}
+    </Button>
     </Card>
     );
 };
 
-export default Favorite;
+export default ProductCard;

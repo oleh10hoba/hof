@@ -22,7 +22,7 @@ const MenuComponents = ({ totalPrice, count, items }) => (
         <Menu.Item
           name='editorials'
         >
-          HOF
+          <Link to="/shop">HOF</Link>
         </Menu.Item>
         <Menu.Item
           name='editorials'

@@ -11,6 +11,12 @@ export default (state = initialState, action) => {
                 items: action.payload,
                 isReady: true
             };
+        case 'SET_FAVORITES':
+            return {
+                ...state,
+                items: action.payload,
+                isReady: true
+            };
         case 'SET_IS_READY':
             return {
                 ...state,
