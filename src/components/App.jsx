@@ -9,6 +9,7 @@ import Login from '../components/Login'
 import Favorite from './Favorite';
 import Account from './Account';
 import Contact from './Contact';
+import '../css/main.css';
 
 class App extends Component{
   componentWillMount(){ 
@@ -19,31 +20,23 @@ class App extends Component{
   }
 
   render() {
-    const { products, isReady } = this.props;
+    const { products, isReady, isLogged } = this.props;
     return (
         <Router>
           <nav>
             <ul>
-              <li>
-                <Link to="/">Home</Link>
-              </li>
               <li>
                 <Link to="/shop">Shop</Link>
               </li>
               <li>
                 <Link to="/login">Login</Link>
               </li>
-              <li>
-                <Link to="/account">Konto</Link>
-              </li>
+             
               <li>
                 <Link to="/contact">Kontakt</Link>
               </li>
             </ul>
-          </nav>
-          <Route path="/login">
-            <Login />
-          </Route>
+          </nav>      
           <Route path="/favorite">
             <Favorite/>
           </Route>
@@ -53,22 +46,29 @@ class App extends Component{
           <Route path="/contact">
             <Contact/>
           </Route>
+          <Route path="/login">
+              <Login isLogged={isLogged}/>
+          </Route>  
           <Route path="/shop">
-            <Container>
-              <Menu/>
-              <Filter />
-              <Card.Group itemsPerRow={8}>
-                {!isReady
-                  ? 'Loading...'
-                  : products.map((product, i) => 
-                    <ProductCard key={i} {...product}/>
-                  )
-                }
-              </Card.Group>
-              <h1>HOF</h1>
-        
-            </Container>
+            {isLogged ?
+              <Container>
+                <Menu/>
+                <Filter />
+                <Card.Group itemsPerRow={8}>
+                  {!isReady
+                    ? 'Loading...'
+                    : products.map((product, i) => 
+                      <ProductCard key={i} {...product}/>
+                    )
+                  }
+                </Card.Group>
+                <h1>HOF</h1>
+              </Container>
+              :
+              <Login isLogged={isLogged}/>
+            }
           </Route>
+        }
         </Router>
     );
   }

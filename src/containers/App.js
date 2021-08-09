@@ -32,7 +32,8 @@ const mapStateToProps = ({ products, filter }) => ({
     products: 
       products.items &&
       searchProducts(products.items, filter.filterBy, filter.searchQuery),
-    isReady: products.isReady
+    isReady: products.isReady,
+    isLogged: true
   });
   
 const mapDispatchToProps = dispatch => ({
