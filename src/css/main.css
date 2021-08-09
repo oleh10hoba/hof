@@ -1,0 +1,20 @@
+.Login{
+    background-color: red;
+    text-align: center;
+    margin: 50px 400px;
+    padding: 50px 0;
+}
+
+.Contact{
+    background-color: blue;
+    text-align: center;
+    margin: 50px 400px;
+    padding: 50px 0;
+}
+
+.Account{
+    background-color: yellow;
+    text-align: center;
+    margin: 50px 400px;
+    padding: 50px 0;
+}
