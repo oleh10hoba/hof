@@ -1,18 +1,20 @@
 const initialState = {
-    items: []
+    isReady: false,
+    items: null
 };
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        case 'ADD_PRODUCT_TO_FAVORITE':
+        case 'SET_FAVORITES':
             return {
                 ...state,
-                items: [...state.items, action.payload]
+                items: action.payload,
+                isReady: true
             };
-        case 'REMOVE_PRODUCT_FROM_FAVORITE':
+        case 'SET_IS_READY':
             return {
                 ...state,
-                items: state.items.filter(o => o.id != action.payload)
+                isReady: action.payload
             };
         default:
             return state;

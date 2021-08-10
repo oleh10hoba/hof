@@ -14,10 +14,12 @@ import '../css/main.css';
 
 class App extends Component{
   componentWillMount(){ 
-    const { setProducts, setFavotites } = this.props;
+    const { setProducts, setFavorites } = this.props;
     // axios.get('/favorites.json').then(({ data }) => {
-    //   setFavotites(data);
+    //   setFavorites(data);
     // });
+    const testData = require('../favorites.json');
+    setFavorites(testData);
     axios.get('/products.json').then(({ data }) => {
       setProducts(data);
     });
@@ -27,33 +29,13 @@ class App extends Component{
     const { products, favorites, isReady, isLogged } = this.props;
     return (
         <Router>
-          <nav>
-            <ul>
-              <li>
-                <Link to="/shop">Shop</Link>
-              </li>
-              <li>
-                <Link to="/login">Login</Link>
-              </li>
-              <li>
-                  <Link to="/registration">Registration</Link>
-              </li>
-              <li>
-                <Link to="/account">Konto</Link>
-              </li>
-              <li>
-                <Link to="/contact">Kontakt</Link>
-              </li>
-            </ul>
-          </nav>
-     
+          <Menu/>
           <Route path="/registration">
               <Registration />
           </Route>
           <Route path="/favorite">
-            {/* <Favorite/> */}
+              {/* <Favorite/> */}
             <Container>
-                <Menu/>
                 <Filter />
                 <Card.Group itemsPerRow={8}>
                   {!isReady
@@ -78,7 +60,6 @@ class App extends Component{
           <Route path="/shop">
             {isLogged ?
               <Container>
-                <Menu/>
                 <Filter />
                 <Card.Group itemsPerRow={8}>
                   {!isReady
@@ -94,7 +75,6 @@ class App extends Component{
               <Login isLogged={isLogged}/>
             }
           </Route>
-        }
         </Router>
     );
   }

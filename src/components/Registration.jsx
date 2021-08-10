@@ -21,7 +21,7 @@ const Registration = () =>
 
 
     return (
-        <div>
+        <div class="Registration">
             <form>
             <label>Login</label>
             <input placeholder={"Login"} onChange={(event => {setloginstate(event.target.value)})} type = {"text"}/>
