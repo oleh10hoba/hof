@@ -12,7 +12,7 @@ const store = createStore();
 
 ReactDOM.render(
   <Provider store={store}>
-    <App /> 
+    <App className="Router"/> 
   </Provider>,
   document.getElementById('root')
 );

@@ -10,7 +10,6 @@ import Favorite from './Favorite';
 import Account from './Account';
 import Contact from './Contact';
 import Registration from './Registration';
-import '../css/main.css';
 
 class App extends Component{
   componentWillMount(){ 
@@ -18,8 +17,8 @@ class App extends Component{
     // axios.get('/favorites.json').then(({ data }) => {
     //   setFavorites(data);
     // });
-    const testData = require('../favorites.json');
-    setFavorites(testData);
+    // const testData = require('../favorites.json');
+    // setFavorites(testData);
     axios.get('/products.json').then(({ data }) => {
       setProducts(data);
     });
@@ -28,7 +27,8 @@ class App extends Component{
   render() {
     const { products, favorites, isReady, isLogged } = this.props;
     return (
-        <Router>
+      <div >
+        <Router className="Router">
           <Menu/>
           <Route path="/registration">
               <Registration />
@@ -76,6 +76,7 @@ class App extends Component{
             }
           </Route>
         </Router>
+      </div>
     );
   }
 }

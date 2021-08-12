@@ -5,7 +5,7 @@ import { Card, Image, Icon, Button } from 'semantic-ui-react';
 const Account = product => {
     return(
         <>
-        <div class='Contact'>
+        <div className='Contact'>
             <h2>Kontakt:</h2>
         </div>
     </>

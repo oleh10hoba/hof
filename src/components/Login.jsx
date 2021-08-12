@@ -42,7 +42,7 @@ const Login = ({setUser}, ...props) => {
     }
 
 return (
-    <div class="Login">
+    <div className="Login">
     <h1>Login</h1>
     <ReduxLoginForm isLogged={props.isLogged} onSubmit={onSubmit}/>
     </div>
