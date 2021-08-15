@@ -13,7 +13,18 @@ const Registration = () =>
 
    const RegUser = (event) => {
        event.preventDefault();
-       console.log(loginState);
+
+       Axios.post('http://localhost:3001/check',{
+            loginState:loginState,
+           emailState:emailState
+       }).then((data) => {
+            if(data.data.length > 0){
+                alert('Użytkownik już istnieje')
+                return
+            }
+
+       })
+
        Axios.post('http://localhost:3001/create', {
            nameState:nameState,
            lastNameState:lastNameState,
@@ -22,6 +33,8 @@ const Registration = () =>
            emailState:emailState,
            mobileState:mobileState
        }).then(() => {console.log('Success')})
+
+
 }
 
 

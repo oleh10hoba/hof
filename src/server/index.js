@@ -23,12 +23,11 @@ app.post('/create', (req, res) => {
     const email = req.body.emailState
     const mobile = req.body.mobileState
 
-    db.query("INSERT INTO user (first_name,last_name ,username,passwd,email,mobile,User_Type_id) VALUES (?,?,?,?,?,?)",[name,lastName,login,password,email,mobile,1],
+    db.query("INSERT INTO user (first_name,last_name ,username,passwd,email,mobile,User_Type_id) VALUES (?,?,?,?,?,?,?)",[name,lastName,login,password,email,mobile,1],
         (err,result) => {
             console.log("INSERT");
         if (err) {
-            console.log(err)
-            console.log("ERRRerror");
+            console.log(err);
         }
         else {
             res.send('Values inserted');
@@ -36,6 +35,24 @@ app.post('/create', (req, res) => {
         }
         }
         );
+});
+
+app.post('/check', (req, res) => {
+    const login = req.body.loginState
+    const email = req.body.emailState
+    console.log(req.body.loginState)
+    db.query("SELECT * from user WHERE username = ? OR email = ?",[login,email],
+        (err,result) => {
+        if(err){
+            console.log(err)
+        }
+        else {
+            res.send(result);
+            console.log(result)
+        }
+        })
+
+
 })
 
 
