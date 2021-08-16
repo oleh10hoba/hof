@@ -1,60 +1,72 @@
 import Axios from "axios";
-import {useState} from "react";
+import React, {useState} from "react";
+import {Field, reduxForm} from "redux-form";
+import {Input} from "../utils/validators/formcontrols";
+import {required} from "../utils/validators/validator";
+
+const RegistrationForm = (props) => {
+    return(
+        <form onSubmit={props.handleSubmit}>
+            <div>
+                <Field placeholder={"Imię"} name={"nameState"} component={Input} validate={required}/>
+            </div>
+            <div>
+                <Field placeholder={"Nazwisko"} name={"lastNameState"} component={Input} validate={required} />
+            </div>
+            <div>
+                <Field placeholder={"Login"} name={"loginState"} component={Input} validate={required} />
+            </div>
+            <div>
+                <Field placeholder={"Password"} type = {"password"} name={"passwordState"} component={Input} validate={required}/>
+            </div>
+            <div>
+                <Field placeholder={"e-mail"} name={"emailState"} component={Input} validate={required}/>
+            </div>
+            <div>
+                <Field placeholder={"Numer telefonu"} name={"mobileState"}component={Input} validate={required}/>
+            </div>
+            <div>
+                <button type="submit"> Submit </button>
+            </div>
+        </form>
 
 
-const Registration = () =>
+    )
+}
+
+
+const ReduxRegistrationForm = reduxForm({
+    form: 'registration'
+})(RegistrationForm)
+
+const Registration = (props) =>
 {
-    const [nameState,setNameState] = useState('');
-    const [lastNameState,setLastNameState] = useState('');
-    const [loginState,setLoginState] = useState('');
-    const [passwordState,setPasswordState] = useState('');
-    const [emailState,setEmailState] = useState('');
-    const [mobileState,setMobileState] = useState('');
 
-   const RegUser = (event) => {
-       event.preventDefault();
-
-       Axios.post('http://localhost:3001/check',{
-            loginState:loginState,
-           emailState:emailState
-       }).then((data) => {
+    const onSubmit = (formData) =>{
+        Axios.post('http://localhost:3001/check',{
+            loginState:formData.loginState,
+            emailState:formData.emailState
+        }).then((data) => {
             if(data.data.length > 0){
                 alert('Użytkownik już istnieje')
                 return
             }
 
-       })
+        })
 
-       Axios.post('http://localhost:3001/create', {
-           nameState:nameState,
-           lastNameState:lastNameState,
-           loginState:loginState,
-           passwordState:passwordState,
-           emailState:emailState,
-           mobileState:mobileState
-       }).then(() => {console.log('Success')})
-
-
-}
-
+        Axios.post('http://localhost:3001/create', {
+            nameState:formData.nameState,
+            lastNameState:formData.lastNameState,
+            loginState:formData.loginState,
+            passwordState:formData.passwordState,
+            emailState:formData.emailState,
+            mobileState:formData.mobileState
+        }).then(() => {console.log('Success')})
+    }
 
     return (
         <div className="Registration">
-            <form>
-                <label>Imię</label>
-                <input placeholder={"Imię"} onChange={(event => {setNameState(event.target.value)})} type = {"text"}/><br/>
-                <label>Nazwisko</label>
-                <input placeholder={"Nazwisko"} onChange={(event => {setLastNameState(event.target.value)})}/><br/>
-                <label>Login</label>
-                <input placeholder={"Login"} onChange={(event => {setLoginState(event.target.value)})} type = {"text"}/><br/>
-                <label>Password</label>
-                <input placeholder={"Password"} type = {"password"} onChange={(event => {setPasswordState(event.target.value)})}/><br/>
-                <label>e-mail</label>
-                <input placeholder={"e-mail"} onChange={(event => {setEmailState(event.target.value)})} type = {"text"}/><br/>
-                <label>Numer telefonu</label>
-                <input placeholder={"Numer telefonu"} onChange={(event => {setMobileState(event.target.value)})} type = {"text"}/><br/>
-                <button onClick={RegUser}>Akceptuj</button>
-            </form>
+        <ReduxRegistrationForm onSubmit={onSubmit}/>
         </div>
 
     )
