@@ -9,21 +9,29 @@ const Registration = () =>
     const [loginState,setLoginState] = useState('');
     const [passwordState,setPasswordState] = useState('');
     const [emailState,setEmailState] = useState('');
-    const [mobileState,setMobileState] = useState('');
+    const [mobileState,setMobileState] = useState(0);
 
-   const RegUser = (event) => {
-       event.preventDefault();
-       console.log(loginState);
-       Axios.post('http://localhost:3001/create', {
-           nameState:nameState,
-           lastNameState:lastNameState,
-           loginState:loginState,
-           passwordState:passwordState,
-           emailState:emailState,
-           mobileState:mobileState
-       }).then(() => {console.log('Success')})
-}
+    const [productList, setProductList] = useState([]);
+    const getProduct = () => {
+        Axios.get('http://localhost:3001/products').then((res) => {
+            setProductList(res.data);
+            console.log("suda da");
+        });
+    }
 
+    const RegUser = (event) => {
+        event.preventDefault();
+        console.log(loginState);
+        console.log(mobileState);
+        Axios.post('http://localhost:3001/create',{
+            nameState:nameState,
+            lastNameState:lastNameState,
+            loginState:loginState, 
+            passwordState:passwordState,
+            emailState:emailState,
+            mobileState:mobileState
+        }).then(() => {console.log('Success')})
+    };
 
     return (
         <div className="Registration">
@@ -42,10 +50,14 @@ const Registration = () =>
                 <input placeholder={"Numer telefonu"} onChange={(event => {setMobileState(event.target.value)})} type = {"text"}/><br/>
                 <button onClick={RegUser}>Akceptuj</button>
             </form>
+            <button onClick={getProduct}>Show products</button>
+            {productList.map((val, key) => {
+            return <div>{val.title}</div>
+            })}
         </div>
 
     )
-        
+
 }
 
 export default Registration;
