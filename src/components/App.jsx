@@ -28,10 +28,16 @@ class App extends Component{
     // });
     // const testData = require('../favorites.json');
     // setFavorites(testData);
+
     // axios.get('/products.json').then(({ data }) => {
     //   setProducts(data);
     // });
     
+
+    axios.get('http://localhost:3001/getproducts').then(({ data }) => {
+      setProducts(data);
+    });
+
   }
   
   render() {
