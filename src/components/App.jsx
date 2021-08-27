@@ -74,6 +74,7 @@ class App extends Component{
             {isLogged ?
               <Container>
                 <Filter />
+                <Product/>
                 {/* <Card.Group itemsPerRow={8}>
                   {!isReady
                     ? 'Loading...'

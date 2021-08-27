@@ -8,24 +8,28 @@ import ProductCard from './ProductCard';
 const Product = () => {
     // const { id, name, description, image, price, rating, addToCart, addedCount} = product;  
     const [productList, setProductList] = useState([]);
-    // const getProduct = () => {
-    //     Axios.get('http://localhost:3001/products').then((res) => {
-    //         setProductList(res.data);
-    //         console.log("suda da")
-    //     });
-    //   }
+    const getProduct = () => {
+        Axios.get('http://localhost:3001/products').then((res) => {
+            setProductList(res.data);
+            console.log("suda da")
+        });
+        console.log("DAAAAAAAAA");
+      }
 
       return(
         <div>
-            {Axios.get('http://localhost:3001/products').then((res) => {
-            setProductList(res.data);
-            console.log("suda da")
-        })}
-        <h1>{productList.length}</h1>
-        {productList.map((val, key) => {
+            {/* {Axios.get('http://localhost:3001/products').then((res) => {
+              // setProductList(res.data);
+              console.log("suda da")
+            })} */}
+            {getProduct}
+        <h1 >{productList.length}</h1>
+        {/* {productList.map((val, key) => {
             
           <ProductCard><h1>+</h1></ProductCard>
-        })}
+        })} */}
+        
+        <h1>SHOP</h1>
         </div>
       )
       // <div>{val.title}</div>
