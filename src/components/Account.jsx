@@ -1,8 +1,11 @@
 import React from 'react';
 import { Card, Image, Icon, Button } from 'semantic-ui-react';
-
+import axios from 'axios';
 
 const Account = product => {
+    // axios.get('http://localhost:3001/getaccount').then(({ data }) => {
+    //   setAccount(data);
+    // });
     let address = "Nadbystrzycka 42/406";
     let visible = 1;
     const changeAddress = () =>{

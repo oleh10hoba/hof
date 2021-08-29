@@ -1,7 +1,6 @@
 const initialState = {
-    isReady: false,
+    isReady: true,
     items: null,
-    fav: null
 };
 
 export default (state = initialState, action) => {
@@ -10,12 +9,6 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 items: action.payload,
-                isReady: true
-            };
-        case 'SET_FAVORITES':
-            return {
-                ...state,
-                fav: action.payload,
                 isReady: true
             };
         case 'SET_IS_READY':

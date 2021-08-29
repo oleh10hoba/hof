@@ -4,7 +4,12 @@ export const setProducts = (products) => ({
 });
 
 
-export const setFavorites = (favorites) => ({
+export const setFavorite = (favorite) => ({
     type: 'SET_FAVORITES',
-    payload: favorites
+    payload: favorite
 });
+
+// export const setAccount = (data) => ({
+//     type: 'SET_ACCOUNT',
+//     payload: data
+// });

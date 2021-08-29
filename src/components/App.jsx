@@ -6,23 +6,26 @@ import { Card, Container } from 'semantic-ui-react';
 import ProductCard from '../containers/ProductCard';
 import Filter from '../containers/Filter';
 import Login from '../components/Login'
-import Favorite from './Favorite';
+// import Favorite from './Favorite';
 import Account from './Account';
 import Contact from './Contact';
 import Registration from './Registration';
 
 class App extends Component{
   componentWillMount(){ 
-    const { setProducts, setFavorites } = this.props;
-    // axios.get('/favorites.json').then(({ data }) => {
-    //   setFavorites(data);
+    const { setProducts, setFavorite, setAccount} = this.props;
+    // axios.get('http://localhost:3001/getaccount').then(({ data }) => {
+    //   setAccount(data);
     // });
-    // const testData = require('../favorites.json');
-    // setFavorites(testData);
     axios.get('http://localhost:3001/getproducts').then(({ data }) => {
       setProducts(data);
     });
+    console.log("+++++++");
+    axios.get('http://localhost:3001/getfavorites').then(({ data }) => {
+      setFavorite(data);
+    });
   }
+ 
 
   render() {
     const { products, favorites, isReady, isLogged } = this.props;
@@ -33,14 +36,14 @@ class App extends Component{
           <Route path="/registration">
               <Registration />
           </Route>
-          <Route path="/favorite">
+          <Route path="/favorite" >
               {/* <Favorite/> */}
             <Container>
                 <Filter />
                 <Card.Group itemsPerRow={8}>
                   {!isReady
                     ? 'Loading...'
-                    : products.map((product, i) => 
+                    : favorites.map((product, i) => 
                       <ProductCard key={i} {...product}/>
                     )
                   }
