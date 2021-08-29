@@ -23,16 +23,29 @@ app.post('/create', (req, res) => {
     const email = req.body.emailState
     const mobile = req.body.mobileState
 
-    db.query("INSERT INTO user (first_name,last_name ,username,passwd,email,mobile,User_Type_id) VALUES (?,?,?,?,?,?,?)",[name,lastName,login,password,email,mobile,2],
+    db.query("INSERT INTO user (first_name,last_name ,username,passwd,email,mobile,User_Type_id) VALUES (?,?,?,?,?,?,?)",[name,lastName,login,password,email,mobile,1],
+
         (err,result) => {
-            console.log("INSERT");
+            if (err) {
+                console.log(err)
+            }
+            else {
+                res.send('Values inserted');
+            }
+        }
+    );
+})
+
+app.get('/products', (req,res) => {
+    db.query("SELECT * FROM product", (err,result) => {
         if (err) {
             console.log(err);
         }
         else {
-            res.send('Values inserted');
-            console.log('Values inserted');
+            res.send(result);
+            console.log("JE")
         }
+
         }
         );
 });

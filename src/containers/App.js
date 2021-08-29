@@ -34,11 +34,18 @@ const mapStateToProps = ({ products, favorites, filter }) => ({
       products.items &&
       searchProducts(products.items, filter.filterBy, filter.searchQuery),
     favorites: 
+<<<<<<< HEAD
       favorites.items &&
       searchProducts(favorites.items, filter.filterBy, filter.searchQuery),
     isReady: products.isReady || favorites.isReady,
     isLogged: true,
     // acc:
+=======
+      products.fav, //&&
+      //searchProducts(products.fav, filter.filterBy, filter.searchQuery),
+    isReady: true,//products.isReady || favorites.isReady,
+    isLogged: true
+>>>>>>> 4187af3588d94f95832b7d26c6bc40eb4c29ebe1
   });
   
 const mapDispatchToProps = dispatch => ({
