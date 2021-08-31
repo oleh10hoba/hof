@@ -1,22 +1,22 @@
-const initialState = {
-    isReady: true,
-    items: null,
-};
+// const initialState = {
+//     isReady: true,
+//     items: null,
+// };
 
-export default (state = initialState, action) => {
-    switch (action.type) {
-        case 'SET_FAVORITES':
-            return {
-                ...state,
-                items: action.payload,
-                isReady: true
-            };
-        case 'SET_IS_READY':
-            return {
-                ...state,
-                isReady: action.payload
-            };
-        default:
-            return state;
-    }
-}
+// export default (state = initialState, action) => {
+//     switch (action.type) {
+//         case 'SET_FAVORITES':
+//             return {
+//                 ...state,
+//                 items: action.payload,
+//                 isReady: true
+//             };
+//         case 'SET_IS_READY':
+//             return {
+//                 ...state,
+//                 isReady: action.payload
+//             };
+//         default:
+//             return state;
+//     }
+// }

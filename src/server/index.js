@@ -67,6 +67,7 @@ app.post('/check', (req, res) => {
 })
 
 app.get("/getproducts", (req, res) => {
+    console.log("Get products");
     db.query("SELECT * FROM product", (err, result) => {
         if (err) {
             console.log(err);
@@ -79,6 +80,7 @@ app.get("/getproducts", (req, res) => {
 
 
 app.get("/getfavorites", (req, res) => {
+    console.log("Get favorites");
     db.query("SELECT * FROM product where `User_id` = 10", (err, result) => {
         if (err) {
 
@@ -90,15 +92,15 @@ app.get("/getfavorites", (req, res) => {
 });
 
 
-// app.get("/getaccount", (req, res) => {
-//     db.query("SELECT * FROM user where  `id`=11", (err, result) => {
-//         if (err) {
-//             console.log(err);
-//         } else {
-//             res.send(result);
-//         }
-//     });
-// });
+app.get("/getaccount", (req, res) => {
+    db.query("SELECT * FROM user where  `id`=11", (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            res.send(result);
+        }
+    });
+});
 
 
 app.listen(3001, () => {

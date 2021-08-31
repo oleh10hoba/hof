@@ -6,24 +6,24 @@ import { Card, Container } from 'semantic-ui-react';
 import ProductCard from '../containers/ProductCard';
 import Filter from '../containers/Filter';
 import Login from '../components/Login'
-// import Favorite from './Favorite';
+import Favorite from './Favorite';
 import Account from './Account';
 import Contact from './Contact';
 import Registration from './Registration';
 
 class App extends Component{
   componentWillMount(){ 
-    const { setProducts, setFavorite, setAccount} = this.props;
+    const { setProducts, setFavorite} = this.props;
     // axios.get('http://localhost:3001/getaccount').then(({ data }) => {
     //   setAccount(data);
-    // });
+    // }); 
     axios.get('http://localhost:3001/getproducts').then(({ data }) => {
       setProducts(data);
     });
     console.log("+++++++");
-    axios.get('http://localhost:3001/getfavorites').then(({ data }) => {
-      setFavorite(data);
-    });
+    // axios.get('http://localhost:3001/getfavorites').then(({ data }) => {
+    //   setFavorite(data);
+    // });
   }
  
 
@@ -41,9 +41,11 @@ class App extends Component{
             <Container>
                 <Filter />
                 <Card.Group itemsPerRow={8}>
-                  {!isReady
-                    ? 'Loading...'
-                    : favorites.map((product, i) => 
+                  {
+                  // !isReady
+                  //   ? 'Loading...'
+                  //   :
+                     products.map((product, i) => 
                       <ProductCard key={i} {...product}/>
                     )
                   }
@@ -65,12 +67,12 @@ class App extends Component{
               <Container>
                 <Filter />
                 <Card.Group itemsPerRow={8}>
-                  {!isReady
+                  {/* {!isReady
                     ? 'Loading...'
                     : products.map((product, i) => 
                       <ProductCard key={i} {...product}/>
                     )
-                  }
+                  } */}
                 </Card.Group>
                 <h1>HOF</h1>
               </Container>
