@@ -4,6 +4,6 @@ export const setFilter = filter => ({
   });
 
 export const setSearchQuery = value => ({
-type: 'SET_QUERY',
-payload: value,
+    type: 'SET_QUERY',
+    payload: value,
 });

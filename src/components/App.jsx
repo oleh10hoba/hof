@@ -13,19 +13,25 @@ import Registration from './Registration';
 
 class App extends Component{
   componentWillMount(){ 
-    const { setProducts, setFavorites } = this.props;
+    const { setProducts, setFavorites, setAccount } = this.props;
     // axios.get('/favorites.json').then(({ data }) => {
     //   setFavorites(data);
     // });
     // const testData = require('../favorites.json');
     // setFavorites(testData);
+    axios.get('http://localhost:3001/getfavorites').then(({ data }) => {
+      setFavorites(data);
+    });
     axios.get('http://localhost:3001/getproducts').then(({ data }) => {
       setProducts(data);
+    });
+    axios.get('http://localhost:3001/getaccount').then(({ data }) => {
+      setAccount(data);
     });
   }
 
   render() {
-    const { products, favorites, isReady, isLogged } = this.props;
+    const { products, favorites, account, isReady, isLogged } = this.props;
     return (
       <div >
         <Router className="Router">
@@ -38,9 +44,10 @@ class App extends Component{
             <Container>
                 <Filter />
                 <Card.Group itemsPerRow={8}>
+                  {console.log("Favorites je:",favorites)}
                   {!isReady
                     ? 'Loading...'
-                    : products.map((product, i) => 
+                    : favorites.map((product, i) => 
                       <ProductCard key={i} {...product}/>
                     )
                   }
@@ -49,7 +56,15 @@ class App extends Component{
               </Container>
           </Route>
           <Route path="/account">
-            <Account/>
+            {console.log("APP data:", account)}
+            {/* {console.log("APP data:", account.length)} */}
+            {/* {console.log("APP data:", account.indexOf(1))} */}
+            {!isReady
+              ? 'Loading...'
+              :  account.map((product, i) => 
+              <Account key={i} {...product}/>
+            )
+            }
           </Route>
           <Route path="/contact">
             <Contact/>
@@ -62,6 +77,7 @@ class App extends Component{
               <Container>
                 <Filter />
                 <Card.Group itemsPerRow={8}>
+                {console.log("Products je:",products)}
                   {!isReady
                     ? 'Loading...'
                     : products.map((product, i) => 

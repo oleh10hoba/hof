@@ -3,8 +3,7 @@ export const setProducts = (products) => ({
     payload: products
 });
 
-
-export const setFavorites = (favorites) => ({
-    type: 'SET_FAVORITES',
-    payload: favorites
-});
+// export const setFavorites = (favorites) => ({
+//     type: 'SET_FAVORITES',
+//     payload: favorites
+// });
