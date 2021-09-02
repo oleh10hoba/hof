@@ -1,5 +1,6 @@
 const initialState = {
-    items: null,
+    isReady: false,
+    items: null
 };
 
 export default (state = initialState, action) => {
@@ -7,9 +8,14 @@ export default (state = initialState, action) => {
         case 'SET_ACCOUNT':
             return {
                 ...state,
-                items: action.payload
+                items: action.payload,
+                isReady: true
             };
-        
+        case 'SET_IS_READY':
+            return {
+                ...state,
+                isReady: action.payload
+            };
         default:
             return state;
     }

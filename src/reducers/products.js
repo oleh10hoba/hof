@@ -1,17 +1,11 @@
 const initialState = {
     isReady: false,
-    items: null,
+    items: null
 };
 
 export default (state = initialState, action) => {
     switch (action.type) {
         case 'SET_PRODUCTS':
-            return {
-                ...state,
-                items: action.payload,
-                isReady: true
-            };
-            case 'SET_FAVORITES':
             return {
                 ...state,
                 items: action.payload,

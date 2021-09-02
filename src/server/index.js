@@ -22,9 +22,9 @@ app.post('/create', (req, res) => {
     const password = req.body.passwordState
     const email = req.body.emailState
     const mobile = req.body.mobileState
+    const address = req.body.addressState
 
-    db.query("INSERT INTO user (first_name,last_name ,username,passwd,email,mobile,User_Type_id) VALUES (?,?,?,?,?,?,?)",[name,lastName,login,password,email,mobile,1],
-
+    db.query("INSERT INTO user (first_name,last_name ,username,passwd,email,mobile,User_Type_id,delivery_address) VALUES (?,?,?,?,?,?,?,?)",[name,lastName,login,password,email,mobile,2,address],
         (err,result) => {
             if (err) {
                 console.log(err)
@@ -69,6 +69,28 @@ app.post('/check', (req, res) => {
 app.get("/getproducts", (req, res) => {
     console.log("Get products");
     db.query("SELECT * FROM product", (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            res.send(result);
+        }
+    });
+});
+
+app.get("/getfavorites", (req, res) => {
+    // console.log("ressssss3");
+    db.query("SELECT * FROM product where `User_id` = 10", (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            res.send(result);
+        }
+    });
+});
+
+app.get("/getaccount", (req, res) => {
+    // console.log("ressssss");
+    db.query("select * from user where `id` = 12", (err, result) => {
         if (err) {
             console.log(err);
         } else {

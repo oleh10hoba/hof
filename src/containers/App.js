@@ -1,9 +1,13 @@
 import { connect } from 'react-redux';
 import * as productsActions from '../actions/products';
-// import * as favoritesActions from '../actions/favorite';
+import * as favoritesActions from '../actions/favorite';
+import * as accountActions from '../actions/account';
 import App from '../components/App';
 import { bindActionCreators } from 'redux';
 import orderBy from 'lodash/orderBy.js';
+import favorites from '../reducers/favorites';
+// import products from '../reducers/products';
+// import favorites from '../reducers/favorites';
 
 const sortBy = (products, filterBy) => {
   switch (filterBy) {
@@ -30,19 +34,22 @@ const filterProducts = (products, searchQuery) =>
 const searchProducts = (products, filterBy, searchQuery) => {
   return sortBy(filterProducts(products, searchQuery), filterBy);
 }
-const mapStateToProps = ({ products, favorites, filter }) => ({
+const mapStateToProps = ({ products, favorites, account, filter }) => ({
     products: 
       products.items &&
       searchProducts(products.items, filter.filterBy, filter.searchQuery),
-    //favorites: 
-      // products.fav &&
-      // searchProducts(products.fav, filter.filterBy, filter.searchQuery),
-    isReady: products.isReady,// || favorites.isReady,
-    isLogged: true
+    favorites: 
+      products.items &&
+      searchProducts(products.items, filter.filterBy, filter.searchQuery),
+    isReady: favorites.isReady && products.isReady && account.isReady,
+    isLogged: true,
+    account: 
+      account.items
+
   });
   
 const mapDispatchToProps = dispatch => ({
-  ...bindActionCreators(productsActions, dispatch)
+  ...bindActionCreators(Object.assign({},productsActions, favoritesActions, accountActions), dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

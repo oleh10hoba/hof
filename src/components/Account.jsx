@@ -2,22 +2,20 @@ import React from 'react';
 import { Card, Image, Icon, Button } from 'semantic-ui-react';
 import axios from 'axios';
 
-const Account = product => {
-    // axios.get('http://localhost:3001/getaccount').then(({ data }) => {
-    //   setAccount(data);
-    // });
+const Account = data => {
     let address = "Nadbystrzycka 42/406";
     let visible = 1;
     const changeAddress = () =>{
         // visible = (visible === 0) ? 1: 0;
         console.log(visible);
         console.log(("1111111111"));
+        
         // console.log(document.getElementById("address");
         // document.getElementById("address")= 'visible';
         // console.log(document.getElementById("address").style);
         // document.getElementsByClassName("address").style.visibility = "visible";
     }
-
+    const { id, first_name, last_name, email, mobile, delivery_address } = data
     return(
     <div className='Account'>
         <h2>Adres dostawy: {address}</h2>
@@ -30,6 +28,11 @@ const Account = product => {
             <input type="text" id="lname" name="lname"/>
             <input type="submit" value="Submit"></input>
         </form> */}
+        <h2>{data.first_name}</h2>
+        <h2>{data.last_name}</h2>
+        <h2>{data.email}</h2>
+        <h2>{data.mobile}</h2>
+        <h2>{data.delivery_address}</h2>
     </div>
     );
 };
