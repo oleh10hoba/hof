@@ -39,8 +39,8 @@ const mapStateToProps = ({ products, favorites, account, filter }) => ({
       products.items &&
       searchProducts(products.items, filter.filterBy, filter.searchQuery),
     favorites: 
-      products.items &&
-      searchProducts(products.items, filter.filterBy, filter.searchQuery),
+      favorites.items &&
+      searchProducts(favorites.items, filter.filterBy, filter.searchQuery),
     isReady: favorites.isReady && products.isReady && account.isReady,
     isLogged: true,
     account: 
