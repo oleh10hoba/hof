@@ -41,14 +41,14 @@ class App extends Component{
               <Registration />
           </Route>
           <Route path="/favorite" >
-              {/* <Favorite/> */}
             <Container>
                 <Filter />
                 <Card.Group itemsPerRow={8}>
                   {console.log("Favorites je:",favorites)}
                   {!isReady
                     ? 'Loading...'
-                    : favorites.map((product, i) => 
+                    : 
+                    favorites.map((product, i) =>
                       <ProductCard key={i} {...product}/>
                     )
                   }

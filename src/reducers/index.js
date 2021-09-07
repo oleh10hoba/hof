@@ -8,8 +8,8 @@ import {reducer as formReducer} from 'redux-form'
 
 export default combineReducers({
         products,
-        favorites,
         account,
+        favorites,
         cart,
         filter,
         form:formReducer,
