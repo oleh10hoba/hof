@@ -6,10 +6,10 @@ import { Card, Container } from 'semantic-ui-react';
 import ProductCard from '../containers/ProductCard';
 import Filter from '../containers/Filter';
 import Login from '../components/Login'
-import Favorite from './Favorite';
 import Account from './Account';
 import Contact from './Contact';
 import Registration from './Registration';
+import ShopCart from '../containers/ShopCart';
 
 class App extends Component{
   componentWillMount(){ 
@@ -37,6 +37,9 @@ class App extends Component{
       <div >
         <Router className="Router">
           <Menu/>
+          <Route path="/shopcart">
+            <ShopCart/>
+          </Route>
           <Route path="/registration">
               <Registration />
           </Route>
@@ -58,8 +61,6 @@ class App extends Component{
           </Route>
           <Route path="/account">
             {console.log("APP data:", account)}
-            {/* {console.log("APP data:", account.length)} */}
-            {/* {console.log("APP data:", account.indexOf(1))} */}
             {!isReady
               ? 'Loading...'
               :  account.map((product, i) => 

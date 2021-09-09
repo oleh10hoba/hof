@@ -5,9 +5,6 @@ import * as accountActions from '../actions/account';
 import App from '../components/App';
 import { bindActionCreators } from 'redux';
 import orderBy from 'lodash/orderBy.js';
-import favorites from '../reducers/favorites';
-// import products from '../reducers/products';
-// import favorites from '../reducers/favorites';
 
 const sortBy = (products, filterBy) => {
   switch (filterBy) {
@@ -41,7 +38,7 @@ const mapStateToProps = ({ products, favorites, account, filter }) => ({
     favorites: 
       favorites.items &&
       searchProducts(favorites.items, filter.filterBy, filter.searchQuery),
-    isReady: favorites.isReady,// && products.isReady && account.isReady,
+    isReady: favorites.isReady && products.isReady && account.isReady,
     isLogged: true,
     account: 
       account.items

@@ -9,6 +9,11 @@ export default (state = initialState, action) => {
                 ...state,
                 items: [...state.items, action.payload]
             };
+        case 'SUB_PRODUCT_FROM_CART':
+            return {
+                ...state,
+                items: [...state.items, action.payload]
+            };
         case 'REMOVE_PRODUCT_FROM_CART':
             return {
                 ...state,

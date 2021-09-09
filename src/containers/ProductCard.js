@@ -5,6 +5,7 @@ import ProductCard from '../components/ProductCard';
 
 const mapStateToProps = ({ cart }, { id }) => ({
   addedCount: cart.items.reduce((count, product) => count + (product.id === id ? 1 : 0), 0),
+  subCount: cart.items.reduce((count, product) => count - (product.id === id ? 1 : 0), 0),
 });
 
 const mapDispatchToProps = dispatch => ({

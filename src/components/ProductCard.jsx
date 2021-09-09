@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, Image, Icon, Button } from 'semantic-ui-react';
-import { addToCart } from '../actions/cart';
+
 
 
 const ProductCard = product => {

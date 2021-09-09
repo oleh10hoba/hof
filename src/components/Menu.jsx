@@ -1,7 +1,6 @@
 import React from 'react';
 import { Menu, Popup, List, Button, Image } from 'semantic-ui-react';
 import {BrowserRouter as Router, Switch,  Route, Link} from "react-router-dom";
-import Favorite from './Favorite';
 
 const CartComponent = ({ title, id, image, removeFromCart }) => (
   <List selection divided verticalAlign="middle">
@@ -55,7 +54,11 @@ const MenuComponents = ({ totalPrice, count, items }) => (
           >
             Suma: &nbsp; <b>{totalPrice}</b> zł.
           </Menu.Item>
-
+          <Menu.Item
+          name='editorials'
+        >
+          <Link to="/shopcart">Koszyk</Link>
+        </Menu.Item>
           <Popup
             trigger={
               <Menu.Item name="help">

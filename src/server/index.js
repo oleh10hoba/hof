@@ -36,20 +36,6 @@ app.post('/create', (req, res) => {
     );
 })
 
-app.get('/products', (req,res) => {
-    db.query("SELECT * FROM product", (err,result) => {
-        if (err) {
-            console.log(err);
-        }
-        else {
-            res.send(result);
-            console.log("JE")
-        }
-
-        }
-        );
-});
-
 app.post('/check', (req, res) => {
     const login = req.body.loginState
     const email = req.body.emailState
@@ -62,12 +48,9 @@ app.post('/check', (req, res) => {
             res.send(result);
         }
         })
-
-
 })
 
 app.get("/getproducts", (req, res) => {
-    console.log("Get products");
     db.query("SELECT * FROM product", (err, result) => {
         if (err) {
             console.log(err);
@@ -78,7 +61,6 @@ app.get("/getproducts", (req, res) => {
 });
 
 app.get("/getfavorites", (req, res) => {
-    // console.log("ressssss3");
     db.query("SELECT * FROM product where `User_id` = 10", (err, result) => {
         if (err) {
             console.log(err);
@@ -89,33 +71,7 @@ app.get("/getfavorites", (req, res) => {
 });
 
 app.get("/getaccount", (req, res) => {
-    // console.log("ressssss");
     db.query("select * from user where `id` = 12", (err, result) => {
-        if (err) {
-            console.log(err);
-        } else {
-            res.send(result);
-        }
-    });
-});
-
-
-
-app.get("/getfavorites", (req, res) => {
-    console.log("Get favorites");
-    db.query("SELECT * FROM product where `User_id` = 10", (err, result) => {
-        if (err) {
-
-            console.log(err);
-        } else {
-            res.send(result);
-        }
-    });
-});
-
-
-app.get("/getaccount", (req, res) => {
-    db.query("SELECT * FROM user where  `id`=11", (err, result) => {
         if (err) {
             console.log(err);
         } else {
