@@ -1,0 +1,40 @@
+body{
+    margin-top: 20px;
+    background-color: lightgrey;
+
+}
+
+.menu{
+    margin-top: 20px;
+}
+.Login{
+    background-color: red;
+    text-align: center;
+    margin: 50px 400px;
+    padding: 50px 0;
+}
+
+.Contact{
+    background-color: blue;
+    text-align: center;
+    margin: 50px 400px;
+    padding: 50px 0;
+}
+
+.Account{
+    background-color: yellow;
+    text-align: center;
+    margin: 50px 400px;
+    padding: 50px 0;
+}
+
+.Registration{
+    background-color: lightblue;
+    text-align: center;
+    margin: 50px 400px;
+    padding: 50px 0;
+}
+
+.Registration label {
+    margin: 50px  auto;
+}
