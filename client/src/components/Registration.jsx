@@ -41,26 +41,17 @@ const ReduxRegistrationForm = reduxForm({
 const Registration = (props) =>
 {
 
-    const onSubmit = (formData) =>{
-        Axios.post('http://localhost:3001/check',{
-            loginState:formData.loginState,
-            emailState:formData.emailState
-        }).then((data) => {
-            if(data.data.length > 0){
-                alert('Użytkownik już istnieje')
-                return
-            }
-
-        })
-
-        Axios.post('http://localhost:3001/create', {
+    const onSubmit = async(formData) =>{
+    try{
+        await Axios.post('http://localhost:3001/create', {
             nameState:formData.nameState,
             lastNameState:formData.lastNameState,
             loginState:formData.loginState,
             passwordState:formData.passwordState,
             emailState:formData.emailState,
             mobileState:formData.mobileState,
-        }).then(() => {console.log('Success')})
+        }).then((response) => {alert(response.data)})
+    }catch(err){console.log(err)}
     }
 
     return (
