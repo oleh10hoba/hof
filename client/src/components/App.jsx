@@ -10,6 +10,7 @@ import Account from './Account';
 import Contact from './Contact';
 import Registration from './Registration';
 import ShopCart from '../containers/ShopCart';
+import Pay from "./Pay";
 
 class App extends Component{
   componentWillMount(){ 
@@ -58,6 +59,9 @@ class App extends Component{
                 </Card.Group>
                 <h1>HOF</h1>
               </Container>
+          </Route>
+          <Route path = '/pay'>
+            <Pay/>
           </Route>
           <Route path="/account">
             {console.log("APP data:", account)}

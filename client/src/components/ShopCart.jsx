@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { List, Button, Image } from 'semantic-ui-react';
 import {Field, reduxForm} from "redux-form";
+import {Switch,  Redirect} from 'react-router-dom'
+import {BrowserRouter as Router, Route} from "react-router-dom";
+
 import Pay from './Pay';
 
 const CartComponent = product => {
@@ -61,14 +64,14 @@ const FormPay = (props) => {
         
     // }
     const [text,setText] = useState(`<h1>Hello</h1>`);
+    const isPay = false
     return(
         <form onSubmit={props.handleSubmit}>
             <div>
                 <input placeholder={text}/>
                 <button  
                     type="submit"
-                    // onClick={PayClick}
-                    // onClick={setText}
+                    onClick={(isPay)=>{isPay:true}}
                 >
                     Pay
                 </button>
@@ -91,13 +94,16 @@ const ShopCart = ({ totalPrice, count, items }) => {
 
     return(
      <>
+
             {items.map(product => (
               <CartComponent {...product} />
             ))}
             <h1>!{totalPrice}!</h1>
             {/* <h1>!{items}!</h1> */}
             <ReduxPayForm onSubmit={onSubmit}/>
-          </>
+
+
+         </>
     );
         
 };
