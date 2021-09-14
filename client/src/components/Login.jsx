@@ -2,7 +2,7 @@ import React from 'react'
 import {Field, reduxForm} from "redux-form";
 import  {required} from "../utils/validators/validator"
 import {Input} from "../utils/validators/formcontrols";
-
+import Axios from 'axios'
 
 const FormLogin = (props) =>
 {
@@ -36,8 +36,13 @@ const ReduxLoginForm = reduxForm({
 const Login = (props) => {
 
 
-    const onSubmit = (formData) =>{
-        console.log(formData)
+    const onSubmit = async(formData) =>{
+        try{
+        Axios.post('http://localhost:3001/login', {
+           login: formData.login,
+           password: formData.password
+       }).then((response) => {console.log(response)})
+        }catch (error) {console.log(error)}
     }
 
     return (

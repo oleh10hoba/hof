@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 const mysql = require('mysql');
 const cors = require ('cors');
+const jsonToken = require('jsonwebtoken')
+
 
 app.use(cors());
 app.use(express.json());
@@ -48,6 +50,43 @@ app.post('/create', async(req, res) => {
 })
 
 
+app.post('/login',async(req,res)=> {
+    try{
+        const{login,password} = req.body
+        if (login && password) {
+            db.query('SELECT id FROM user WHERE username = ? AND passwd = ?', [login, password], function(error, result) {
+                if (result.length !== 0) {
+                    const jSession = 'f214dk2orijmfoijo2irfosjwiea23ij1fef124asdlop6246kotgeomq32mbgvmcx,x.z.bmnnoif'
+
+                    const id = result[0].id
+                    console.log(id)
+
+                    const token = jsonToken.sign({userId:id},
+                        jSession,{expiresIn:'1h'}
+                    )
+
+                    res.json({token, userId: id})
+
+
+                } else {
+                    res.send('Incorrect Username and/or Password!');
+                }
+                res.end();
+            });
+        } else {
+            res.send('Please enter Username and Password!');
+            res.end();
+        }
+
+
+    }catch(err){console.log(err)}
+
+
+
+
+
+
+})
 
 app.get("/getproducts", (req, res) => {
     db.query("SELECT * FROM product", (err, result) => {
