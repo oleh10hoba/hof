@@ -60,7 +60,7 @@ const FormPay = (props) => {
     //         // </>
         
     // }
-    const [text,setText] = `<h1>Hello</h1>`;
+    const [text,setText] = useState(`<h1>Hello</h1>`);
     return(
         <form onSubmit={props.handleSubmit}>
             <div>
@@ -68,7 +68,7 @@ const FormPay = (props) => {
                 <button  
                     type="submit"
                     // onClick={PayClick}
-                    onClick={setText}
+                    // onClick={setText}
                 >
                     Pay
                 </button>
