@@ -37,12 +37,11 @@ const Login = (props) => {
 
 
     const onSubmit = async(formData) =>{
-        try{
+
         Axios.post('http://localhost:3001/login', {
            login: formData.login,
            password: formData.password
        }).then((response) => {console.log(response)})
-        }catch (error) {console.log(error)}
     }
 
     return (

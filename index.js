@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const mysql = require('mysql');
 const cors = require ('cors');
-const jsonToken = require('jsonwebtoken')
+const jwt = require('jsonwebtoken')
 
 
 app.use(cors());
@@ -49,24 +49,42 @@ app.post('/create', async(req, res) => {
 
 })
 
+const verifyJWT = (req,res,next) => {
+    const token = req.headers["access-token"]
+
+    if(!token){
+        res.send("Cant receive login token")
+    } else {
+        jwt.verify(token, "DAWKODKWAPOczksokWPWKApodkwaWEKpakdoaw",(err,decoded) => {
+            if(err){
+                res.send("You are not logged in")
+            }
+            else {
+                req.userId = decoded.id
+                next()
+            }
+        })
+    }
+
+
+}
+
+app.get("/isAuth",verifyJWT, (req,res)=>{
+    res.send("Logged In")
+})
 
 app.post('/login',async(req,res)=> {
     try{
         const{login,password} = req.body
         if (login && password) {
             db.query('SELECT id FROM user WHERE username = ? AND passwd = ?', [login, password], function(error, result) {
-                if (result.length !== 0) {
-                    const jSession = 'f214dk2orijmfoijo2irfosjwiea23ij1fef124asdlop6246kotgeomq32mbgvmcx,x.z.bmnnoif'
-
+                if (result.length > 0) {
                     const id = result[0].id
-                    console.log(id)
+                    const token = jwt.sign({id},"DAWKODKWAPOczksokWPWKApodkwaWEKpakdoaw", {
+                        expiresIn: 300
+                    })
 
-                    const token = jsonToken.sign({userId:id},
-                        jSession,{expiresIn:'1h'}
-                    )
-
-                    res.json({token, userId: id})
-
+                    res.json({auth: true, token: token})
 
                 } else {
                     res.send('Incorrect Username and/or Password!');
@@ -77,7 +95,6 @@ app.post('/login',async(req,res)=> {
             res.send('Please enter Username and Password!');
             res.end();
         }
-
 
     }catch(err){console.log(err)}
 
