@@ -12,7 +12,7 @@ import uniqBy from 'lodash/uniqBy';
 //   }); 
 
 const mapStateToProps = ({ cart }, { id }) => ({
-    totalPrice: cart.items.reduce((total, product) => total + product.price, 0),
+  totalPrice: cart.items.reduce((total, product) => parseFloat((total + product.price).toFixed(2)), 0),
     count: cart.items.length,
     items: uniqBy(cart.items, o => o.id),
     fav: uniqBy(cart.fav, o => o.id),
