@@ -41,6 +41,9 @@ class App extends Component{
           <Route path="/shopcart">
             <ShopCart/>
           </Route>
+          <Route path="/pay">
+            <Pay testvalue={this.props.testvalue}/>
+          </Route>
           <Route path="/registration">
               <Registration />
           </Route>
@@ -59,9 +62,6 @@ class App extends Component{
                 </Card.Group>
                 <h1>HOF</h1>
               </Container>
-          </Route>
-          <Route path = '/pay'>
-            <Pay/>
           </Route>
           <Route path="/account">
             {console.log("APP data:", account)}

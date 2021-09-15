@@ -3,7 +3,7 @@ import { List, Button, Image } from 'semantic-ui-react';
 import {Field, reduxForm} from "redux-form";
 import {Switch,  Redirect} from 'react-router-dom'
 import {BrowserRouter as Router, Route} from "react-router-dom";
-
+import {Link} from "react-router-dom";
 import Pay from './Pay';
 
 const CartComponent = product => {
@@ -28,7 +28,6 @@ const CartComponent = product => {
                     color="orange"
                 >
                     -
-                    {product.totalPrice}!
                 </Button>
                 <Button 
                     onClick={product.removeFromCart.bind(this, product.id)} 
@@ -44,65 +43,24 @@ const CartComponent = product => {
     );
 };
 
-
-
-const FormPay = (props) => {
-    // const text = "First";
-    // let [text,setText] = useState();
-    // const PayClick = (props) => {
-    //     setText=`
-    //         <h1>Hello</h1>
-    //         `
-    //         // <>
-    //         // <h2>QWERTY</h2>
-    //         // {console.log("Pay button was clicked")}
-    //         // <Pay/>
-    //         // {/* {setText()} */}
-            
-    //         // {/* // <h1>Pay where are you?{console.log("Pay-Pay")}</h1> */}
-    //         // </>
-        
-    // }
-    const [text,setText] = useState(`<h1>Hello</h1>`);
-    const isPay = false
-    return(
-        <form onSubmit={props.handleSubmit}>
-            <div>
-                <input placeholder={text}/>
-                <button  
-                    type="submit"
-                    onClick={(isPay)=>{isPay:true}}
-                >
-                    Pay
-                </button>
-                <div>{text}</div>
-            </div>
-        </form>
-    )
-}
-
-const ReduxPayForm = reduxForm({
-    form: 'pay'
-})(FormPay)
-
-
 const ShopCart = ({ totalPrice, count, items }) => {
-
-    const onSubmit = (formData) =>{
-        console.log(formData)
-    }
 
     return(
      <>
-
             {items.map(product => (
               <CartComponent {...product} />
             ))}
-            <h1>!{totalPrice}!</h1>
-            {/* <h1>!{items}!</h1> */}
-            <ReduxPayForm onSubmit={onSubmit}/>
-
-
+            <div>
+                {/* <h1>Do zapłaty: {totalPrice}!</h1> */}
+                {totalPrice > 0 
+                ?   <Link 
+                        to="/pay"
+                        vestvalue= "heelo" 
+                    >
+                        <button><h2>Zapłać {totalPrice}</h2></button></Link>
+                :   <h2>Kosz jest pusty</h2>
+                }
+            </div>
          </>
     );
         
