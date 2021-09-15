@@ -10,6 +10,7 @@ import Account from './Account';
 import Contact from './Contact';
 import Registration from './Registration';
 import ShopCart from '../containers/ShopCart';
+import Pay from "./Pay";
 
 class App extends Component{
   componentWillMount(){ 
@@ -39,6 +40,9 @@ class App extends Component{
           <Menu/>
           <Route path="/shopcart">
             <ShopCart/>
+          </Route>
+          <Route path="/pay">
+            <Pay testvalue={this.props.testvalue}/>
           </Route>
           <Route path="/registration">
               <Registration />
