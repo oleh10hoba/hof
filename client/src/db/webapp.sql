@@ -295,7 +295,7 @@ CREATE TABLE `user` (
   UNIQUE KEY `email_UNIQUE` (`email`),
   KEY `fk_user_User_Type1_idx` (`User_Type_id`),
   CONSTRAINT `fk_user_User_Type1` FOREIGN KEY (`User_Type_id`) REFERENCES `user_type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -304,7 +304,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'Oleh','Foliush','hustman','12345','olvbman@gmail.com','+380973333830',2,''),(4,'Oleh1','Foliush','hustman1','12345','olvbman1@gmail.com','+380973333830',2,''),(5,'olvb','Folko','Dabm','12345','das@i.ua','123456789',2,''),(9,'olehfo','Folko123','Dabm123','12345','da123s@i.ua','123456789',2,''),(10,'Oleh ','Hoba','g10','12345678','oleh10hoba@gmail.com','882059519',2,''),(11,'Oleh30','Hoba30','G30','12345678','g30@gmail.com','882059519',2,''),(12,'Ojezhyk','Hoba','g31','12345678','oleh100hoba@gmail.com','882059519',2,'Nadbystrzycka42/406 lublin 20-501');
+INSERT INTO `user` VALUES (1,'Oleh','Foliush','hustman','12345','olvbman@gmail.com','+380973333830',2,''),(4,'Oleh1','Foliush','hustman1','12345','olvbman1@gmail.com','+380973333830',2,''),(5,'olvb','Folko','Dabm','12345','das@i.ua','123456789',2,''),(9,'olehfo','Folko123','Dabm123','12345','da123s@i.ua','123456789',2,''),(10,'Oleh ','Hoba','g10','12345678','oleh10hoba@gmail.com','882059519',2,''),(11,'Oleh30','Hoba30','G30','12345678','g30@gmail.com','882059519',2,''),(12,'Ojezhyk','Hoba','g31','12345678','oleh100hoba@gmail.com','882059519',2,'Nadbystrzycka42/406 lublin 20-501'),(13,'Oleh','Hoba','g33','1234567890','g33oleggoba@gmail.com','882059519',2,'Nadbystrzycka 42/411');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -332,6 +332,10 @@ LOCK TABLES `user_type` WRITE;
 INSERT INTO `user_type` VALUES (1,'Admin'),(2,'Client');
 /*!40000 ALTER TABLE `user_type` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Dumping events for database 'webapp'
+--
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -342,4 +346,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-09-02 17:52:17
+-- Dump completed on 2021-09-16 16:24:08

@@ -25,6 +25,9 @@ const RegistrationForm = (props) => {
                 <Field placeholder={"Numer telefonu"} name={"mobileState"}component={Input} validate={required}/>
             </div>
             <div>
+                <Field placeholder={"Adres dostawy"} name={"addressState"}component={Input} validate={required}/>
+            </div>
+            <div>
                 <button type="submit"> Submit </button>
             </div>
         </form>
@@ -50,7 +53,8 @@ const Registration = (props) =>
             passwordState:formData.passwordState,
             emailState:formData.emailState,
             mobileState:formData.mobileState,
-        }).then((response) => {alert(response.data)})
+            addressState:formData.addressState,
+        }).then((response) => {console.log("Res: ",response.data)})
     }catch(err){console.log(err)}
     }
 

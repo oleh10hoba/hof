@@ -24,6 +24,8 @@ app.post('/create', async(req, res) => {
     const password = req.body.passwordState
     const email = req.body.emailState
     const mobile = req.body.mobileState
+    const address = req.body.addressState
+
 
     db.query("SELECT * from user WHERE username = ? OR email = ?",[login,email],
         (err,result) => {
@@ -34,7 +36,7 @@ app.post('/create', async(req, res) => {
                 return res.send('Użytkownik już istnieje')
             }
             else{
-                db.query("INSERT INTO user (first_name,last_name ,username,passwd,email,mobile,User_Type_id) VALUES (?,?,?,?,?,?,?)",[name,lastName,login,password,email,mobile,2],
+                db.query("INSERT INTO user (first_name,last_name ,username,passwd,email,mobile,User_Type_id, delivery_address) VALUES (?,?,?,?,?,?,?,?)",[name,lastName,login,password,email,mobile,2, address],
                     (err,result) => {
                         if (err) {
                             res.send(err)
