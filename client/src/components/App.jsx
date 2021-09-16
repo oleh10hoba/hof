@@ -30,10 +30,26 @@ class App extends Component{
       setAccount(data);
     });
   }
+  // componentDidMount() {
+  //   const handle = this.props.match.params;
+  //   const { total } = this.props.location.state 
+  // }
  
-
+  
   render() {
     const { products, favorites, account, isReady, isLogged } = this.props;
+    // const { handle } = this.props.match.params
+    // const { totalValue } = this.props.location.state;
+  //   function Profile () {
+  //     const location = useLocation()
+  //     const { from } = location.state
+   
+  //     // return (
+  //     //   ...
+  //     // )
+  //  }
+  // const handle = this.props.match.params;
+  //   const { total } = this.props.location.state 
     return (
       <div >
         <Router className="Router">
@@ -42,7 +58,8 @@ class App extends Component{
             <ShopCart/>
           </Route>
           <Route path="/pay">
-            <Pay testvalue={this.props.testvalue}/>
+            {/* <Pay testvalue={total}/> */}
+            <Pay/>
           </Route>
           <Route path="/registration">
               <Registration />

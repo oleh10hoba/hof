@@ -44,25 +44,40 @@ const CartComponent = product => {
 };
 
 const ShopCart = ({ totalPrice, count, items }) => {
-
+// class ShopCart extends React.Component ( {totalPrice, count, items }) {
+    // onTrigger = (event) => {
+    //     this.props.parentCallback(event.target.myname.value);
+    //     event.preventDefault();
+    // }
     return(
+    // render(){
      <>
             {items.map(product => (
               <CartComponent {...product} />
             ))}
             <div>
                 {/* <h1>Do zapłaty: {totalPrice}!</h1> */}
-                {totalPrice > 0 
-                ?   <Link 
-                        to="/pay"
-                        vestvalue= "heelo" 
+                { totalPrice > 0 
+                ? <form 
+                    // onSubmit = {this.onTrigger}
                     >
-                        <button><h2>Zapłać {totalPrice}</h2></button></Link>
+                <Link to={{
+                            pathname:"/pay",
+                            state: {
+                                vestvalue:"heelo",
+                                totalPrice:totalPrice
+                            }
+                        }}
+                        total={totalPrice}
+                    >
+                        <button type = "submit" value = "Submit"><h2>Zapłać {totalPrice}</h2></button></Link>
+                        </form>  
                 :   <h2>Kosz jest pusty</h2>
-                }
+                 
+}
             </div>
          </>
-    );
+    )
         
 };
 
