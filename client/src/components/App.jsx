@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import {BrowserRouter as Router, Route} from "react-router-dom";
 import Menu from '../containers/Menu';
+import Pay from '../containers/Pay';
 import { Card, Container } from 'semantic-ui-react';
 import ProductCard from '../containers/ProductCard';
 import Filter from '../containers/Filter';
@@ -10,7 +11,7 @@ import Account from './Account';
 import Contact from './Contact';
 import Registration from './Registration';
 import ShopCart from '../containers/ShopCart';
-import Pay from "./Pay";
+
 
 class App extends Component{
   componentWillMount(){ 
@@ -58,7 +59,6 @@ class App extends Component{
             <ShopCart/>
           </Route>
           <Route path="/pay">
-            {/* <Pay testvalue={total}/> */}
             <Pay/>
           </Route>
           <Route path="/registration">
@@ -103,7 +103,7 @@ class App extends Component{
                 {console.log("Products je:",products)}
                   {!isReady
                     ? 'Loading...'
-                    : products.map((product, i) => 
+                    : products.map((product, i) =>
                       <ProductCard key={i} {...product}/>
                     )
                   }

@@ -56,6 +56,9 @@ const ShopCart = ({ totalPrice, count, items }) => {
               <CartComponent {...product} />
             ))}
             <div>
+
+
+
                 {/* <h1>Do zapłaty: {totalPrice}!</h1> */}
                 { totalPrice > 0 
                 ? <form 

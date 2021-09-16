@@ -1,22 +1,19 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 
-const Pay = (props) =>
+const Pay = ({ totalPrice }) =>
 {
-    // componentDidMount(){
-            // const { handle } = this.props.match.params
-            // const { totalValue } = this.props.location.state;
-    // }
-    const {testvalue} = props;
-    
+
+
+
     return(
         <div >
-            {console.log("Props:",props)}
+            {console.log("Props:",)}
              <form class="checkout">
              <div className="Pay">
                 <div class="checkout-header">
                 <h1 class="checkout-title">
-                    Checkout
-                    {/* <span class="checkout-price">{testvalue}</span> */}
+                    Suma: &nbsp; <b>{totalPrice}</b> zł.
+                    { <span class="checkout-price">{}</span> }
                 </h1>
                 </div>
                 <p>
