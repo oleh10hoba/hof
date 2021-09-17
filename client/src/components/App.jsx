@@ -35,7 +35,9 @@ class App extends Component{
   //   const handle = this.props.match.params;
   //   const { total } = this.props.location.state 
   // }
- 
+  handleLogChange=()=>{
+   
+  }
   
   render() {
     const { products, favorites, account, isReady, isLogged } = this.props;
@@ -50,10 +52,13 @@ class App extends Component{
   //     // )
   //  }
   // const handle = this.props.match.params;
-  //   const { total } = this.props.location.state 
+  // //   const { total } = this.props.location.state 
+  // var isLog = this.div;
+  // this.props.logg(isLog);
     return (
       <div >
         <Router className="Router">
+          {console.log()}
           <Menu/>
           <Route path="/shopcart">
             <ShopCart/>

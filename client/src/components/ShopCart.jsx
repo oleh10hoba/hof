@@ -67,11 +67,9 @@ const ShopCart = ({ totalPrice, count, items }) => {
                 <Link to={{
                             pathname:"/pay",
                             state: {
-                                vestvalue:"heelo",
                                 totalPrice:totalPrice
                             }
                         }}
-                        total={totalPrice}
                     >
                         <button type = "submit" value = "Submit"><h2>Zapłać {totalPrice}</h2></button></Link>
                         </form>  

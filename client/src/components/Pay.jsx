@@ -13,7 +13,7 @@ const Pay = ({ totalPrice }) =>
                 <div class="checkout-header">
                 <h1 class="checkout-title">
                     Suma: &nbsp; <b>{totalPrice}</b> zł.
-                    { <span class="checkout-price">{}</span> }
+                    { <span class="checkout-price">{totalPrice}</span> }
                 </h1>
                 </div>
                 <p>
