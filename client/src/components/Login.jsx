@@ -35,18 +35,18 @@ const ReduxLoginForm = reduxForm({
 
 const Login = (props) => {
 
-
+    let log;
     const onSubmit = async(formData) =>{
         Axios.post('http://localhost:3001/login', {
            login: formData.login,
            password: formData.password
-       }).then((response) => {console.log("Response: ",response)})
+       }).then((response) => {console.log("Response: ",response.data);log=response.data})
     }
 
     return (
         <div className="Login">
         <h1>Login</h1>
-        <ReduxLoginForm isLogged={props.isLogged} onSubmit={onSubmit}/>
+        <ReduxLoginForm isLogged={props.isLogged} logg={log} onSubmit={onSubmit}/>
         </div>
     )
 }
