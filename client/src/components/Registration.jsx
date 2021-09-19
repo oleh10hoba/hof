@@ -54,7 +54,7 @@ const Registration = (props) =>
             emailState:formData.emailState,
             mobileState:formData.mobileState,
             addressState:formData.addressState,
-        }).then((response) => {console.log("Res: ",response.data)})
+        }).then((response) => {alert(response.data)})
     }catch(err){console.log(err)}
     }
 
