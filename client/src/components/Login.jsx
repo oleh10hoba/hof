@@ -3,6 +3,9 @@ import {Field, reduxForm} from "redux-form";
 import  {required} from "../utils/validators/validator"
 import {Input} from "../utils/validators/formcontrols";
 import Axios from 'axios'
+import {login} from "../actions/auth"
+import {logout} from "../actions/auth"
+
 
 const FormLogin = (props) =>
 {
@@ -35,18 +38,19 @@ const ReduxLoginForm = reduxForm({
 
 const Login = (props) => {
 
-    let log;
     const onSubmit = async(formData) =>{
-        Axios.post('http://localhost:3001/login', {
+        const data = {
            login: formData.login,
            password: formData.password
-       }).then((response) => {console.log("Response: ",response.data);log=response.data})
+        }
+        login(data)
     }
 
     return (
         <div className="Login">
         <h1>Login</h1>
-        <ReduxLoginForm isLogged={props.isLogged} logg={log} onSubmit={onSubmit}/>
+        <ReduxLoginForm isLogged={props.isLogged}  onSubmit={onSubmit}/>
+        <button onClick={logout}>Logout</button>
         </div>
     )
 }
