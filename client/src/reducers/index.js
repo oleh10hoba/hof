@@ -4,16 +4,17 @@ import favorites from './favorites';
 import cart from './cart';
 import filter from "./filter";
 import account from './account';
-import auth from './auth'
+import auth from './auth';
+import logging from './login';
 import {reducer as formReducer} from 'redux-form'
 
 export default combineReducers({
         products,
         account,
         favorites,
+        logging,
         cart,
         filter,
         auth,
-        form:formReducer,
-
+        form:formReducer
 });

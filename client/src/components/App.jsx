@@ -57,6 +57,7 @@ class App extends Component{
   // this.props.logg(isLog);
     return (
       <div >
+        {console.log("IsLogged: ", isLogged)}
         <Router className="Router">
           {console.log()}
           <Menu/>
@@ -73,7 +74,6 @@ class App extends Component{
             <Container>
                 <Filter />
                 <Card.Group itemsPerRow={8}>
-                  {console.log("Favorites je:",favorites)}
                   {!isReady
                     ? 'Loading...'
                     : 
@@ -82,11 +82,9 @@ class App extends Component{
                     )
                   }
                 </Card.Group>
-                <h1>HOF</h1>
               </Container>
           </Route>
           <Route path="/account">
-            {console.log("APP data:", account)}
             {!isReady
               ? 'Loading...'
               :  account.map((product, i) => 
@@ -95,7 +93,8 @@ class App extends Component{
             }
           </Route>
           <Route path="/contact">
-            <Contact/>
+            {isLogged && <Contact/>}
+            {/* <Contact/> */}
           </Route>
           <Route path="/login">
               <Login isLogged={isLogged}/>
