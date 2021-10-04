@@ -2,7 +2,7 @@ import isEmpty from 'lodash/isEmpty';
 
 const initialState = {
     isAuthenticated: false,
-    isLogged: false,
+    isLogged: true,
     user: {}
 };
 

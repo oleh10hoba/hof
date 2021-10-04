@@ -40,7 +40,7 @@ const mapStateToProps = ({ products, favorites, account, filter, auth }) => ({
       favorites.items &&
       searchProducts(favorites.items, filter.filterBy, filter.searchQuery),
     isReady: favorites.isReady && products.isReady && account.isReady,
-    isLogged: auth.isLogged,
+    isLogged: true,// auth.isLogged,
     account: 
       account.items
 

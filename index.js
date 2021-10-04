@@ -85,7 +85,7 @@ app.post('/login',async(req,res)=> {
                     const token = jwt.sign({id},"DAWKODKWAPOczksokWPWKApodkwaWEKpakdoaw", {
                         expiresIn: 300
                     })
-                    // res.send('Succ');
+                    res.send('Succ');
                     res.json({auth: true, token: token})
                     
 

@@ -1,5 +1,5 @@
 const initialState = {
-    isLogged: true
+    isLogged: false
 };
 
 const logging = (state = initialState, action) => {
