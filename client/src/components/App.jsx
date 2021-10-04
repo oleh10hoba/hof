@@ -57,7 +57,7 @@ class App extends Component{
           </Route>
           <Route path="/admin">
             {isLogged ?
-              <Admin/>
+              <Admin />
               :
               <Login isLogged={isLogged}/>
             }
