@@ -34,11 +34,12 @@ export const login  = (data) => {
                 return
             }
             else{
-                setLogg(data);
+                setLog(data);
                 alert("Succ")
                 
             }
             const token = res.data.token;
             localStorage.setItem('jwtToken', token);
+            localStorage.setItem('id', res.data.id);
         });
 }

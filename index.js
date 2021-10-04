@@ -85,8 +85,8 @@ app.post('/login',async(req,res)=> {
                     const token = jwt.sign({id},"DAWKODKWAPOczksokWPWKApodkwaWEKpakdoaw", {
                         expiresIn: 300
                     })
-                    res.send('Succ');
-                    res.json({auth: true, token: token})
+                    // res.send('Succ');
+                    res.json({auth: true, token: token, id: result[0].id})
                     
 
                 } else {
@@ -118,8 +118,9 @@ app.get("/getproducts", (req, res) => {
     });
 });
 
-app.get("/getfavorites", (req, res) => {
-    db.query("SELECT * FROM product where `User_id` = 10", (err, result) => {
+app.post("/getfavorites", (req, res) => {
+    const{id} = req.body
+    db.query("SELECT * FROM product p INNER JOIN favourite_list f ON p.id = f.product_id where f.User_id = ?;",[id], (err, result) => {
         if (err) {
             console.log(err);
         } else {

@@ -21,7 +21,7 @@ class App extends Component{
     // });
     // const testData = require('../favorites.json');
     // setFavorites(testData);
-    axios.get('http://localhost:3001/getfavorites').then(({ data }) => {
+    axios.post('http://localhost:3001/getfavorites', {id : localStorage.getItem("id")}).then(({ data }) => {
       setFavorites(data);
     });
     axios.get('http://localhost:3001/getproducts').then(({ data }) => {
