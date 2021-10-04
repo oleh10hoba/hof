@@ -11,7 +11,8 @@ import Account from './Account';
 import Contact from './Contact';
 import Registration from './Registration';
 import ShopCart from '../containers/ShopCart';
-
+import Admin from './Admin'
+import { login } from '../actions/auth';
 
 class App extends Component{
   componentWillMount(){ 
@@ -66,6 +67,13 @@ class App extends Component{
           <Route path="/pay">
             <Pay/>
           </Route>
+          <Route path="/admin">
+            {isLogged ?
+              <Admin/>
+              :
+              <Login isLogged={isLogged}/>
+            }
+          </Route>
           <Route path="/registration">
               <Registration />
           </Route>
@@ -100,6 +108,22 @@ class App extends Component{
             <Contact/>
           </Route>
           <Route path="/login">
+          {!isLogged ?
+            <Login isLogged={isLogged}/> 
+            :
+              <Container>
+                <Filter />
+                <Card.Group itemsPerRow={8}>
+                {console.log("Products je:",products)}
+                  {!isReady
+                    ? 'Loading...'
+                    : products.map((product, i) =>
+                      <ProductCard key={i} {...product}/>
+                    )
+                  }
+                </Card.Group>
+              </Container>
+            }
               <Login isLogged={isLogged}/>
           </Route>  
           <Route path="/shop">

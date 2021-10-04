@@ -59,6 +59,13 @@ const MenuComponents = ({ totalPrice, count, items, isLogged }) => (
         >
           <Link to="/contact">Kontakt</Link>
         </Menu.Item>
+        {isLogged &&  localStorage.getItem('id') == 10 &&
+           <Menu.Item
+              name='editorials'
+            >
+              <Link to="/admin">Admin</Link>
+            </Menu.Item>
+        }
         {isLogged &&
           <Menu.Menu position="right">
             <Menu.Item

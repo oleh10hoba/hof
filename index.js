@@ -51,6 +51,25 @@ app.post('/create', async(req, res) => {
 
 })
 
+app.post('/addproduct', async(req, res) => {
+    const name = req.body.nameState
+    const description = req.body.descState
+    const price = req.body.priceState
+    const isavailable = req.body.isavailableState
+    const image = req.body.imageState
+    const category_id = req.body.categoryidState
+                db.query("insert into product(name,description,price,isavailable,image,User_id,category_id) VALUES (?,?,?,?,?,10,?)",[name,description,price,isavailable,image,category_id],
+                    (err,result) => {
+                        if (err) {
+                            res.send(err)
+                        }
+                        else {
+                            res.send('Produkt został dodany do bd');
+                        }
+                    }
+                )
+})
+
 const verifyJWT = (req,res,next) => {
     const token = req.headers["access-token"]
 
@@ -109,7 +128,7 @@ app.post('/login',async(req,res)=> {
 })
 
 app.get("/getproducts", (req, res) => {
-    db.query("SELECT * FROM product", (err, result) => {
+    db.query("SELECT * FROM `product` WHERE `isavailable` = 1;", (err, result) => {
         if (err) {
             console.log(err);
         } else {
