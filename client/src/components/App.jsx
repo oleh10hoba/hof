@@ -32,40 +32,28 @@ class App extends Component{
       setAccount(data);
     });
   }
-  // componentDidMount() {
-  //   const handle = this.props.match.params;
-  //   const { total } = this.props.location.state 
-  // }
-  handleLogChange=()=>{
-   
-  }
   
   render() {
     const { products, favorites, account, isReady, isLogged } = this.props;
-    // const { handle } = this.props.match.params
-    // const { totalValue } = this.props.location.state;
-  //   function Profile () {
-  //     const location = useLocation()
-  //     const { from } = location.state
-   
-  //     // return (
-  //     //   ...
-  //     // )
-  //  }
-  // const handle = this.props.match.params;
-  // //   const { total } = this.props.location.state 
-  // var isLog = this.div;
-  // this.props.logg(isLog);
     return (
       <div >
         <Router className="Router">
-          {console.log()}
           <Menu isLogged={isLogged}/>
-          <Route path="/shopcart">
-            <ShopCart/>
-          </Route>
+            <Route path="/shopcart"> 
+              {isLogged 
+                ? 
+                  <ShopCart/>
+                :
+                  <Login isLogged={isLogged}/>
+              }
+            </Route>
           <Route path="/pay">
-            <Pay/>
+            {isLogged 
+              ? 
+                <Pay/>
+              :
+                <Login isLogged={isLogged}/>
+            }
           </Route>
           <Route path="/admin">
             {isLogged ?
@@ -75,7 +63,23 @@ class App extends Component{
             }
           </Route>
           <Route path="/registration">
-              <Registration />
+            {isLogged 
+              ?
+                <Container>
+                  <Filter />
+                  <Card.Group itemsPerRow={8}>
+                  {console.log("Products je:",products)}
+                    {!isReady
+                      ? 'Loading...'
+                      : products.map((product, i) =>
+                        <ProductCard key={i} {...product}/>
+                      )
+                    }
+                  </Card.Group>
+                </Container>
+              :
+                <Registration />
+          }
           </Route>
           <Route path="/favorite" >
             {isLogged ?
@@ -95,15 +99,18 @@ class App extends Component{
                 <Login isLogged={isLogged}/>
             }
           </Route>
-          {isLogged &&
           <Route path="/account">
-            {!isReady
-              ? 'Loading...'
-              :  account.map((product, i) => 
-              <Account key={i} {...product}/>
-            )
+            {isLogged 
+              ? 
+                !isReady
+                  ? 'Loading...'
+                  :  account.map((product, i) => 
+                  <Account key={i} {...product}/>
+                )
+              :
+                <Login isLogged={isLogged}/>
             }
-          </Route>}
+          </Route>
           <Route path="/contact">
             <Contact/>
           </Route>
@@ -124,7 +131,6 @@ class App extends Component{
                 </Card.Group>
               </Container>
             }
-              <Login isLogged={isLogged}/>
           </Route>  
           <Route path="/shop">
             {isLogged ?

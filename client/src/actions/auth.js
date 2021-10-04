@@ -1,12 +1,5 @@
 import axios from 'axios';
-
-
-// export function setCurrentUser(user) {
-//     return {
-//         type: "SET_CURRENT_USER",
-//         user
-//     };
-// }
+import {Link} from "react-router-dom";
 
 const setLog = (data) => {
     axios.post('http://localhost:3001/login').then(({ data }) => {
