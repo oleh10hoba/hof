@@ -57,10 +57,9 @@ class App extends Component{
   // this.props.logg(isLog);
     return (
       <div >
-        {console.log("IsLogged: ", isLogged)}
         <Router className="Router">
           {console.log()}
-          <Menu/>
+          <Menu isLogged={isLogged}/>
           <Route path="/shopcart">
             <ShopCart/>
           </Route>
@@ -71,19 +70,24 @@ class App extends Component{
               <Registration />
           </Route>
           <Route path="/favorite" >
-            <Container>
-                <Filter />
-                <Card.Group itemsPerRow={8}>
-                  {!isReady
-                    ? 'Loading...'
-                    : 
-                    favorites.map((product, i) =>
-                      <ProductCard key={i} {...product}/>
-                    )
-                  }
-                </Card.Group>
-              </Container>
+            {isLogged ?
+              <Container>
+                  <Filter />
+                  <Card.Group itemsPerRow={8}>
+                    {!isReady
+                      ? 'Loading...'
+                      : 
+                      favorites.map((product, i) =>
+                        <ProductCard key={i} {...product}/>
+                      )
+                    }
+                  </Card.Group>
+                </Container>
+                :
+                <Login isLogged={isLogged}/>
+            }
           </Route>
+          {isLogged &&
           <Route path="/account">
             {!isReady
               ? 'Loading...'
@@ -91,10 +95,9 @@ class App extends Component{
               <Account key={i} {...product}/>
             )
             }
-          </Route>
+          </Route>}
           <Route path="/contact">
-            {isLogged && <Contact/>}
-            {/* <Contact/> */}
+            <Contact/>
           </Route>
           <Route path="/login">
               <Login isLogged={isLogged}/>

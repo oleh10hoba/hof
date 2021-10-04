@@ -1,6 +1,7 @@
 import React from 'react';
 import { Menu, Popup, List, Button, Image } from 'semantic-ui-react';
 import {Link} from "react-router-dom";
+import {logout} from "../actions/auth"
 
 const CartComponent = ({ title, id, image, removeFromCart }) => (
   <List selection divided verticalAlign="middle">
@@ -16,49 +17,60 @@ const CartComponent = ({ title, id, image, removeFromCart }) => (
   </List>
 );
 
-const MenuComponents = ({ totalPrice, count, items }) => (
+const MenuComponents = ({ totalPrice, count, items, isLogged }) => (
       <Menu>
-        <Menu.Item
-          name='editorials'
-        >
-          <Link to="/shop">HOF</Link>
-        </Menu.Item>
-        <Menu.Item
-          name='editorials'
-        >
-          <Link to="/favorite">Ulubione</Link>
-        </Menu.Item>
-        <Menu.Item
-          name='editorials'
-        >
-          <Link to="/account">Konto</Link>
-        </Menu.Item>
+        {isLogged &&
+          <Menu.Item
+            name='editorials'
+          >
+            <Link to="/shop">HOF</Link>
+          </Menu.Item>
+        }
+        {isLogged &&
+          <Menu.Item
+            name='editorials'
+          >
+            <Link to="/favorite">Ulubione</Link>
+          </Menu.Item>
+        }
+        {isLogged &&
+          <Menu.Item
+            name='editorials'
+          >
+            <Link to="/account">Konto</Link>
+          </Menu.Item>
+        }
+        {!isLogged &&
+          <Menu.Item
+            name='editorials'
+          >
+            <Link to="/login">Login</Link>
+          </Menu.Item>
+        }
+        {!isLogged &&
+          <Menu.Item
+            name='editorials'
+          >
+            <Link to="/registration">Rejestracja</Link>
+          </Menu.Item>
+        }
         <Menu.Item
           name='editorials'
         >
           <Link to="/contact">Kontakt</Link>
         </Menu.Item>
-        <Menu.Item
-          name='editorials'
-        >
-          <Link to="/login">Login</Link>
-        </Menu.Item>
-        <Menu.Item
-          name='editorials'
-        >
-          <Link to="/registration">Rejestracja</Link>
-        </Menu.Item>
-        <Menu.Menu position="right">
+        {isLogged &&
+          <Menu.Menu position="right">
+            <Menu.Item
+              name='reviews'
+            >
+              Suma: &nbsp; <b>{totalPrice}</b> zł.
+            </Menu.Item>
           <Menu.Item
-            name='reviews'
+           name='editorials'
           >
-            Suma: &nbsp; <b>{totalPrice}</b> zł.
+            <Link to="/shopcart">Koszyk</Link>
           </Menu.Item>
-          <Menu.Item
-          name='editorials'
-        >
-          <Link to="/shopcart">Koszyk</Link>
-        </Menu.Item>
           <Popup
             trigger={
               <Menu.Item name="help">
@@ -71,7 +83,9 @@ const MenuComponents = ({ totalPrice, count, items }) => (
             on="click"
             hideOnScroll
           />
+          {isLogged && <button onClick={logout}>Logout</button>}
         </Menu.Menu>
+        }
       </Menu> 
 );
 

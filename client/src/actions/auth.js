@@ -23,6 +23,9 @@ const setLogg = (data) =>
 
 export function logout() {
         localStorage.removeItem('jwtToken');
+        localStorage.removeItem('id');
+        window.location.reload(false);
+        alert("Wylogono!!!")
 }
 
 export const login  = (data) => {
@@ -35,11 +38,12 @@ export const login  = (data) => {
             }
             else{
                 setLog(data);
-                alert("Succ")
+                alert("Zalogowano!!!")
                 
             }
             const token = res.data.token;
             localStorage.setItem('jwtToken', token);
             localStorage.setItem('id', res.data.id);
+            window.location.reload(false);
         });
 }
