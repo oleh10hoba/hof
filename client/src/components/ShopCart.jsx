@@ -17,20 +17,20 @@ const CartComponent = product => {
                     // onClick={removeFromCart.bind(this, id)}
                     onClick={addToCart.bind(this, product)} 
                     color="green"
+
                 >
                     +
-                    {console.log("!!!", count)}
                     {/* {product.addedCount} */}
                     {/* {addedCount > 0  && `(${addedCount})`}   */}
                 </Button>
-                <Button 
-                    onClick={subFromCart.bind(this, product)} 
+                <Button
+                    onClick={product.subFromCart.bind(this, product.id)}
                     color="orange"
                 >
                     -
                 </Button>
-                <Button 
-                    onClick={product.removeFromCart.bind(this, product.id)} 
+                <Button
+                    onClick={product.removeFromCart.bind(this, product.id)}
                     color="red"
                 >
                     Usuń

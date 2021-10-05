@@ -10,10 +10,12 @@ const cart = (state = initialState, action) => {
                 items: [...state.items, action.payload]
             };
         case 'SUB_PRODUCT_FROM_CART':
+            console.log("TUUUT", o => o.id)
             return {
                 ...state,
-                items: [...state.items, action.payload]
+                items: state.items
             };
+
         case 'REMOVE_PRODUCT_FROM_CART':
             return {
                 ...state,

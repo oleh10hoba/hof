@@ -25,6 +25,9 @@ const AdminForm = (props) => {
                 <Field placeholder={"category_id"} name={"categoryidState"}component={Input} validate={required}/>
             </div>
             <div>
+                <Field placeholder={"Is Metric?"} name={"isMetric"}component={Input} validate={required}/>
+            </div>
+            <div>
                 <button type="submit"> Dodaj produkt </button>
             </div>
         </form>
@@ -50,6 +53,7 @@ const Admin = (props) =>
             isavailableState:formData.isavailableState,
             imageState:formData.imageState,
             categoryidState:formData.categoryidState,
+            isMetric: formData.isMetric
         }).then((response) => {alert(response.data)})
     }catch(err){console.log(err)}
     }
