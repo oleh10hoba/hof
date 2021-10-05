@@ -2,10 +2,16 @@ import React from 'react';
 import { Input, Menu } from 'semantic-ui-react';
 import { setSearchQuery } from '../actions/filter';
 
-
-const Filter = ({ setFilter, filterBy, searchQuery }) =>(
-
+const con = () =>{
+   console.log("Yes")     
+}
+const Filter = ({ setFilter, filterBy, searchQuery }) =>{
+    function handleChange(e)    {
+        console.log(e.target.value)
+      }
+    return(
     <Menu secondary>
+        
         <Menu.Item 
             active={filterBy === 'all'} 
             onClick={setFilter.bind(this, 'all')}
@@ -27,6 +33,7 @@ const Filter = ({ setFilter, filterBy, searchQuery }) =>(
         <Menu.Item 
             active={filterBy === 'price_low'} 
             onClick={setFilter.bind(this, 'price_low')}
+            // onClick={handleChange}
         >
             Tanie    
         </Menu.Item>
@@ -35,10 +42,12 @@ const Filter = ({ setFilter, filterBy, searchQuery }) =>(
                 icon='search' 
                 value={searchQuery} 
                 onChange={ e=> setSearchQuery(e.target.value)}
-                placeholder="Szukaj..."/>
+                // onChange={handleChange}
+                placeholder="Szukaj..."
+            />
         </Menu.Item>
     </Menu>
     
-);
+)};
 
 export default Filter;

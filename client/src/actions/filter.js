@@ -3,7 +3,11 @@ export const setFilter = filter => ({
     payload: filter,
   });
 
-export const setSearchQuery = value => ({
+export const setSearchQuery = e => ({
     type: 'SET_QUERY',
-    payload: value,
-});
+    payload: e
+}); 
+
+// export const setSearchQuery = e => {
+//   console.log(e)
+// }
