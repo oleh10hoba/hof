@@ -59,16 +59,30 @@ app.post('/addproduct', async(req, res) => {
     const image = req.body.imageState
     const category_id = req.body.categoryidState
     const isMetric = req.body.isMetric
-                db.query("insert into product(name,description,price,isavailable,image,User_id,category_id,isMetric) VALUES (?,?,?,?,?,10,?,?)",[name,description,price,isavailable,image,category_id,isMetric],
-                    (err,result) => {
-                        if (err) {
-                            console.log(err)
-                        }
-                        else {
-                            res.send('Produkt został dodany do bd');
-                        }
-                    }
-                )
+    db.query("insert into product(name,description,price,isavailable,image,User_id,category_id,isMetric) VALUES (?,?,?,?,?,10,?,?)",[name,description,price,isavailable,image,category_id,isMetric],
+        (err,result) => {
+            if (err) {
+                console.log(err)
+            }
+            else {
+                res.send('Produkt został dodany do bd');
+            }
+        }
+    )
+})
+
+app.post('/remproduct', async(req, res) => {
+    const id = req.body.idState
+    db.query("delete from `product` where `id` = ?",[id],
+        (err,result) => {
+            if (err) {
+                console.log(err)
+            }
+            else {
+                res.send('Produkt został usunięty z bd');
+            }
+        }
+    )
 })
 
 const verifyJWT = (req,res,next) => {

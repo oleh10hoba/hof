@@ -17,11 +17,6 @@ import { login } from '../actions/auth';
 class App extends Component{
   componentWillMount(){ 
     const { setProducts, setFavorites, setAccount } = this.props;
-    // axios.get('/favorites.json').then(({ data }) => {
-    //   setFavorites(data);
-    // });
-    // const testData = require('../favorites.json');
-    // setFavorites(testData);
     axios.post('http://localhost:3001/getfavorites', {id : localStorage.getItem("id")}).then(({ data }) => {
       setFavorites(data);
     });
@@ -68,7 +63,6 @@ class App extends Component{
                 <Container>
                   <Filter />
                   <Card.Group itemsPerRow={8}>
-                  {console.log("Products je:",products)}
                     {!isReady
                       ? 'Loading...'
                       : products.map((product, i) =>
@@ -121,7 +115,6 @@ class App extends Component{
               <Container>
                 <Filter />
                 <Card.Group itemsPerRow={8}>
-                {console.log("Products je:",products)}
                   {!isReady
                     ? 'Loading...'
                     : products.map((product, i) =>
@@ -137,7 +130,6 @@ class App extends Component{
               <Container>
                 <Filter />
                 <Card.Group itemsPerRow={8}>
-                {console.log("Products je:",products)}
                   {!isReady
                     ? 'Loading...'
                     : products.map((product, i) =>

@@ -16,8 +16,8 @@ body{
 .Admin{
   background-color: blanchedalmond;
   text-align: center;
-  margin: 50px 400px;
-  padding: 50px 0;
+  margin: 50px 200px;
+  /* padding: 350px 0;  */
 }
 
 .Contact{
