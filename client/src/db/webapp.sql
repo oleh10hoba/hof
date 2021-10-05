@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Окт 05 2021 г., 16:43
+-- Время создания: Окт 05 2021 г., 17:00
 -- Версия сервера: 10.4.21-MariaDB
 -- Версия PHP: 7.3.31
 
@@ -352,7 +352,7 @@ ALTER TABLE `orderitem`
 -- AUTO_INCREMENT для таблицы `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT для таблицы `user`

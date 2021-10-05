@@ -58,10 +58,11 @@ app.post('/addproduct', async(req, res) => {
     const isavailable = req.body.isavailableState
     const image = req.body.imageState
     const category_id = req.body.categoryidState
-                db.query("insert into product(name,description,price,isavailable,image,User_id,category_id) VALUES (?,?,?,?,?,10,?)",[name,description,price,isavailable,image,category_id],
+    const isMetric = req.body.isMetric
+                db.query("insert into product(name,description,price,isavailable,image,User_id,category_id,isMetric) VALUES (?,?,?,?,?,10,?,?)",[name,description,price,isavailable,image,category_id,isMetric],
                     (err,result) => {
                         if (err) {
-                            res.send(err)
+                            console.log(err)
                         }
                         else {
                             res.send('Produkt został dodany do bd');
