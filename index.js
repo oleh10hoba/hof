@@ -152,6 +152,16 @@ app.get("/getproducts", (req, res) => {
     });
 });
 
+app.get("/getproducts", (req, res) => {
+    db.query("SELECT * FROM `product` WHERE `isavailable` = 1;", (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            res.send(result);
+        }
+    });
+});
+
 app.post("/getfavorites", (req, res) => {
     const{id} = req.body
     db.query("SELECT * FROM product p INNER JOIN favourite_list f ON p.id = f.product_id where f.User_id = ?;",[id], (err, result) => {
