@@ -27,7 +27,8 @@ class App extends Component{
       setAccount(data);
     });
   }
-  
+
+
   render() {
     const { products, favorites, account, isReady, isLogged } = this.props;
     return (
