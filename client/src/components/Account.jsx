@@ -1,36 +1,60 @@
 import React from 'react';
+import Axios from "axios";
+import {Field, reduxForm} from "redux-form";
+import {Input} from "../utils/validators/formcontrols";
+import {required} from "../utils/validators/validator";
+
+const ChangeAddressForm = (props) => {
+    return(
+        <form onSubmit={props.handleSubmit}>
+            <div>
+                <Field placeholder={"Wprowadź nowy adres"} name={"addressState"} component={Input} validate={required}/>
+            </div>
+            <div>
+                <button type="submit"> Zmień adres </button>
+            </div>
+        </form>
+
+
+    )
+}
+
+
+const ReduxChangeAddressForm = reduxForm({
+    form: 'changeaddress'
+})(ChangeAddressForm)
 
 const Account = data => {
-    let address = "Nadbystrzycka 42/406";
-    let visible = 1;
-    const changeAddress = () =>{
-        // visible = (visible === 0) ? 1: 0;
-        console.log(visible);
-        console.log(("1111111111"));
-        
-        // console.log(document.getElementById("address");
-        // document.getElementById("address")= 'visible';
-        // console.log(document.getElementById("address").style);
-        // document.getElementsByClassName("address").style.visibility = "visible";
-    }
-
+    const onSubmit = async(formData) =>{
+        try{
+            await Axios.post('http://localhost:3001/changeAddress', {
+                addressState:formData.addressState,
+                idState:data.id,
+            }).then((response) => {alert(response.data);window.location.reload(false);})
+        }catch(err){console.log(err)
+        }
+        }
     return(
     <div className='Account'>
-        <h2>Adres dostawy: {address}</h2>
-        <button onClick={changeAddress()}>Zmień</button>
-        <input style={{visibility:  (visible === 0) ? "hidden" : "visible"}} placeholder="Wprowadz nowy adres" id="address"/>
-        {/* <form action="">
-            <label for="fname">First name:</label>
-            <input type="text" id="fname" name="fname"/>
-            <label for="lname">Last name:</label>
-            <input type="text" id="lname" name="lname"/>
-            <input type="submit" value="Submit"></input>
-        </form> */}
-        <h2>{data.first_name}</h2>
-        <h2>{data.last_name}</h2>
-        <h2>{data.email}</h2>
-        <h2>{data.mobile}</h2>
-        <h2>{data.delivery_address}</h2>
+        <div>
+            <h2>{data.first_name}</h2>
+        </div>
+        <div>
+            <h2>{data.last_name}</h2>
+        </div>
+        <div>
+            <h2>{data.email}</h2>
+        </div>
+        <div>
+            <h2>{data.mobile}</h2>
+        </div>
+        <div>
+            <h2>Adres dostawy: {data.delivery_address}</h2>
+            <div className="">
+                <h3>Zmieniamy adres dostawy?</h3>
+                <ReduxChangeAddressForm onSubmit={onSubmit}/>
+            </div>
+        </div>
     </div>
     );
 };

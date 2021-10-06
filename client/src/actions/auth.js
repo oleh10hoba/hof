@@ -22,7 +22,6 @@ export function logout() {
 }
 
 export const login  = (data) => {
-    console.log(data)
         return axios.post('http://localhost:3001/login', { login: data.login, password: data.password}
             ).then(res => {
             if (!res.data.token) {

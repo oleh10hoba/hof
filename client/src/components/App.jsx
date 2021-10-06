@@ -16,20 +16,25 @@ import { login } from '../actions/auth';
 
 class App extends Component{
   componentWillMount(){ 
-    const { setProducts, setFavorites, setAccount } = this.props;
+    const { setProducts, setFavorites, setAccount, setShops } = this.props;
+    
     axios.post('http://localhost:3001/getfavorites', {id : localStorage.getItem("id")}).then(({ data }) => {
       setFavorites(data);
     });
     axios.get('http://localhost:3001/getproducts').then(({ data }) => {
       setProducts(data);
     });
-    axios.get('http://localhost:3001/getaccount').then(({ data }) => {
+    
+    axios.post('http://localhost:3001/getaccount', {id : localStorage.getItem("id")}).then(({ data }) => {
       setAccount(data);
+    });
+    axios.get('http://localhost:3001/getshops').then(({ data }) => {
+      setShops(data);
     });
   }
   
   render() {
-    const { products, favorites, account, isReady, isLogged } = this.props;
+    const { products, favorites, account, shops, isReady, isLogged } = this.props;
     return (
       <div >
         <Router className="Router">
@@ -37,7 +42,9 @@ class App extends Component{
             <Route path="/shopcart"> 
               {isLogged 
                 ? 
-                  <ShopCart/>
+                !isReady 
+                ? 'Loading...':
+                  <ShopCart shops={shops} isReady={isReady}/>
                 :
                   <Login isLogged={isLogged}/>
               }
@@ -45,13 +52,15 @@ class App extends Component{
           <Route path="/pay">
             {isLogged 
               ? 
-                <Pay/>
+                <Pay />
               :
                 <Login isLogged={isLogged}/>
             }
           </Route>
           <Route path="/admin">
             {isLogged ?
+            !isReady 
+              ? 'Loading...':
               <Admin />
               :
               <Login isLogged={isLogged}/>

@@ -5,6 +5,7 @@ import cart from './cart';
 import filter from "./filter";
 import account from './account';
 import auth from './auth';
+import shops from './shops';
 import logging from './login';
 import {reducer as formReducer} from 'redux-form'
 
@@ -15,6 +16,8 @@ export default combineReducers({
         logging,
         cart,
         filter,
+        shops,
         auth,
+        
         form:formReducer
 });

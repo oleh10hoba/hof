@@ -119,7 +119,6 @@ app.post('/login',async(req,res)=> {
                     const token = jwt.sign({id},"DAWKODKWAPOczksokWPWKApodkwaWEKpakdoaw", {
                         expiresIn: 300
                     })
-                    // res.send('Succ');
                     res.json({auth: true, token: token, id: result[0].id})
                     
 
@@ -152,8 +151,8 @@ app.get("/getproducts", (req, res) => {
     });
 });
 
-app.get("/getproducts", (req, res) => {
-    db.query("SELECT * FROM `product` WHERE `isavailable` = 1;", (err, result) => {
+app.get("/getshops", (req, res) => {
+    db.query("SELECT * FROM shops;", (err, result) => {
         if (err) {
             console.log(err);
         } else {
@@ -172,9 +171,22 @@ app.post("/getfavorites", (req, res) => {
         }
     });
 });
+app.post("/changeaddress", (req, res) => {
+    const address = req.body.addressState
+    const id = req.body.idState
+    // console.log("ID:", id, address);
+    db.query("UPDATE user SET `delivery_address` = ? WHERE id = ?",[address,id], (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            res.send('Adres został zmieniony');
+        }
+    });
+});
 
-app.get("/getaccount", (req, res) => {
-    db.query("select * from user where `id` = 12", (err, result) => {
+app.post("/getaccount", (req, res) => {
+    const{id} = req.body
+    db.query("select * from user where `id` = ?",[id], (err, result) => {
         if (err) {
             console.log(err);
         } else {

@@ -1,11 +1,11 @@
 const initialState = {
     isReady: false,
-    items: null,
+    items: null
 };
 
 const account = (state = initialState, action) => {
     switch (action.type) {
-        case 'SET_ACCOUNT':
+        case 'SET_SHOPS':
             return {
                 ...state,
                 items: action.payload,

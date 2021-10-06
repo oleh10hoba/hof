@@ -3,6 +3,7 @@ import * as cartActions from '../actions/cart';
 import { bindActionCreators } from 'redux';
 import ShopCart from '../components/ShopCart';
 import uniqBy from 'lodash/uniqBy';
+import * as shopsAction from '../actions/shops';
 
 // const mapStateToProps = ({ cart }) => ({
 //     totalPrice: cart.items.reduce((total, product) => total + product.price, 0),
@@ -17,10 +18,12 @@ const mapStateToProps = ({ cart }, { id }) => ({
     items: uniqBy(cart.items, o => o.id),
     fav: uniqBy(cart.fav, o => o.id),
     addedCount: cart.items.reduce((count, product) => count + (product.id === id ? 1 : 0), 0),
+    // shops: shops.items
   });
 
 const mapDispatchToProps = dispatch => ({
   ...bindActionCreators(cartActions, dispatch)
 });
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShopCart);

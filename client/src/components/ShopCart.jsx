@@ -5,6 +5,7 @@ import {Switch,  Redirect} from 'react-router-dom'
 import {BrowserRouter as Router, Route} from "react-router-dom";
 import {Link} from "react-router-dom";
 import Pay from './Pay';
+import account from '../reducers/shops';
 
 const CartComponent = product => {
     const {addToCart, subFromCart,  count} = product;
@@ -43,36 +44,58 @@ const CartComponent = product => {
     );
 };
 
-const ShopCart = ({ totalPrice, count, items }) => {
-// class ShopCart extends React.Component ( {totalPrice, count, items }) {
-    // onTrigger = (event) => {
-    //     this.props.parentCallback(event.target.myname.value);
-    //     event.preventDefault();
-    // }
+const ShopCart = (props) => {
+    const { totalPrice, count, items, account, shops, isReady } = props;
     return(
-    // render(){
      <>
             {items.map(product => (
               <CartComponent {...product} />
             ))}
             <div>
-
-
-
-                {/* <h1>Do zapłaty: {totalPrice}!</h1> */}
                 { totalPrice > 0 
-                ? <form 
+                ?
+                <form 
                     // onSubmit = {this.onTrigger}
                     >
-                <Link to={{
-                            pathname:"/pay",
-                            state: {
-                                totalPrice:totalPrice
-                            }
-                        }}
-                    >
-                        <button type = "submit" value = "Submit"><h2>Zapłać {totalPrice}</h2></button></Link>
-                        </form>  
+                    <div>
+                        <label for="shop-select">Wybierz sklep:</label>
+
+                        <select name="shops" id="shop-select">
+                            <option value="">--WYbierz opcje--</option>
+                            { !isReady 
+                                ? 'Loading...'
+                                : shops.map((shop, i) =>
+                                    <option value={shop.id}>{shop.address}</option>
+                            )}
+                        </select>
+                    </div>
+                    <div>
+                        <label for="shop-select">Wybierz dostawę lub odbior osobisty w sklepie:</label>
+                        <select name="reception" id="reception-select">
+                            <option value="">--Wybierz opcje--</option>
+                            <option value="delivery">Dostawa</option>
+                            <option value="personal_pickup">Odbior osobisty</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="shop-select">Wybierz metodę płatności:</label>
+                        <select name="payment" id="payment-select">
+                            <option value="">--Wybierz opcje--</option>
+                            <option value="card">Karta</option>
+                            <option value="account">Konto</option>
+                            <option value="blik">BLIK</option>
+                        </select>
+                    </div>
+                        <Link to={{
+                                    pathname:"/pay",
+                                    state: {
+                                        totalPrice:totalPrice
+                                    }
+                                }}
+                            >
+                                <button type = "submit" value = "Submit"><h2>Zapłać {totalPrice}</h2></button>
+                        </Link>
+                </form>  
                 :   <h2>Kosz jest pusty</h2>
                  
 }
