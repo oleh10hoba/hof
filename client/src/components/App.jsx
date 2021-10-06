@@ -85,7 +85,7 @@ class App extends Component{
                       ? 'Loading...'
                       : 
                       favorites.map((product, i) =>
-                        <ProductCard key={i} {...product}/>
+                        <ProductCard setf key={i} {...product}/>
                       )
                     }
                   </Card.Group>

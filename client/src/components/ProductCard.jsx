@@ -4,7 +4,7 @@ import { Card, Image, Icon, Button } from 'semantic-ui-react';
 
 
 const ProductCard = product => {
-    const {  name, description, image, price, addToCart, addedCount} = product;
+    const {  name, description, image, price, addToCart, addedCount, addToFavourites} = product;
     return(
     <Card>
         <Image src={image}/>
@@ -26,6 +26,12 @@ const ProductCard = product => {
         Dodaj do kosza
         {addedCount > 0  && `(${addedCount})`}
     </Button>
+        <Button
+            onClick={addToFavourites.bind(this, product)}
+        >
+            Dodaj do ulubionych
+            {addedCount > 0  && `(${addedCount})`}
+        </Button>
     </Card>
     );
 };
