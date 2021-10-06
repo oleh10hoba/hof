@@ -7,7 +7,7 @@ const Account = product => {
 
     const testF = () => {
         axios.post('http://localhost:3001/addFavourites', {
-            userId: 1,
+            userId: 13,
             productId: 3});
     }
 
