@@ -35,7 +35,7 @@ CREATE TABLE `address` (
   `order_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
+-- ---------------n-----------------------------------------
 
 --
 -- Table structure for table `cartitem`

@@ -13,3 +13,4 @@ export const removeFromCart = id => ({
     type: 'REMOVE_PRODUCT_FROM_CART',
     payload: id
 });
+

@@ -71,6 +71,43 @@ app.post('/addproduct', async(req, res) => {
     )
 })
 
+
+app.post('/addFavourites',async(req,res) => {
+    const userId = req.body.userId
+    const productId = req.body.productId
+    db.query('SELECT * FROM favourite_list WHERE user_id = ? AND product_id = ?', [userId, productId],
+        (err,result) => {
+        if(err){
+            console.log(err)
+        }
+        else {
+            if(result[0] !== undefined){
+                db.query('DELETE from favourite_list where user_id = ? AND product_id = ?',[userId, productId],
+                    (err,result) => {
+                        if(err){
+                            console.log(err)
+                        }
+                        else{
+                            console.log('Success')
+                        }
+                    }
+                    )
+            }
+            else db.query('INSERT INTO favourite_list (product_id,user_id) values (?,?)',[productId,userId],
+                (err,result) => {
+                if(err){
+                    console.log(err)
+                }
+                else{
+                    console.log('Success')
+                }
+                }
+                )
+        }
+        })
+
+})
+
 app.post('/remproduct', async(req, res) => {
     const id = req.body.idState
     db.query("delete from `product` where `id` = ?",[id],

@@ -32,7 +32,8 @@ class App extends Component{
       setShops(data);
     });
   }
-  
+
+
   render() {
     const { products, favorites, account, shops, isReady, isLogged } = this.props;
     return (
@@ -93,7 +94,7 @@ class App extends Component{
                       ? 'Loading...'
                       : 
                       favorites.map((product, i) =>
-                        <ProductCard key={i} {...product}/>
+                        <ProductCard setf key={i} {...product}/>
                       )
                     }
                   </Card.Group>
