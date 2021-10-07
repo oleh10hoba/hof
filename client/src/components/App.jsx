@@ -13,11 +13,12 @@ import Registration from './Registration';
 import ShopCart from '../containers/ShopCart';
 import Admin from './Admin'
 import { login } from '../actions/auth';
+// import  from 'lodash';
 
 class App extends Component{
   componentWillMount(){ 
     const { setProducts, setFavorites, setAccount, setShops } = this.props;
-    
+  
     axios.post('http://localhost:3001/getfavorites', {id : localStorage.getItem("id")}).then(({ data }) => {
       setFavorites(data);
     });
@@ -36,6 +37,7 @@ class App extends Component{
 
   render() {
     const { products, favorites, account, shops, isReady, isLogged } = this.props;
+    const isD = false;
     return (
       <div >
         <Router className="Router">
@@ -76,7 +78,7 @@ class App extends Component{
                     {!isReady
                       ? 'Loading...'
                       : products.map((product, i) =>
-                        <ProductCard key={i} {...product}/>
+                      <ProductCard key={i} {...product} isFavorite={ (favorites.filter(x => x.id === product.id).length===0 ? false : true)}/>
                       )
                     }
                   </Card.Group>
@@ -94,9 +96,10 @@ class App extends Component{
                       ? 'Loading...'
                       : 
                       favorites.map((product, i) =>
-                        <ProductCard setf key={i} {...product}/>
+                        <ProductCard setf key={i} {...product} isFavorite={true}/>
                       )
                     }
+
                   </Card.Group>
                 </Container>
                 :
@@ -128,12 +131,14 @@ class App extends Component{
                   {!isReady
                     ? 'Loading...'
                     : products.map((product, i) =>
-                      <ProductCard key={i} {...product}/>
+                    <ProductCard key={i} {...product} isFavorite={ (favorites.filter(x => x.id === product.id).length===0 ? false : true)}/>
                     )
                   }
                 </Card.Group>
               </Container>
             }
+            {console.log("P: ", products)}
+            {console.log("F: ", favorites)}
           </Route>  
           <Route path="/shop">
             {isLogged ?
@@ -143,7 +148,7 @@ class App extends Component{
                   {!isReady
                     ? 'Loading...'
                     : products.map((product, i) =>
-                      <ProductCard key={i} {...product}/>
+                    <ProductCard key={i} {...product} isFavorite={ (favorites.filter(x => x.id === product.id).length===0 ? false : true)}/>
                     )
                   }
                 </Card.Group>

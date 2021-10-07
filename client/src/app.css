@@ -13,6 +13,22 @@ body{
     margin: 50px 400px;
     padding: 50px 0;
 }
+
+/* .Fav{
+  background-color: red;
+  width:50px;
+  height: 10px;
+  margin: 0 0 ;
+}
+
+.Fav Button{
+  color: blue;
+  width:  10px;
+  height: 20px;
+  margin: 0 0 ;
+  font-size: 50%;
+} */
+
 .Admin{
   background-color: blanchedalmond;
   text-align: center;
