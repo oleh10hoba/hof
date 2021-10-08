@@ -173,7 +173,7 @@ INSERT INTO `product` (`id`, `name`, `description`, `price`, `isavailable`, `ima
 
 --
 -- Table structure for table `shops`
---
+-- d
 
 CREATE TABLE `shops` (
   `id` int(11) NOT NULL,

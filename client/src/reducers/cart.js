@@ -1,16 +1,23 @@
+import axios from "axios";
+
 const initialState = {
     items: []
 };
 
 const cart = (state = initialState, action) => {
-    switch (action.type) {
+    switch (action.type){
+        case 'SET_CART':
+            return {
+                ...state,
+                items: action.payload
+            };
+
         case 'ADD_PRODUCT_TO_CART':
             return {
                 ...state,
                 items: [...state.items, action.payload]
             };
         case 'SUB_PRODUCT_FROM_CART':
-            console.log("TUUUT", o => o.id)
             return {
                 ...state,
                 items: state.items

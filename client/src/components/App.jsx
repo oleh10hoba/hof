@@ -36,7 +36,7 @@ class App extends Component{
 
 
   render() {
-    const { products, favorites, account, shops, isReady, isLogged } = this.props;
+    const { products, favorites, account, shops, isReady, isLogged,  } = this.props;
     const isD = false;
     return (
       <div >

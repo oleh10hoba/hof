@@ -6,32 +6,36 @@ import {BrowserRouter as Router, Route} from "react-router-dom";
 import {Link} from "react-router-dom";
 import Pay from './Pay';
 import account from '../reducers/shops';
+import axios from "axios";
+import userEvent from "@testing-library/user-event";
 import Select from 'react-select'
 
 const CartComponent = product => {
     const {addToCart, subFromCart,  count} = product;
 
     return(
+
         <List selection divided verticalAlign="middle">
-            
             <List.Item>
+                {console.log(product)}
                 <List.Content floated="right">
                 <Button 
+                    // onClick={removeFromCart.bind(this, id)}
 
-                    onClick={addToCart.bind(this, product)} 
+                    // onClick={addToCart.bind(this, product)}
                     color="green"
 
                 >
                     +
                 </Button>
                 <Button
-                    onClick={product.subFromCart.bind(this, product.id)}
+                    // onClick={product.subFromCart.bind(this, product.id)}
                     color="orange"
                 >
                     -
                 </Button>
                 <Button
-                    onClick={product.removeFromCart.bind(this, product.id)}
+                    // onClick={product.removeFromCart.bind(this, product.id)}
                     color="red"
                 >
                     Usuń
@@ -45,7 +49,12 @@ const CartComponent = product => {
 };
 
 const ShopCart = (props) => {
-    const { totalPrice, count, items, account, shops, isReady } = props;
+     const {  totalPrice, count, items, account, shops, isReady,setCart, addToCart } = props;
+    axios.post('http://localhost:3001/refreshCart', {
+        userId: localStorage.getItem("id")}).then(({data}) => {
+        props.setCart(data)
+    });
+
     const receptions = [
         { value: 'delivery', label: 'Dostawa do domu' },
         { value: 'personal_pickup', label: 'Odbiór osobisty' }
@@ -58,14 +67,14 @@ const ShopCart = (props) => {
         shops.map((shop, i) =>
             ({value:shop.id, label:shop.address}))
         
-    
+   
     return(
      <>
             {items.map(product => (
               <CartComponent {...product} />
             ))}
             <div>
-                { totalPrice > 0 
+                { totalPrice > 0
                 ?
                     <form 
                         // onSubmit = {this.onTrigger}
@@ -82,9 +91,9 @@ const ShopCart = (props) => {
                             >
                                 <button type = "submit" value = "Submit"><h2>Zapłać {totalPrice}</h2></button>
                         </Link>
-                </form>  
+                </form>
                 :   <h2>Kosz jest pusty</h2>
-                 
+
 }
             </div>
          </>
