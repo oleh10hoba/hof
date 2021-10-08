@@ -13,7 +13,9 @@ body{
     margin: 50px 400px;
     padding: 50px 0;
 }
-
+.Like{
+  float: right
+}
 /* .Fav{
   background-color: red;
   width:50px;
