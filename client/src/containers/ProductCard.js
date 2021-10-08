@@ -14,6 +14,7 @@ const mapDispatchToProps = dispatch => ({
   ...bindActionCreators(Object.assign({},cartActions,favoritesActions), dispatch),
 });
 
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps,

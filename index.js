@@ -51,6 +51,22 @@ app.post('/create', async(req, res) => {
 
 })
 
+app.post('/refreshCart', async(req, res) => {
+    const userId = req.body.userId
+    db.query('SELECT * FROM product p INNER JOIN cartitem c ON p.id=c.product_id WHERE c.user_id = ?',[userId],
+        (err,result) => {
+            if (err) {
+                console.log(err)
+            }
+            else {
+                res.send(result);
+            }
+        }
+    )
+})
+
+
+
 app.post('/addproduct', async(req, res) => {
     const name = req.body.nameState
     const description = req.body.descState

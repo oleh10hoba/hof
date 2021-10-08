@@ -45,7 +45,6 @@ const mapStateToProps = ({ products, favorites, account, filter, auth, shops }) 
     isLogged: localStorage.getItem('jwtToken'),// auth.isLogged,
     account: 
       account.items
-
   });
 const mapDispatchToProps = dispatch => ({
   ...bindActionCreators(Object.assign({},productsActions, favoritesActions, accountActions, loginAction, shopsAction), dispatch)
