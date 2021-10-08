@@ -5,6 +5,8 @@ import ShopCart from '../components/ShopCart';
 import uniqBy from 'lodash/uniqBy';
 import * as shopsAction from '../actions/shops';
 
+
+
 // const mapStateToProps = ({ cart }) => ({
 //     totalPrice: cart.items.reduce((total, product) => total + product.price, 0),
 //     count: cart.items.length,

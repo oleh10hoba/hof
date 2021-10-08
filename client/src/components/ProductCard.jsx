@@ -34,7 +34,6 @@ const ProductCard = ( product) => {
             <h4>Usuń z   ulubionych</h4>
             : 
             <h4>Dodaj do ulubionych</h4>}
-            {addedCount > 0  && `(${addedCount})`}
         </Button>
     </Card>
     );

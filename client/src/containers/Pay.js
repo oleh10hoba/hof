@@ -6,6 +6,7 @@ import Pay from "../components/Pay";
 
 const mapStateToProps = ({ cart }) => ({
     totalPrice: cart.items.reduce((total, product) => parseFloat((total + product.price).toFixed(2)), 0),
+    method: 'blik'
   }); 
 
 const mapDispatchToProps = dispatch => ({
