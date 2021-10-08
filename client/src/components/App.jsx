@@ -55,7 +55,7 @@ class App extends Component{
           <Route path="/pay">
             {isLogged 
               ? 
-                <Pay />
+                <Pay/>
               :
                 <Login isLogged={isLogged}/>
             }
@@ -137,8 +137,6 @@ class App extends Component{
                 </Card.Group>
               </Container>
             }
-            {console.log("P: ", products)}
-            {console.log("F: ", favorites)}
           </Route>  
           <Route path="/shop">
             {isLogged ?

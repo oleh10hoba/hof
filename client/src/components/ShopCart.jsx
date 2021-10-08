@@ -6,23 +6,23 @@ import {BrowserRouter as Router, Route} from "react-router-dom";
 import {Link} from "react-router-dom";
 import Pay from './Pay';
 import account from '../reducers/shops';
+import Select from 'react-select'
 
 const CartComponent = product => {
     const {addToCart, subFromCart,  count} = product;
+
     return(
         <List selection divided verticalAlign="middle">
             
             <List.Item>
                 <List.Content floated="right">
                 <Button 
-                    // onClick={removeFromCart.bind(this, id)}
+
                     onClick={addToCart.bind(this, product)} 
                     color="green"
 
                 >
                     +
-                    {/* {product.addedCount} */}
-                    {/* {addedCount > 0  && `(${addedCount})`}   */}
                 </Button>
                 <Button
                     onClick={product.subFromCart.bind(this, product.id)}
@@ -46,6 +46,19 @@ const CartComponent = product => {
 
 const ShopCart = (props) => {
     const { totalPrice, count, items, account, shops, isReady } = props;
+    const receptions = [
+        { value: 'delivery', label: 'Dostawa do domu' },
+        { value: 'personal_pickup', label: 'Odbiór osobisty' }
+    ]
+    const payments = [
+        { value: 'card', label: 'Karta' },
+        { value: 'blik', label: 'BLIK' }
+    ]
+    const shops_sel = 
+        shops.map((shop, i) =>
+            ({value:shop.id, label:shop.address}))
+        
+    
     return(
      <>
             {items.map(product => (
@@ -54,42 +67,16 @@ const ShopCart = (props) => {
             <div>
                 { totalPrice > 0 
                 ?
-                <form 
-                    // onSubmit = {this.onTrigger}
+                    <form 
+                        // onSubmit = {this.onTrigger}
                     >
-                    <div>
-                        <label for="shop-select">Wybierz sklep:</label>
-
-                        <select name="shops" id="shop-select">
-                            <option value="">--WYbierz opcje--</option>
-                            { !isReady 
-                                ? 'Loading...'
-                                : shops.map((shop, i) =>
-                                    <option value={shop.id}>{shop.address}</option>
-                            )}
-                        </select>
-                    </div>
-                    <div>
-                        <label for="shop-select">Wybierz dostawę lub odbior osobisty w sklepie:</label>
-                        <select name="reception" id="reception-select">
-                            <option value="">--Wybierz opcje--</option>
-                            <option value="delivery">Dostawa</option>
-                            <option value="personal_pickup">Odbior osobisty</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label for="shop-select">Wybierz metodę płatności:</label>
-                        <select name="payment" id="payment-select">
-                            <option value="">--Wybierz opcje--</option>
-                            <option value="card">Karta</option>
-                            <option value="account">Konto</option>
-                            <option value="blik">BLIK</option>
-                        </select>
-                    </div>
+                        <Select options={receptions} placeholder="Wybierz dostawę lub odbior osobisty w sklepie:"/>
+                        <Select options={shops_sel} placeholder="Wybierz slep z którego chcesz produkty:"/>
+                        {/* <Select  options={payments} placeholder="Wybierz metodę płatności:"/> */}
                         <Link to={{
                                     pathname:"/pay",
                                     state: {
-                                        totalPrice:totalPrice
+                                        totalPrice:totalPrice,
                                     }
                                 }}
                             >
