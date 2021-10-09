@@ -53,7 +53,7 @@ app.post('/create', async(req, res) => {
 
 app.post('/refreshCart', async(req, res) => {
     const userId = req.body.userId
-    db.query('SELECT * FROM product p INNER JOIN cartitem c ON p.id=c.product_id WHERE c.user_id = ?',[userId],
+    db.query('SELECT p.id, p.name, p.description, p.price, p.isavailable, p.image, p.User_id, p.category_id,p.isMetric from product p inner join cartitem c on p.id = c.Product_id where c.user_id = ?',[userId],
         (err,result) => {
             if (err) {
                 console.log(err)
@@ -65,6 +65,35 @@ app.post('/refreshCart', async(req, res) => {
     )
 })
 
+app.post('/addCart', async(req, res) => {
+    const userId = req.body.userId
+    const productId = req.body.productId
+    db.query('INSERT INTO cartitem (Product_id,user_id) values (?,?)',[productId,userId],
+        (err,result) => {
+            if (err) {
+                console.log(err)
+            }
+            else {
+                res.send(result)
+            }
+        }
+    )
+})
+
+app.post('/removeCart', async(req, res) => {
+    const userId = req.body.userId
+    const productId = req.body.productId
+    db.query('DELETE from cartitem where user_id = ? and Product_id = ?',[userId, productId],
+        (err,result) => {
+            if (err) {
+                console.log(err)
+            }
+            else {
+                res.send(result)
+            }
+        }
+    )
+})
 
 
 app.post('/addproduct', async(req, res) => {

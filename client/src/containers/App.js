@@ -4,6 +4,7 @@ import * as favoritesActions from '../actions/favorite';
 import * as accountActions from '../actions/account';
 import * as loginAction from '../actions/auth';
 import * as shopsAction from '../actions/shops';
+import * as cartActions from '../actions/cart';
 import App from '../components/App';
 import { bindActionCreators } from 'redux';
 import orderBy from 'lodash/orderBy.js';
@@ -47,7 +48,7 @@ const mapStateToProps = ({ products, favorites, account, filter, auth, shops }) 
       account.items
   });
 const mapDispatchToProps = dispatch => ({
-  ...bindActionCreators(Object.assign({},productsActions, favoritesActions, accountActions, loginAction, shopsAction), dispatch)
+  ...bindActionCreators(Object.assign({},cartActions,productsActions, favoritesActions, accountActions, loginAction, shopsAction), dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

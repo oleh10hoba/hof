@@ -13,12 +13,19 @@ import Registration from './Registration';
 import ShopCart from '../containers/ShopCart';
 import Admin from './Admin'
 import { login } from '../actions/auth';
+import {setCart} from "../actions/cart";
 // import  from 'lodash';
 
 class App extends Component{
   componentWillMount(){ 
-    const { setProducts, setFavorites, setAccount, setShops } = this.props;
-  
+    const {setCart , products, setProducts, setFavorites, setAccount, setShops } = this.props;
+     axios.post('http://localhost:3001/refreshCart', {
+       userId: localStorage.getItem("id")}).then(({data}) => {
+       setCart(data)
+     });
+
+
+
     axios.post('http://localhost:3001/getfavorites', {id : localStorage.getItem("id")}).then(({ data }) => {
       setFavorites(data);
     });
@@ -32,11 +39,14 @@ class App extends Component{
     axios.get('http://localhost:3001/getshops').then(({ data }) => {
       setShops(data);
     });
+
+
+
   }
 
 
   render() {
-    const { products, favorites, account, shops, isReady, isLogged,  } = this.props;
+    const { products, favorites, account, shops, isReady, isLogged, addToCart  } = this.props;
     const isD = false;
     return (
       <div >
@@ -155,8 +165,10 @@ class App extends Component{
               :
               <Login isLogged={isLogged}/>
             }
+
           </Route>
         </Router>
+
       </div>
     );
   }

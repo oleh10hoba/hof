@@ -1,9 +1,15 @@
+import axios from "axios";
+
 export const setCart = (products) => ({
     type: 'SET_CART',
     payload: products
 });
 
-export const addToCart = obj => ({
+
+
+
+export const addToCart = obj => (
+    {
     type: 'ADD_PRODUCT_TO_CART',
     payload: obj
 });
