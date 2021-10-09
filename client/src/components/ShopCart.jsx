@@ -23,7 +23,6 @@ const CartComponent = (product) => {
         })
         removeFromCart(product.id)
     }
-
     return(
 
         <List selection divided verticalAlign="middle">

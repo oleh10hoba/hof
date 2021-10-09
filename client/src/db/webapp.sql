@@ -2,10 +2,10 @@
 -- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Oct 06, 2021 at 05:23 PM
--- Server version: 10.4.21-MariaDB
--- PHP Version: 7.3.31
+-- Хост: 127.0.0.1
+-- Время создания: Окт 09 2021 г., 15:14
+-- Версия сервера: 10.4.21-MariaDB
+-- Версия PHP: 7.3.31
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `webapp`
+-- База данных: `webapp`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `address`
+-- Структура таблицы `address`
 --
 
 CREATE TABLE `address` (
@@ -35,15 +35,14 @@ CREATE TABLE `address` (
   `order_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- ---------------n-----------------------------------------
+-- --------------------------------------------------------
 
 --
--- Table structure for table `cartitem`
+-- Структура таблицы `cartitem`
 --
 
 CREATE TABLE `cartitem` (
   `id` int(11) NOT NULL,
-  `quantity` int(11) NOT NULL,
   `Product_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -51,7 +50,7 @@ CREATE TABLE `cartitem` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `category`
+-- Структура таблицы `category`
 --
 
 CREATE TABLE `category` (
@@ -61,7 +60,7 @@ CREATE TABLE `category` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `category`
+-- Дамп данных таблицы `category`
 --
 
 INSERT INTO `category` (`id`, `name`, `description`) VALUES
@@ -71,7 +70,7 @@ INSERT INTO `category` (`id`, `name`, `description`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `favorites`
+-- Структура таблицы `favorites`
 --
 
 CREATE TABLE `favorites` (
@@ -83,7 +82,7 @@ CREATE TABLE `favorites` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `favourite_list`
+-- Структура таблицы `favourite_list`
 --
 
 CREATE TABLE `favourite_list` (
@@ -92,18 +91,22 @@ CREATE TABLE `favourite_list` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `favourite_list`
+-- Дамп данных таблицы `favourite_list`
 --
 
 INSERT INTO `favourite_list` (`product_id`, `user_id`) VALUES
+(3, 10),
 (3, 13),
 (4, 10),
-(5, 13);
+(5, 13),
+(10, 10),
+(12, 10),
+(13, 10);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `order`
+-- Структура таблицы `order`
 --
 
 CREATE TABLE `order` (
@@ -121,7 +124,7 @@ CREATE TABLE `order` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `orderitem`
+-- Структура таблицы `orderitem`
 --
 
 CREATE TABLE `orderitem` (
@@ -134,7 +137,7 @@ CREATE TABLE `orderitem` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `product`
+-- Структура таблицы `product`
 --
 
 CREATE TABLE `product` (
@@ -150,7 +153,7 @@ CREATE TABLE `product` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `product`
+-- Дамп данных таблицы `product`
 --
 
 INSERT INTO `product` (`id`, `name`, `description`, `price`, `isavailable`, `image`, `User_id`, `category_id`, `isMetric`) VALUES
@@ -172,8 +175,8 @@ INSERT INTO `product` (`id`, `name`, `description`, `price`, `isavailable`, `ima
 -- --------------------------------------------------------
 
 --
--- Table structure for table `shops`
--- d
+-- Структура таблицы `shops`
+--
 
 CREATE TABLE `shops` (
   `id` int(11) NOT NULL,
@@ -182,7 +185,7 @@ CREATE TABLE `shops` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `shops`
+-- Дамп данных таблицы `shops`
 --
 
 INSERT INTO `shops` (`id`, `name`, `address`) VALUES
@@ -193,7 +196,7 @@ INSERT INTO `shops` (`id`, `name`, `address`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `transaction`
+-- Структура таблицы `transaction`
 --
 
 CREATE TABLE `transaction` (
@@ -208,7 +211,7 @@ CREATE TABLE `transaction` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user`
+-- Структура таблицы `user`
 --
 
 CREATE TABLE `user` (
@@ -224,7 +227,7 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `user`
+-- Дамп данных таблицы `user`
 --
 
 INSERT INTO `user` (`id`, `first_name`, `last_name`, `username`, `passwd`, `email`, `mobile`, `User_Type_id`, `delivery_address`) VALUES
@@ -240,7 +243,7 @@ INSERT INTO `user` (`id`, `first_name`, `last_name`, `username`, `passwd`, `emai
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user_type`
+-- Структура таблицы `user_type`
 --
 
 CREATE TABLE `user_type` (
@@ -249,7 +252,7 @@ CREATE TABLE `user_type` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `user_type`
+-- Дамп данных таблицы `user_type`
 --
 
 INSERT INTO `user_type` (`id`, `Utypename`) VALUES
@@ -257,11 +260,11 @@ INSERT INTO `user_type` (`id`, `Utypename`) VALUES
 (2, 'Client');
 
 --
--- Indexes for dumped tables
+-- Индексы сохранённых таблиц
 --
 
 --
--- Indexes for table `address`
+-- Индексы таблицы `address`
 --
 ALTER TABLE `address`
   ADD PRIMARY KEY (`id`),
@@ -269,7 +272,7 @@ ALTER TABLE `address`
   ADD KEY `fk_address_order1_idx` (`order_id`);
 
 --
--- Indexes for table `cartitem`
+-- Индексы таблицы `cartitem`
 --
 ALTER TABLE `cartitem`
   ADD PRIMARY KEY (`id`),
@@ -277,14 +280,14 @@ ALTER TABLE `cartitem`
   ADD KEY `fk_cartItem_user1_idx` (`user_id`);
 
 --
--- Indexes for table `category`
+-- Индексы таблицы `category`
 --
 ALTER TABLE `category`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `name_UNIQUE` (`name`);
 
 --
--- Indexes for table `favourite_list`
+-- Индексы таблицы `favourite_list`
 --
 ALTER TABLE `favourite_list`
   ADD PRIMARY KEY (`product_id`,`user_id`),
@@ -292,14 +295,14 @@ ALTER TABLE `favourite_list`
   ADD KEY `fk_product_has_user_product1_idx` (`product_id`);
 
 --
--- Indexes for table `order`
+-- Индексы таблицы `order`
 --
 ALTER TABLE `order`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_shop_id` (`shopId`);
 
 --
--- Indexes for table `orderitem`
+-- Индексы таблицы `orderitem`
 --
 ALTER TABLE `orderitem`
   ADD PRIMARY KEY (`id`),
@@ -307,7 +310,7 @@ ALTER TABLE `orderitem`
   ADD KEY `fk_orderitem_order1_idx` (`order_id`);
 
 --
--- Indexes for table `product`
+-- Индексы таблицы `product`
 --
 ALTER TABLE `product`
   ADD PRIMARY KEY (`id`,`category_id`),
@@ -315,13 +318,13 @@ ALTER TABLE `product`
   ADD KEY `fk_product_category1_idx` (`category_id`);
 
 --
--- Indexes for table `shops`
+-- Индексы таблицы `shops`
 --
 ALTER TABLE `shops`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `transaction`
+-- Индексы таблицы `transaction`
 --
 ALTER TABLE `transaction`
   ADD PRIMARY KEY (`id`),
@@ -329,7 +332,7 @@ ALTER TABLE `transaction`
   ADD KEY `fk_transaction_user1_idx` (`user_id`);
 
 --
--- Indexes for table `user`
+-- Индексы таблицы `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id`,`User_Type_id`),
@@ -338,124 +341,124 @@ ALTER TABLE `user`
   ADD KEY `fk_user_User_Type1_idx` (`User_Type_id`);
 
 --
--- Indexes for table `user_type`
+-- Индексы таблицы `user_type`
 --
 ALTER TABLE `user_type`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `Utypename_UNIQUE` (`Utypename`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT для сохранённых таблиц
 --
 
 --
--- AUTO_INCREMENT for table `address`
+-- AUTO_INCREMENT для таблицы `address`
 --
 ALTER TABLE `address`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `cartitem`
+-- AUTO_INCREMENT для таблицы `cartitem`
 --
 ALTER TABLE `cartitem`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=165;
 
 --
--- AUTO_INCREMENT for table `category`
+-- AUTO_INCREMENT для таблицы `category`
 --
 ALTER TABLE `category`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `order`
+-- AUTO_INCREMENT для таблицы `order`
 --
 ALTER TABLE `order`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `orderitem`
+-- AUTO_INCREMENT для таблицы `orderitem`
 --
 ALTER TABLE `orderitem`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `product`
+-- AUTO_INCREMENT для таблицы `product`
 --
 ALTER TABLE `product`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
--- AUTO_INCREMENT for table `shops`
+-- AUTO_INCREMENT для таблицы `shops`
 --
 ALTER TABLE `shops`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `user`
+-- AUTO_INCREMENT для таблицы `user`
 --
 ALTER TABLE `user`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
--- AUTO_INCREMENT for table `user_type`
+-- AUTO_INCREMENT для таблицы `user_type`
 --
 ALTER TABLE `user_type`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- Constraints for dumped tables
+-- Ограничения внешнего ключа сохраненных таблиц
 --
 
 --
--- Constraints for table `address`
+-- Ограничения внешнего ключа таблицы `address`
 --
 ALTER TABLE `address`
   ADD CONSTRAINT `fk_address_order1` FOREIGN KEY (`order_id`) REFERENCES `order` (`id`),
   ADD CONSTRAINT `fk_address_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 
 --
--- Constraints for table `cartitem`
+-- Ограничения внешнего ключа таблицы `cartitem`
 --
 ALTER TABLE `cartitem`
   ADD CONSTRAINT `fk_cartItem_Product1` FOREIGN KEY (`Product_id`) REFERENCES `product` (`id`),
   ADD CONSTRAINT `fk_cartItem_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 
 --
--- Constraints for table `favourite_list`
+-- Ограничения внешнего ключа таблицы `favourite_list`
 --
 ALTER TABLE `favourite_list`
   ADD CONSTRAINT `fk_product_has_user_product1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`),
   ADD CONSTRAINT `fk_product_has_user_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 
 --
--- Constraints for table `order`
+-- Ограничения внешнего ключа таблицы `order`
 --
 ALTER TABLE `order`
   ADD CONSTRAINT `fk_shop_id` FOREIGN KEY (`shopId`) REFERENCES `shops` (`id`);
 
 --
--- Constraints for table `orderitem`
+-- Ограничения внешнего ключа таблицы `orderitem`
 --
 ALTER TABLE `orderitem`
   ADD CONSTRAINT `fk_orderitem_Product1` FOREIGN KEY (`Product_id`) REFERENCES `product` (`id`),
   ADD CONSTRAINT `fk_orderitem_order1` FOREIGN KEY (`order_id`) REFERENCES `order` (`id`);
 
 --
--- Constraints for table `product`
+-- Ограничения внешнего ключа таблицы `product`
 --
 ALTER TABLE `product`
   ADD CONSTRAINT `fk_Product_User1` FOREIGN KEY (`User_id`) REFERENCES `user` (`id`),
   ADD CONSTRAINT `fk_product_category1` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`);
 
 --
--- Constraints for table `transaction`
+-- Ограничения внешнего ключа таблицы `transaction`
 --
 ALTER TABLE `transaction`
   ADD CONSTRAINT `fk_transaction_order1` FOREIGN KEY (`order_id`) REFERENCES `order` (`id`),
   ADD CONSTRAINT `fk_transaction_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 
 --
--- Constraints for table `user`
+-- Ограничения внешнего ключа таблицы `user`
 --
 ALTER TABLE `user`
   ADD CONSTRAINT `fk_user_User_Type1` FOREIGN KEY (`User_Type_id`) REFERENCES `user_type` (`id`);
