@@ -1,11 +1,23 @@
 import React from 'react';
 import { Card, Image, Icon, Button } from 'semantic-ui-react';
+import axios from "axios";
 // import { faHeart } from "@fortawesome/free-solid-svg-icons";
 // import { faHeartBroken } from "@fortawesome/free-solid-svg-icons";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const ProductCard = ( product) => {
-    const {  name, description, image, price, addToCart, addedCount, addToFavourites, isFavorite } = product;
+    const { name, description, image, price, addToCart, addedCount, addToFavourites, isFavorite } = product;
+
+    const addCart = () => {
+        const res = axios.post('http://localhost:3001/addCart', {
+            userId: localStorage.getItem("id"),
+                productId: product.id
+            })
+        addToCart(product)
+    }
+
+
+
     return(
     <Card>
       
@@ -35,7 +47,7 @@ const ProductCard = ( product) => {
         </p>
       </Card.Content>
       <Button 
-        onClick={addToCart.bind(this, product)}
+        onClick={addCart}
       >
         Dodaj do kosza
         {addedCount > 0  && `(${addedCount})`}

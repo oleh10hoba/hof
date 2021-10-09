@@ -2,12 +2,26 @@ import React from 'react';
 import { Menu, Popup, List, Button, Image } from 'semantic-ui-react';
 import {Link} from "react-router-dom";
 import {logout} from "../actions/auth"
+import axios from "axios";
+import {removeFromCart} from "../actions/cart";
 
-const CartComponent = ({ title, id, image, removeFromCart }) => (
+const CartComponent = ({ title, id, image, removeFromCart }) =>
+
+{   const removeCart = () => {
+    axios.post('http://localhost:3001/removeCart', {
+        userId: localStorage.getItem("id"),
+        productId: id
+    })
+    removeFromCart(id)
+}
+
+    return(
+
+
   <List selection divided verticalAlign="middle">
     <List.Item>
       <List.Content floated="right">
-        <Button onClick={removeFromCart.bind(this, id)} color="red">
+        <Button onClick={removeCart} color="red">
           Usuń
         </Button>
       </List.Content>
@@ -17,7 +31,9 @@ const CartComponent = ({ title, id, image, removeFromCart }) => (
   </List>
 );
 
-const MenuComponents = ({ totalPrice, count, items, isLogged }) => (
+}
+
+const MenuComponents = ({ totalPrice, removeFromCart, count, items, isLogged }) => (
       <Menu>
         {isLogged &&
           <Menu.Item
@@ -84,8 +100,8 @@ const MenuComponents = ({ totalPrice, count, items, isLogged }) => (
                 Kosz (<b>{count}</b>)
               </Menu.Item>
             }
-            content={items.map(product => (
-              <CartComponent {...product} />
+            content={items.map((product,i) => (
+              <CartComponent removeFromCart={removeFromCart} key={i} {...product} />
             ))}
             on="click"
             hideOnScroll

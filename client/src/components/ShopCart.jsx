@@ -1,59 +1,69 @@
 import React, { useState } from 'react';
 import { List, Button, Image } from 'semantic-ui-react';
-import {Field, reduxForm} from "redux-form";
-import {Switch,  Redirect} from 'react-router-dom'
-import {BrowserRouter as Router, Route} from "react-router-dom";
 import {Link} from "react-router-dom";
-import Pay from './Pay';
-import account from '../reducers/shops';
 import axios from "axios";
-import userEvent from "@testing-library/user-event";
 import Select from 'react-select'
 
-const CartComponent = product => {
-    const {addToCart, subFromCart,  count} = product;
+
+const CartComponent = (product) => {
+    const { subFromCart, addedCount,removeFromCart, addToCart, count} = product;
+
+    const addCart = () => {
+         const res = axios.post('http://localhost:3001/addCart', {
+             userId: localStorage.getItem("id"),
+             productId: product.id
+         })
+        addToCart(product)
+    }
+
+    const removeCart = () => {
+         axios.post('http://localhost:3001/removeCart', {
+            userId: localStorage.getItem("id"),
+            productId: product.id
+        })
+        removeFromCart(product.id)
+    }
 
     return(
 
         <List selection divided verticalAlign="middle">
             <List.Item>
-                {console.log(product)}
                 <List.Content floated="right">
-                <Button 
-                    // onClick={removeFromCart.bind(this, id)}
+                    <Button
+                        // onClick={removeFromCart.bind(this, id)}
 
-                    // onClick={addToCart.bind(this, product)}
-                    color="green"
+                        //  onClick={addToCart.bind(this, product)}
+                        onClick = {addCart}
 
-                >
-                    +
-                </Button>
-                <Button
-                    // onClick={product.subFromCart.bind(this, product.id)}
-                    color="orange"
-                >
-                    -
-                </Button>
-                <Button
-                    // onClick={product.removeFromCart.bind(this, product.id)}
-                    color="red"
-                >
-                    Usuń
-                </Button>
+                        color="green"
+
+                    >
+                        +
+                    </Button>
+                    <Button
+                        //  onClick={product.subFromCart.bind(this, product.id)}
+                        color="orange"
+                    >
+                        -
+                    </Button>
+                    <Button
+                        // onClick={product.removeFromCart.bind(this, product.id)}
+                        onClick={removeCart}
+                        color="red"
+                    >
+                        Usuń
+                    </Button>
                 </List.Content>
                 <Image avatar src={product.image} />
                 <List.Content>{product.title}</List.Content>
-                </List.Item>
+            </List.Item>
         </List>
     );
 };
 
 const ShopCart = (props) => {
-     const {  totalPrice, count, items, account, shops, isReady,setCart, addToCart } = props;
-    axios.post('http://localhost:3001/refreshCart', {
-        userId: localStorage.getItem("id")}).then(({data}) => {
-        props.setCart(data)
-    });
+     const {  totalPrice, count, items, account, shops, isReady,setCart, addToCart,removeFromCart } = props;
+
 
     const receptions = [
         { value: 'delivery', label: 'Dostawa do domu' },
@@ -66,12 +76,15 @@ const ShopCart = (props) => {
     const shops_sel = 
         shops.map((shop, i) =>
             ({value:shop.id, label:shop.address}))
-        
-   
+
+
+
     return(
      <>
-            {items.map(product => (
-              <CartComponent {...product} />
+
+
+            {items.map((product, i) => (
+              <CartComponent key={i} {...product}  removeFromCart={removeFromCart} addToCart={addToCart}/>
             ))}
             <div>
                 { totalPrice > 0

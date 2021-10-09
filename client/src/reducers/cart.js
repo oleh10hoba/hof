@@ -18,10 +18,7 @@ const cart = (state = initialState, action) => {
                 items: [...state.items, action.payload]
             };
         case 'SUB_PRODUCT_FROM_CART':
-            return {
-                ...state,
-                items: state.items
-            };
+            console.log("nice")
 
         case 'REMOVE_PRODUCT_FROM_CART':
             return {
