@@ -32,9 +32,11 @@ const ProductCard = ( product) => {
         <p>
           <Icon name="money" />
           {price}
+          <form onSubmit={product.handleSubmit} >
           <div className="Like">
             <button
               onClick={addToFavourites.bind(this, product)}
+              type="submit"
             >
                 {isFavorite 
                 ?
@@ -44,6 +46,7 @@ const ProductCard = ( product) => {
                 }
             </button>
           </div>
+          </form>
         </p>
       </Card.Content>
       <Button 
