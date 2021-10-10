@@ -19,10 +19,7 @@ import {setCart} from "../actions/cart";
 class App extends Component{
   componentWillMount(){ 
     const {setCart , products, setProducts, setFavorites, setAccount, setShops } = this.props;
-     axios.post('http://localhost:3001/refreshCart', {
-       userId: localStorage.getItem("id")}).then(({data}) => {
-       setCart(data)
-     });
+
 
 
 
@@ -40,7 +37,10 @@ class App extends Component{
       setShops(data);
     });
 
-
+    axios.post('http://localhost:3001/refreshCart', {
+      userId: localStorage.getItem("id")}).then(({data}) => {
+      setCart(data)
+    });
 
   }
 

@@ -23,12 +23,14 @@ const CartComponent = (product) => {
         })
         removeFromCart(product.id)
     }
+
     return(
 
         <List selection divided verticalAlign="middle">
             <List.Item>
                 <List.Content floated="right">
                     <Button
+
                         // onClick={removeFromCart.bind(this, id)}
 
                         //  onClick={addToCart.bind(this, product)}
@@ -53,15 +55,17 @@ const CartComponent = (product) => {
                         Usuń
                     </Button>
                 </List.Content>
-                <Image avatar src={product.image} />
-                <List.Content>{product.title}</List.Content>
+                <Image avatar style={{'font-size':64}} src={product.image} />
+
+                <List.Content>{product.name} {addedCount}</List.Content>
+
             </List.Item>
         </List>
     );
 };
 
 const ShopCart = (props) => {
-     const {  totalPrice, count, items, account, shops, isReady,setCart, addToCart,removeFromCart } = props;
+     const {  totalPrice,addedCount, count, items, account, shops, isReady,setCart, addToCart,removeFromCart } = props;
 
 
     const receptions = [
@@ -77,14 +81,14 @@ const ShopCart = (props) => {
             ({value:shop.id, label:shop.address}))
 
 
-
     return(
      <>
 
 
             {items.map((product, i) => (
-              <CartComponent key={i} {...product}  removeFromCart={removeFromCart} addToCart={addToCart}/>
-            ))}
+         <CartComponent key={i} {...product} addedCount={addedCount}  removeFromCart={removeFromCart} addToCart={addToCart}/>
+     ))}
+
             <div>
                 { totalPrice > 0
                 ?
@@ -97,7 +101,7 @@ const ShopCart = (props) => {
                         <Link to={{
                                     pathname:"/pay",
                                     state: {
-                                        totalPrice:totalPrice,
+                                        totalPrice:totalPrice
                                     }
                                 }}
                             >

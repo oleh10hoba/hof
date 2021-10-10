@@ -6,7 +6,7 @@ const con = () =>{
    console.log("Yes")     
 }
 const Filter = ({ setFilter, filterBy, searchQuery }) =>{
-    function handleChange(e)    {
+    function handleChange(e){
         console.log(e.target.value)
       }
     return(

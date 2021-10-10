@@ -14,14 +14,16 @@ import * as shopsAction from '../actions/shops';
 //     fav: uniqBy(cart.fav, o => o.id),
 //   }); 
 
+
+
 const mapStateToProps = ({ cart }, { id }) => ({
   totalPrice: cart.items.reduce((total, product) => parseFloat((total + product.price).toFixed(2)), 0),
     count: cart.items.length,
     items: uniqBy(cart.items, o => o.id),
     fav: uniqBy(cart.fav, o => o.id),
-    addedCount: cart.items.reduce((count, product) => count + (product.id === id ? 1 : 0), 0),
-    // shops: shops.items
-  });
+  addedCount: cart.items.reduce((count, product) => count + (product.id === id ? 1 : 0), 0),
+})
+
 
 const mapDispatchToProps = dispatch => ({
   ...bindActionCreators(cartActions, dispatch)

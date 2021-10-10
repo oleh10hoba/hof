@@ -65,6 +65,26 @@ app.post('/refreshCart', async(req, res) => {
     )
 })
 
+app.post('/addOrder', async(req, res) => {
+    const userId = req.body.userId
+    const total = req.body.total
+    const address = req.body.address
+    const mobile = req.body.mobile
+    const shopId = req.body.shopId
+
+    db.query('INSERT into `order` (status,total,address,mobile,created_at,isSelfPickup,shopId) values ("wykonanie",?,?,?,Now(),1,?)',[total,address,mobile,shopId],
+        (err,result) => {
+            if (err) {
+                console.log(err)
+            }
+            else {
+                res.send(result)
+            }
+        }
+    )
+})
+
+
 app.post('/addCart', async(req, res) => {
     const userId = req.body.userId
     const productId = req.body.productId

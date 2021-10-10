@@ -1,30 +1,47 @@
 import React, {useEffect} from 'react'
+import axios from 'axios'
+
 
 const Pay = ({ totalPrice, method }) =>
 {
+
+    const payOrder = (e) => {
+        e.preventDefault()
+        console.log(totalPrice)
+        axios.post("http://localhost:3001/addOrder",{
+        userId: localStorage.getItem("id"),
+        total: totalPrice,
+            address : "nadbystrzycka 41A",
+            mobile: "+380973333830",
+            shopId: 1
+
+        })
+
+    }
+
     return(
         <>
         {console.log("Method: ", method)}
             <div className="card">
-                    <form class="checkout">
+                    <form className="checkout">
                     <div className="Pay">
-                        <div class="checkout-header">
-                        <h1 class="checkout-title">
+                        <div className="checkout-header">
+                        <h1 className="checkout-title">
                             Suma: &nbsp; <b>{totalPrice}</b> zł.
-                            { <span class="checkout-price">{totalPrice}</span> }
+                            { <span className="checkout-price">{totalPrice}</span> }
                         </h1>
                         </div>
                         <p>
-                            <input type="text" class="checkout-input checkout-name" placeholder="Twoje imie" autofocus/>
-                            <input type="text" class="checkout-input checkout-exp" placeholder="MM"/>
-                            <input type="text" class="checkout-input checkout-exp" placeholder="YY"/>
+                            <input type="text" className="checkout-input checkout-name" placeholder="Twoje imie" autoFocus/>
+                            <input type="text" className="checkout-input checkout-exp" placeholder="MM"/>
+                            <input type="text" className="checkout-input checkout-exp" placeholder="YY"/>
                         </p>
                         <p>
-                            <input type="text" class="checkout-input checkout-card" placeholder="4111 1111 1111 1111"/>
-                            <input type="text" class="checkout-input checkout-cvc" placeholder="CVC"/>
+                            <input type="text" className="checkout-input checkout-card" placeholder="4111 1111 1111 1111"/>
+                            <input type="text" className="checkout-input checkout-cvc" placeholder="CVC"/>
                         </p>
                         <p>
-                            <input type="submit" value="Zapłać" class="checkout-btn"/>
+                            <input type="submit" onClick={payOrder} value="Zapłać" className="checkout-btn"/>
                         </p>
                     </div>
                 </form>
@@ -42,7 +59,7 @@ const Pay = ({ totalPrice, method }) =>
                     <input type="hidden" name="products[0].unitPrice" value="1000"/>
                     <input type="hidden" name="totalAmount" value="1000"/>
                     <input type="hidden" name="OpenPayu-Signature" value="sender=145227;algorithm=SHA-256;signature=bc94a8026d6032b5e216be112a5fb7544e66e23e68d44b4283ff495bdb3983a8"/>
-                    <button type="submit" formtarget="_blank" >Zapłać {totalPrice} zł z BLIK(PayU)</button>
+                    <button type="submit" formTarget="_blank" >Zapłać {totalPrice} zł z BLIK(PayU)</button>
                 </form >
             </div>
         </>
