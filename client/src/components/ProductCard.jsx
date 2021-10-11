@@ -33,7 +33,6 @@ const ProductCard = ( product) => {
         </Card.Meta>
       </Card.Content>
       <Card.Content extra>
-        <p>
           <Icon name="money" />
           {price}
           {/* <form onSubmit={product.handleSubmit} > */}
@@ -52,7 +51,6 @@ const ProductCard = ( product) => {
             </button>
           </div>
           {/* </form> */}
-        </p>
       </Card.Content>
       <Button 
         onClick={addCart}

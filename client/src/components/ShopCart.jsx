@@ -55,7 +55,7 @@ const CartComponent = (product) => {
                         Usuń
                     </Button>
                 </List.Content>
-                <Image avatar style={{'font-size':64}} src={product.image} />
+                <Image avatar style={{'fontSize':64}} src={product.image} />
 
                 <List.Content>{product.name} {addedCount}</List.Content>
 
