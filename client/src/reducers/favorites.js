@@ -22,9 +22,11 @@ const initialState = {
             axios.post('http://localhost:3001/addFavourites', {
                 userId: localStorage.getItem("id"),
                 productId: action.payload.id
-            },window.location.reload(false));
-
-            return state
+            });
+            return {
+                ...state,
+                items: [...state.items, action.payload]
+            }
 
         default:
             return state;
