@@ -2,10 +2,10 @@
 -- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Хост: 127.0.0.1
--- Время создания: Окт 09 2021 г., 15:14
--- Версия сервера: 10.4.21-MariaDB
--- Версия PHP: 7.3.31
+-- Host: localhost
+-- Generation Time: Oct 11, 2021 at 06:30 PM
+-- Server version: 10.4.21-MariaDB
+-- PHP Version: 8.0.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- База данных: `webapp`
+-- Database: `webapp`
 --
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `address`
+-- Table structure for table `address`
 --
 
 CREATE TABLE `address` (
@@ -38,7 +38,7 @@ CREATE TABLE `address` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `cartitem`
+-- Table structure for table `cartitem`
 --
 
 CREATE TABLE `cartitem` (
@@ -47,10 +47,33 @@ CREATE TABLE `cartitem` (
   `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `cartitem`
+--
+
+INSERT INTO `cartitem` (`id`, `Product_id`, `user_id`) VALUES
+(173, 4, 13),
+(174, 4, 13),
+(175, 3, 10),
+(176, 3, 10),
+(177, 3, 10),
+(178, 4, 10),
+(179, 4, 10),
+(180, 4, 10),
+(181, 3, 10),
+(182, 3, 10),
+(183, 4, 10),
+(184, 4, 10),
+(185, 10, 10),
+(186, 10, 10),
+(187, 10, 10),
+(188, 13, 10),
+(189, 13, 10);
+
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `category`
+-- Table structure for table `category`
 --
 
 CREATE TABLE `category` (
@@ -60,7 +83,7 @@ CREATE TABLE `category` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Дамп данных таблицы `category`
+-- Dumping data for table `category`
 --
 
 INSERT INTO `category` (`id`, `name`, `description`) VALUES
@@ -70,7 +93,7 @@ INSERT INTO `category` (`id`, `name`, `description`) VALUES
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `favorites`
+-- Table structure for table `favorites`
 --
 
 CREATE TABLE `favorites` (
@@ -82,7 +105,7 @@ CREATE TABLE `favorites` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `favourite_list`
+-- Table structure for table `favourite_list`
 --
 
 CREATE TABLE `favourite_list` (
@@ -91,22 +114,21 @@ CREATE TABLE `favourite_list` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Дамп данных таблицы `favourite_list`
+-- Dumping data for table `favourite_list`
 --
 
 INSERT INTO `favourite_list` (`product_id`, `user_id`) VALUES
-(3, 10),
 (3, 13),
-(4, 10),
 (5, 13),
-(10, 10),
-(12, 10),
+(7, 10),
+(8, 10),
+(9, 10),
 (13, 10);
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `order`
+-- Table structure for table `order`
 --
 
 CREATE TABLE `order` (
@@ -124,7 +146,7 @@ CREATE TABLE `order` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `orderitem`
+-- Table structure for table `orderitem`
 --
 
 CREATE TABLE `orderitem` (
@@ -137,7 +159,7 @@ CREATE TABLE `orderitem` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `product`
+-- Table structure for table `product`
 --
 
 CREATE TABLE `product` (
@@ -149,33 +171,35 @@ CREATE TABLE `product` (
   `image` text DEFAULT NULL,
   `User_id` int(11) NOT NULL,
   `category_id` int(11) NOT NULL,
-  `isMetric` tinyint(1) DEFAULT 0
+  `isMetric` tinyint(1) DEFAULT 0,
+  `quantity` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Дамп данных таблицы `product`
+-- Dumping data for table `product`
 --
 
-INSERT INTO `product` (`id`, `name`, `description`, `price`, `isavailable`, `image`, `User_id`, `category_id`, `isMetric`) VALUES
-(1, 'Mleko', '3.2%', 2.1, 1, 'https://digitalcontent.api.tesco.com/v2/media/ghs/964d2c59-5242-47f8-a090-979e841f4949/snapshotimagehandler_938846387.jpeg?h=540&w=540', 1, 1, 0),
-(3, 'Sliwka', 'Polska', 4.56, 1, 'https://images.albertsons-media.com/is/image/ABS/184140122?$ecom-pdp-desktop$&defaultImage=Not_Available&defaultImage=Not_Available', 10, 1, 0),
-(4, 'Jablko', 'Polska', 3.56, 1, 'https://img.tesco.com/Groceries/pi/000/0260000000000/IDShot_225x225.jpg', 10, 1, 0),
-(5, 'Grusza', 'Polska', 3.56, 0, 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Red_Apple.jpg/440px-Red_Apple.jpg', 10, 1, 0),
-(6, 'Chleb', 'Lublin pieczy', 2.5, 1, 'https://img.tesco.com/Groceries/pi/000/0282370000000/IDShot_225x225.jpg', 10, 1, 0),
-(7, 'Truskawki', 'Lubelskie 1kg', 10, 1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTe-GuVMn0NqfwC2yRhlST0p6suqjrnwq88GQ&usqp=CAU', 10, 1, 0),
-(8, 'Banan', 'Meksyka 1kg', 4.99, 1, 'http://promocje-24.pl/wp-content/uploads/2019/11/z17261860qamerykanie-jedza-wiecej-bananow-niz-jablek-i-poma.jpg', 10, 1, 0),
-(9, 'Pomarańcze', 'Portugalia 1kg', 4.99, 1, 'https://digitalcontent.api.tesco.com/v2/media/ghs/2c876d82-4f38-4520-8332-2225cb76643c/snapshotimagehandler_991727266.jpeg?h=540&w=540', 10, 1, 0),
-(10, 'Cytryna', 'Moldawia', 4.5, 1, 'https://digitalcontent.api.tesco.com/v2/media/ghs/ab78eb31-c14c-4ddd-ac0b-b7771e4fb8bb/snapshotimagehandler_875580756.jpeg?h=540&w=540', 10, 1, 0),
-(11, 'Gin', 'Londyn', 89, 1, 'https://digitalcontent.api.tesco.com/v2/media/ghs/ac3d81e8-c7a8-4532-8a72-510fac8666c0/4c675d34-4a02-4f0d-9ad7-ef179689f7da.jpeg?h=540&w=540', 10, 1, 0),
-(12, 'Croissant', 'Francja', 4.77, 1, 'https://img.tesco.com/Groceries/pi/837/5201360502837/IDShot_225x225.jpg', 10, 1, 0),
-(13, 'Ziemniak', 'młody polski 1kg', 1.29, 1, 'https://img.tesco.com/Groceries/pi/000/0262410000000/IDShot_225x225.jpg', 10, 1, 0),
-(14, 'Brokuł', 'polska 1szt', 3.5, 1, 'https://img.tesco.com/Groceries/pi/000/0268280000000/IDShot_225x225.jpg', 10, 1, 0),
-(15, 'Czosnek', 'polska 1szt', 0.5, 1, 'https://img.tesco.com/Groceries/pi/106/0000000001106/IDShot_225x225.jpg', 10, 1, 0);
+INSERT INTO `product` (`id`, `name`, `description`, `price`, `isavailable`, `image`, `User_id`, `category_id`, `isMetric`, `quantity`) VALUES
+(1, 'Mleko', '3.2%', 2.1, 1, 'https://digitalcontent.api.tesco.com/v2/media/ghs/964d2c59-5242-47f8-a090-979e841f4949/snapshotimagehandler_938846387.jpeg?h=540&w=540', 1, 1, 0, 1),
+(3, 'Sliwka', 'Polska', 4.56, 1, 'https://images.albertsons-media.com/is/image/ABS/184140122?$ecom-pdp-desktop$&defaultImage=Not_Available&defaultImage=Not_Available', 10, 1, 0, 1),
+(4, 'Jablko', 'Polska', 3.56, 1, 'https://img.tesco.com/Groceries/pi/000/0260000000000/IDShot_225x225.jpg', 10, 1, 0, 1),
+(5, 'Grusza', 'Polska', 3.56, 0, 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Red_Apple.jpg/440px-Red_Apple.jpg', 10, 1, 0, 6),
+(6, 'Chleb', 'Lublin pieczy', 2.5, 1, 'https://img.tesco.com/Groceries/pi/000/0282370000000/IDShot_225x225.jpg', 10, 1, 0, 1),
+(7, 'Truskawki', 'Lubelskie 1kg', 10, 1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTe-GuVMn0NqfwC2yRhlST0p6suqjrnwq88GQ&usqp=CAU', 10, 1, 0, 10),
+(8, 'Banan', 'Meksyka 1kg', 4.99, 1, 'http://promocje-24.pl/wp-content/uploads/2019/11/z17261860qamerykanie-jedza-wiecej-bananow-niz-jablek-i-poma.jpg', 10, 1, 0, 1),
+(9, 'Pomarańcze', 'Portugalia 1kg', 4.99, 1, 'https://digitalcontent.api.tesco.com/v2/media/ghs/2c876d82-4f38-4520-8332-2225cb76643c/snapshotimagehandler_991727266.jpeg?h=540&w=540', 10, 1, 0, 2),
+(10, 'Cytryna', 'Moldawia', 4.5, 1, 'https://digitalcontent.api.tesco.com/v2/media/ghs/ab78eb31-c14c-4ddd-ac0b-b7771e4fb8bb/snapshotimagehandler_875580756.jpeg?h=540&w=540', 10, 1, 0, 1),
+(11, 'Gin', 'Londyn', 89, 1, 'https://digitalcontent.api.tesco.com/v2/media/ghs/ac3d81e8-c7a8-4532-8a72-510fac8666c0/4c675d34-4a02-4f0d-9ad7-ef179689f7da.jpeg?h=540&w=540', 10, 1, 0, 1),
+(12, 'Croissant', 'Francja', 4.77, 1, 'https://img.tesco.com/Groceries/pi/837/5201360502837/IDShot_225x225.jpg', 10, 1, 0, 1),
+(13, 'Ziemniak', 'młody polski 1kg', 1.29, 1, 'https://img.tesco.com/Groceries/pi/000/0262410000000/IDShot_225x225.jpg', 10, 1, 0, 11),
+(14, 'Brokuł', 'polska 1szt', 3.5, 1, 'https://img.tesco.com/Groceries/pi/000/0268280000000/IDShot_225x225.jpg', 10, 1, 0, 2),
+(15, 'Czosnek', 'polska 1szt', 0.5, 1, 'https://img.tesco.com/Groceries/pi/106/0000000001106/IDShot_225x225.jpg', 10, 1, 0, 1),
+(26, 'burak', 'polski', 2.6, 1, ' https://digitalcontent.api.tesco.com/v2/media/ghs/ce76d695-b8c2-4e24-a751-dc09bbd967e0/a0dc1a95-f378-41c4-8364-32d9a4fde1fc.jpeg?h=540&w=540', 10, 1, 1, 5);
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `shops`
+-- Table structure for table `shops`
 --
 
 CREATE TABLE `shops` (
@@ -185,7 +209,7 @@ CREATE TABLE `shops` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Дамп данных таблицы `shops`
+-- Dumping data for table `shops`
 --
 
 INSERT INTO `shops` (`id`, `name`, `address`) VALUES
@@ -196,7 +220,7 @@ INSERT INTO `shops` (`id`, `name`, `address`) VALUES
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `transaction`
+-- Table structure for table `transaction`
 --
 
 CREATE TABLE `transaction` (
@@ -211,7 +235,7 @@ CREATE TABLE `transaction` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `user`
+-- Table structure for table `user`
 --
 
 CREATE TABLE `user` (
@@ -227,7 +251,7 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Дамп данных таблицы `user`
+-- Dumping data for table `user`
 --
 
 INSERT INTO `user` (`id`, `first_name`, `last_name`, `username`, `passwd`, `email`, `mobile`, `User_Type_id`, `delivery_address`) VALUES
@@ -235,7 +259,7 @@ INSERT INTO `user` (`id`, `first_name`, `last_name`, `username`, `passwd`, `emai
 (4, 'Oleh1', 'Foliush', 'hustman1', '12345', 'olvbman1@gmail.com', '+380973333830', 2, ''),
 (5, 'olvb', 'Folko', 'Dabm', '12345', 'das@i.ua', '123456789', 2, ''),
 (9, 'olehfo', 'Folko123', 'Dabm123', '12345', 'da123s@i.ua', '123456789', 2, ''),
-(10, 'Oleh ', 'Hoba', 'g10', '12345678', 'oleh10hoba@gmail.com', '882059519', 2, ''),
+(10, 'Oleh ', 'Hoba', 'g10', '12345678', 'oleh10hoba@gmail.com', '882059519', 2, 'Nadbystrzycka42/406 lublin 20-501'),
 (11, 'Oleh30', 'Hoba30', 'G30', '12345678', 'g30@gmail.com', '882059519', 2, ''),
 (12, 'Ojezhyk', 'Hoba', 'g31', '12345678', 'oleh100hoba@gmail.com', '882059519', 2, 'Nadbystrzycka42/406 lublin 20-501'),
 (13, 'Oleh', 'Hoba', 'g33', '1234567890', 'g33oleggoba@gmail.com', '882059519', 2, 'Nadbystrzycka 42/411');
@@ -243,7 +267,7 @@ INSERT INTO `user` (`id`, `first_name`, `last_name`, `username`, `passwd`, `emai
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `user_type`
+-- Table structure for table `user_type`
 --
 
 CREATE TABLE `user_type` (
@@ -252,7 +276,7 @@ CREATE TABLE `user_type` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Дамп данных таблицы `user_type`
+-- Dumping data for table `user_type`
 --
 
 INSERT INTO `user_type` (`id`, `Utypename`) VALUES
@@ -260,11 +284,11 @@ INSERT INTO `user_type` (`id`, `Utypename`) VALUES
 (2, 'Client');
 
 --
--- Индексы сохранённых таблиц
+-- Indexes for dumped tables
 --
 
 --
--- Индексы таблицы `address`
+-- Indexes for table `address`
 --
 ALTER TABLE `address`
   ADD PRIMARY KEY (`id`),
@@ -272,7 +296,7 @@ ALTER TABLE `address`
   ADD KEY `fk_address_order1_idx` (`order_id`);
 
 --
--- Индексы таблицы `cartitem`
+-- Indexes for table `cartitem`
 --
 ALTER TABLE `cartitem`
   ADD PRIMARY KEY (`id`),
@@ -280,14 +304,14 @@ ALTER TABLE `cartitem`
   ADD KEY `fk_cartItem_user1_idx` (`user_id`);
 
 --
--- Индексы таблицы `category`
+-- Indexes for table `category`
 --
 ALTER TABLE `category`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `name_UNIQUE` (`name`);
 
 --
--- Индексы таблицы `favourite_list`
+-- Indexes for table `favourite_list`
 --
 ALTER TABLE `favourite_list`
   ADD PRIMARY KEY (`product_id`,`user_id`),
@@ -295,14 +319,14 @@ ALTER TABLE `favourite_list`
   ADD KEY `fk_product_has_user_product1_idx` (`product_id`);
 
 --
--- Индексы таблицы `order`
+-- Indexes for table `order`
 --
 ALTER TABLE `order`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_shop_id` (`shopId`);
 
 --
--- Индексы таблицы `orderitem`
+-- Indexes for table `orderitem`
 --
 ALTER TABLE `orderitem`
   ADD PRIMARY KEY (`id`),
@@ -310,7 +334,7 @@ ALTER TABLE `orderitem`
   ADD KEY `fk_orderitem_order1_idx` (`order_id`);
 
 --
--- Индексы таблицы `product`
+-- Indexes for table `product`
 --
 ALTER TABLE `product`
   ADD PRIMARY KEY (`id`,`category_id`),
@@ -318,13 +342,13 @@ ALTER TABLE `product`
   ADD KEY `fk_product_category1_idx` (`category_id`);
 
 --
--- Индексы таблицы `shops`
+-- Indexes for table `shops`
 --
 ALTER TABLE `shops`
   ADD PRIMARY KEY (`id`);
 
 --
--- Индексы таблицы `transaction`
+-- Indexes for table `transaction`
 --
 ALTER TABLE `transaction`
   ADD PRIMARY KEY (`id`),
@@ -332,7 +356,7 @@ ALTER TABLE `transaction`
   ADD KEY `fk_transaction_user1_idx` (`user_id`);
 
 --
--- Индексы таблицы `user`
+-- Indexes for table `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id`,`User_Type_id`),
@@ -341,124 +365,124 @@ ALTER TABLE `user`
   ADD KEY `fk_user_User_Type1_idx` (`User_Type_id`);
 
 --
--- Индексы таблицы `user_type`
+-- Indexes for table `user_type`
 --
 ALTER TABLE `user_type`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `Utypename_UNIQUE` (`Utypename`);
 
 --
--- AUTO_INCREMENT для сохранённых таблиц
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT для таблицы `address`
+-- AUTO_INCREMENT for table `address`
 --
 ALTER TABLE `address`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT для таблицы `cartitem`
+-- AUTO_INCREMENT for table `cartitem`
 --
 ALTER TABLE `cartitem`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=165;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=190;
 
 --
--- AUTO_INCREMENT для таблицы `category`
+-- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT для таблицы `order`
+-- AUTO_INCREMENT for table `order`
 --
 ALTER TABLE `order`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT для таблицы `orderitem`
+-- AUTO_INCREMENT for table `orderitem`
 --
 ALTER TABLE `orderitem`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT для таблицы `product`
+-- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
--- AUTO_INCREMENT для таблицы `shops`
+-- AUTO_INCREMENT for table `shops`
 --
 ALTER TABLE `shops`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT для таблицы `user`
+-- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
--- AUTO_INCREMENT для таблицы `user_type`
+-- AUTO_INCREMENT for table `user_type`
 --
 ALTER TABLE `user_type`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- Ограничения внешнего ключа сохраненных таблиц
+-- Constraints for dumped tables
 --
 
 --
--- Ограничения внешнего ключа таблицы `address`
+-- Constraints for table `address`
 --
 ALTER TABLE `address`
   ADD CONSTRAINT `fk_address_order1` FOREIGN KEY (`order_id`) REFERENCES `order` (`id`),
   ADD CONSTRAINT `fk_address_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 
 --
--- Ограничения внешнего ключа таблицы `cartitem`
+-- Constraints for table `cartitem`
 --
 ALTER TABLE `cartitem`
   ADD CONSTRAINT `fk_cartItem_Product1` FOREIGN KEY (`Product_id`) REFERENCES `product` (`id`),
   ADD CONSTRAINT `fk_cartItem_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 
 --
--- Ограничения внешнего ключа таблицы `favourite_list`
+-- Constraints for table `favourite_list`
 --
 ALTER TABLE `favourite_list`
   ADD CONSTRAINT `fk_product_has_user_product1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`),
   ADD CONSTRAINT `fk_product_has_user_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 
 --
--- Ограничения внешнего ключа таблицы `order`
+-- Constraints for table `order`
 --
 ALTER TABLE `order`
   ADD CONSTRAINT `fk_shop_id` FOREIGN KEY (`shopId`) REFERENCES `shops` (`id`);
 
 --
--- Ограничения внешнего ключа таблицы `orderitem`
+-- Constraints for table `orderitem`
 --
 ALTER TABLE `orderitem`
   ADD CONSTRAINT `fk_orderitem_Product1` FOREIGN KEY (`Product_id`) REFERENCES `product` (`id`),
   ADD CONSTRAINT `fk_orderitem_order1` FOREIGN KEY (`order_id`) REFERENCES `order` (`id`);
 
 --
--- Ограничения внешнего ключа таблицы `product`
+-- Constraints for table `product`
 --
 ALTER TABLE `product`
   ADD CONSTRAINT `fk_Product_User1` FOREIGN KEY (`User_id`) REFERENCES `user` (`id`),
   ADD CONSTRAINT `fk_product_category1` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`);
 
 --
--- Ограничения внешнего ключа таблицы `transaction`
+-- Constraints for table `transaction`
 --
 ALTER TABLE `transaction`
   ADD CONSTRAINT `fk_transaction_order1` FOREIGN KEY (`order_id`) REFERENCES `order` (`id`),
   ADD CONSTRAINT `fk_transaction_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 
 --
--- Ограничения внешнего ключа таблицы `user`
+-- Constraints for table `user`
 --
 ALTER TABLE `user`
   ADD CONSTRAINT `fk_user_User_Type1` FOREIGN KEY (`User_Type_id`) REFERENCES `user_type` (`id`);

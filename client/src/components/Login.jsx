@@ -18,13 +18,13 @@ const FormLogin = (props) =>
                 <Field placeholder={"Password"} name={"password"} component={Input} validate={required}/>
             </div>
             <div>
-                <Field component={"input"} name={"rememberMe"} type={"checkbox"}/>remember me
+                <Field component={"input"} name={"rememberMe"} type={"checkbox"}/>zapamiętaj mnie
             </div>
             <div>
                 <button  
                     type="submit"
                 > 
-                    Submit
+                    ZALOGUJ
                 </button>
             </div>
         </form>
@@ -50,7 +50,7 @@ const Login = (props) => {
         <div className="Login">
         <h1>Login</h1>
         <ReduxLoginForm isLogged={props.isLogged}  onSubmit={onSubmit}/>
-        <button onClick={logout}>Logout</button>
+        <button onClick={logout}>Wyloguj</button>
         </div>
     )
 }

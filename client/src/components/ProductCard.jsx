@@ -1,11 +1,10 @@
 import React from 'react';
 import { Card, Image, Icon, Button } from 'semantic-ui-react';
 import axios from "axios";
-// import { faHeart } from "@fortawesome/free-solid-svg-icons";
-// import { faHeartBroken } from "@fortawesome/free-solid-svg-icons";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 
 const ProductCard = ( product) => {
+ 
     const { name, description, image, price, addToCart, addedCount, addToFavourites, isFavorite } = product;
 
     const addCart = () => {
@@ -15,7 +14,12 @@ const ProductCard = ( product) => {
             })
         addToCart(product)
     }
-
+    const addFav = () => {
+      addToFavourites.bind(this, product);
+      this.setState({
+        q: true
+    })
+  }
 
 
     return(
@@ -32,21 +36,22 @@ const ProductCard = ( product) => {
         <p>
           <Icon name="money" />
           {price}
-          <form onSubmit={product.handleSubmit} >
+          {/* <form onSubmit={product.handleSubmit} > */}
           <div className="Like">
             <button
               onClick={addToFavourites.bind(this, product)}
-              type="submit"
+              // onClick={addCart}
+              // type="submit"
             >
                 {isFavorite 
                 ?
                   <i className="material-icons">favorite</i>
                 : 
-                <i className="material-icons">favorite_border</i>
+                  <i className="material-icons">favorite_border</i>
                 }
             </button>
           </div>
-          </form>
+          {/* </form> */}
         </p>
       </Card.Content>
       <Button 
@@ -55,18 +60,6 @@ const ProductCard = ( product) => {
         Dodaj do kosza
         {addedCount > 0  && `(${addedCount})`}
     </Button>
-        
-        {/* <div
-            className="container"
-            style={{ border: "1px solid black", width: "15%" }}
-            onClick={() => this.toggle()}
-          >
-            {this.state.liked === false ? (
-              <FontAwesomeIcon icon={faHeart} />
-            ) : (
-              <FontAwesomeIcon icon={faHeartBroken} />
-            )}
-          </div> */}
     </Card>
     );
 };

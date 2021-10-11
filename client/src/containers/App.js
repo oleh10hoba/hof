@@ -16,7 +16,7 @@ const sortBy = (products, filterBy) => {
     case 'price_low':
       return orderBy(products, 'price', 'asc');
     case 'popular':
-      return orderBy(products, 'rating', 'desc');
+      return orderBy(products, 'quantity', 'desc');
     default:
       return products;
   }

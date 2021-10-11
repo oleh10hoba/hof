@@ -124,7 +124,8 @@ app.post('/addproduct', async(req, res) => {
     const image = req.body.imageState
     const category_id = req.body.categoryidState
     const isMetric = req.body.isMetric
-    db.query("insert into product(name,description,price,isavailable,image,User_id,category_id,isMetric) VALUES (?,?,?,?,?,10,?,?)",[name,description,price,isavailable,image,category_id,isMetric],
+    const quantity = req.body.quantity
+    db.query("insert into product(name,description,price,isavailable,image,User_id,category_id,isMetric, quantity) VALUES (?,?,?,?,?,10,?,?,?)",[name,description,price,isavailable,image,category_id,isMetric,quantity],
         (err,result) => {
             if (err) {
                 console.log(err)

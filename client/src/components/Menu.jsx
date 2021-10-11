@@ -106,7 +106,7 @@ const MenuComponents = ({ totalPrice, removeFromCart, count, items, isLogged }) 
             on="click"
             hideOnScroll
           />
-          {isLogged && <button onClick={logout}>Logout</button>}
+          {isLogged && <button onClick={logout}>Wyloguj</button>}
         </Menu.Menu>
         }
       </Menu> 

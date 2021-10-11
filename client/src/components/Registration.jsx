@@ -60,6 +60,7 @@ const Registration = (props) =>
 
     return (
         <div className="Registration">
+            <h1>Rejestracja</h1>
             <ReduxRegistrationForm onSubmit={onSubmit}/>
         </div>
 
