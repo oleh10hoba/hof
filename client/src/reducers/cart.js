@@ -13,10 +13,10 @@ const cart = (state = initialState, action) => {
             };
 
         case 'ADD_PRODUCT_TO_CART':
-            return {
-                ...state,
-                items: [...state.items, action.payload]
-            };
+            ;return {
+            ...state,
+            items: [...state.items, action.payload]
+        }
         case 'SUB_PRODUCT_FROM_CART':
             console.log("nice")
 

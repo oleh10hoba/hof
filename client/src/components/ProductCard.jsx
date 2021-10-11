@@ -5,7 +5,7 @@ import axios from "axios";
 
 const ProductCard = ( product) => {
  
-    const { name, description, image, price, addToCart, addedCount, addToFavourites, isFavorite } = product;
+    const { name, description, image, price, addToCart, addedCount, addToFavourites, isFavorite, removeFromFavourite} = product;
 
     const addCart = () => {
         const res = axios.post('http://localhost:3001/addCart', {
@@ -39,7 +39,7 @@ const ProductCard = ( product) => {
           {/* <form onSubmit={product.handleSubmit} > */}
           <div className="Like">
             <button
-              onClick={addToFavourites.bind(this, product)}
+              onClick={ isFavorite ?  removeFromFavourite.bind(this, product)  : addToFavourites.bind(this, product)}
               // onClick={addCart}
               // type="submit"
             >

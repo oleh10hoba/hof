@@ -153,7 +153,11 @@ app.post('/addFavourites',async(req,res) => {
                         if(err){
                             console.log(err)
                         }
+                        if(result) {
+                            console.log("deleted")
+                        }
                     }
+
                     )
             }
             else db.query('INSERT INTO favourite_list (product_id,user_id) values (?,?)',[productId,userId],
