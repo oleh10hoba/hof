@@ -75,7 +75,7 @@ const MenuComponents = ({ totalPrice, removeFromCart, count, items, isLogged }) 
         >
           <Link to="/contact">Kontakt</Link>
         </Menu.Item>
-        {isLogged &&  localStorage.getItem('id') == 10 &&
+        {isLogged &&  localStorage.getItem('userType') == 1 &&
            <Menu.Item
               name='editorials'
             >

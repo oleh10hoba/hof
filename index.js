@@ -215,13 +215,14 @@ app.post('/login',async(req,res)=> {
     try{
         const{login,password} = req.body
         if (login && password) {
-            db.query('SELECT id FROM user WHERE username = ? AND passwd = ?', [login, password], function(error, result) {
+            db.query('SELECT id, User_Type_id FROM user WHERE username = ? AND passwd = ?', [login, password], function(error, result) {
                 if (result.length > 0) {
                     const id = result[0].id
+                    // const userType = result[0].User_Type_id
                     const token = jwt.sign({id},"DAWKODKWAPOczksokWPWKApodkwaWEKpakdoaw", {
                         expiresIn: 300
                     })
-                    res.json({auth: true, token: token, id: result[0].id})
+                    res.json({auth: true, token: token, id: result[0].id, userType: result[0].User_Type_id})
                     
 
                 } else {

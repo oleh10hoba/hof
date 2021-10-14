@@ -73,7 +73,8 @@ class App extends Component{
           <Route path="/admin">
             {isLogged ?
             !isReady 
-              ? 'Loading...':
+              ? 'Loading...': 
+              localStorage.getItem('userType')!=1 ? 'Nie jesteś adminem' :
               <Admin />
               :
               <Login isLogged={isLogged}/>
@@ -152,6 +153,7 @@ class App extends Component{
             {isLogged ?
               <Container>
                 <Filter />
+                
                 <Card.Group itemsPerRow={8}>
                   {!isReady
                     ? 'Loading...'
@@ -160,7 +162,6 @@ class App extends Component{
                     )
                   }
                 </Card.Group>
-                <h1>HOF</h1>
               </Container>
               :
               <Login isLogged={isLogged}/>
