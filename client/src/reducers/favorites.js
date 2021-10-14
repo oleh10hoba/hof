@@ -18,7 +18,6 @@ const initialState = {
                 ...state,
                 isReady: action.payload
             };
-            break
         case 'ADD_FAVORITES':
             axios.post('http://localhost:3001/addFavourites', {
                 userId: localStorage.getItem("id"),
@@ -28,7 +27,6 @@ const initialState = {
                 ...state,
                 items: [...state.items, action.payload]
             }
-    break
         case 'REMOVE_FAVORITES':
             axios.post('http://localhost:3001/addFavourites', {
                 userId: localStorage.getItem("id"),

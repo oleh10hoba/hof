@@ -2,7 +2,7 @@ import React, {useEffect} from 'react'
 import axios from 'axios'
 
 
-const Pay = ({ totalPrice, method }) =>
+const Pay = ({ totalPrice ,method }) =>
 {
 
     const payOrder = (e) => {
@@ -21,7 +21,6 @@ const Pay = ({ totalPrice, method }) =>
 
     return(
         <>
-        {console.log("Method: ", method)}
             <div className="card">
                     <form className="checkout">
                     <div className="Pay">

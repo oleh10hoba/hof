@@ -8,6 +8,8 @@ import Select from 'react-select'
 const CartComponent = (product) => {
     const { subFromCart, addedCount,removeFromCart, addToCart, count} = product;
 
+
+
     const addCart = () => {
          const res = axios.post('http://localhost:3001/addCart', {
              userId: localStorage.getItem("id"),
@@ -68,6 +70,7 @@ const ShopCart = (props) => {
      const {  totalPrice,addedCount, count, items, account, shops, isReady,setCart, addToCart,removeFromCart } = props;
 
 
+
     const receptions = [
         { value: 'delivery', label: 'Dostawa do domu' },
         { value: 'personal_pickup', label: 'Odbiór osobisty' }
@@ -76,9 +79,12 @@ const ShopCart = (props) => {
         { value: 'card', label: 'Karta' },
         { value: 'blik', label: 'BLIK' }
     ]
-    const shops_sel = 
+    const shops_sel =
         shops.map((shop, i) =>
-            ({value:shop.id, label:shop.address}))
+            ({value:shop.id,key:i, label:shop.address}))
+
+    const [shops_Sel,setShops_sel] = useState("")
+
 
 
     return(
@@ -96,8 +102,7 @@ const ShopCart = (props) => {
                         // onSubmit = {this.onTrigger}
                     >
                         <Select options={receptions} placeholder="Wybierz dostawę lub odbior osobisty w sklepie:"/>
-                        <Select options={shops_sel} placeholder="Wybierz slep z którego chcesz produkty:"/>
-                        {/* <Select  options={payments} placeholder="Wybierz metodę płatności:"/> */}
+                        <Select  onChange={e => setShops_sel(e.target.value)} options={shops_sel}  placeholder="Wybierz slep z którego chcesz produkty:" value={shops_Sel}/>
                         <Link to={{
                                     pathname:"/pay",
                                     state: {
