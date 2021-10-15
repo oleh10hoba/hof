@@ -71,17 +71,64 @@ app.post('/addOrder', async(req, res) => {
     const address = req.body.address
     const mobile = req.body.mobile
     const shopId = req.body.shopId
-
-    db.query('INSERT into `order` (status,total,address,mobile,created_at,isSelfPickup,shopId) values ("wykonanie",?,?,?,Now(),1,?)',[total,address,mobile,shopId],
+    db.query("SELECT * from `order` where user_id = ?",[userId],
         (err,result) => {
             if (err) {
                 console.log(err)
+            } else {
+            if(result[0] === undefined) {
+                db.query('INSERT into `order` (status,total,address,mobile,created_at,isSelfPickup,shopId,user_id) values ("wykonanie",?,?,?,Now(),1,?,?)',[total,address,mobile,shopId,userId],
+                    (err,result) => {
+                        if (err) {
+                            console.log(err)
+                        }
+                        else {
+                            db.query('INSERT IGNORE INTO orderitem (product_id, quanitty, order_id)\n' +
+                                'SELECT c.Product_id, COUNT(c.Product_id),o.id FROM cartitem c inner join `order` o on c.user_id = o.user_id WHERE c.user_id = ? GROUP BY Product_id ORDER BY COUNT(Product_id) DESC',[userId],(err,lastId) => {
+                                    if (err) {
+                                        console.log(err)
+                                    }
+                                    else{
+                                            db.query('delete from cartitem where user_id = ?',[userId])
+                                    }
+                                }
+                            )
+
+                        }
+                    }
+                )
             }
-            else {
-                res.send(result)
+            else{console.log('Order already exist')
+                db.query('DELETE oi\n' +
+                    '      FROM orderitem oi\n' +
+                    '      JOIN `order` o ON o.id = oi.order_id\n' +
+                    '     WHERE o.user_id = ?',[userId])
+                db.query('delete from `order` where user_id = ?',[userId])
+                db.query('INSERT into `order` (status,total,address,mobile,created_at,isSelfPickup,shopId,user_id) values ("wykonanie",?,?,?,Now(),1,?,?)',[total,address,mobile,shopId,userId],
+                    (err,result) => {
+                        if (err) {
+                            console.log(err)
+                        }
+                        else {
+                            db.query('INSERT IGNORE INTO orderitem (product_id, quanitty, order_id)\n' +
+                                'SELECT c.Product_id, COUNT(c.Product_id),o.id FROM cartitem c inner join `order` o on c.user_id = o.user_id WHERE c.user_id = ? GROUP BY Product_id ORDER BY COUNT(Product_id) DESC',[userId],(err,lastId) => {
+                                    if (err) {
+                                        console.log(err)
+                                    }
+                                    else{
+                                        db.query('delete from cartitem where user_id = ?',[userId])
+                                    }
+                                }
+                            )
+
+                        }
+                    }
+                )
+            }
             }
         }
-    )
+        )
+
 })
 
 

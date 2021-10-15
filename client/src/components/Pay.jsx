@@ -2,7 +2,7 @@ import React, {useEffect} from 'react'
 import axios from 'axios'
 
 
-const Pay = ({ totalPrice, method }) =>
+const Pay = ({ totalPrice ,method }) =>
 {
 
     const payOrder = (e) => {
