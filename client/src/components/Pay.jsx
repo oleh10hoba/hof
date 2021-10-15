@@ -22,6 +22,8 @@ const Pay = ({ totalPrice ,method }) =>
     return(
         <>
             <div className="card">
+            {/* {console.log("class: ",document.getElementsByClassName("rece"))} */}
+            {console.log("IIid: ",document.getElementById("shops").value)}
                     <form className="checkout">
                     <div className="Pay">
                         <div className="checkout-header">

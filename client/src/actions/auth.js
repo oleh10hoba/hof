@@ -36,6 +36,7 @@ export const login  = (data) => {
             const token = res.data.token;
             localStorage.setItem('jwtToken', token);
             localStorage.setItem('id', res.data.id);
+            localStorage.setItem('userType', res.data.userType);
             window.location.reload(false);
         });
 }

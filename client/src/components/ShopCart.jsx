@@ -68,7 +68,7 @@ const CartComponent = (product) => {
 
 const ShopCart = (props) => {
      const {  totalPrice,addedCount, count, items, account, shops, isReady,setCart, addToCart,removeFromCart } = props;
-
+  
 
 
     const receptions = [
@@ -101,8 +101,20 @@ const ShopCart = (props) => {
                     <form 
                         // onSubmit = {this.onTrigger}
                     >
-                        <Select options={receptions} placeholder="Wybierz dostawę lub odbior osobisty w sklepie:"/>
-                        <Select  onChange={e => setShops_sel(e.target.value)} options={shops_sel}  placeholder="Wybierz slep z którego chcesz produkty:" value={shops_Sel}/>
+
+                        {/* <Select options={receptions} id="rec" className="rece" placeholder="Wybierz dostawę lub odbior osobisty w sklepie:"/> */}
+                        {/* <Select options={shops_sel}  placeholder="Wybierz slep z którego chcesz produkty:"/> */}
+                        <select id="shops">
+                        {shops_sel.map((option) => (
+                            <option value={option.value}>{option.label}</option>
+                            ))}
+                        </select>
+                        <select id="rec">
+                        {receptions.map((option) => (
+                            <option value={option.value}>{option.label}</option>
+                            ))}
+                        </select>
+                        {/* <Select  options={payments} placeholder="Wybierz metodę płatności:"/> */}
                         <Link to={{
                                     pathname:"/pay",
                                     state: {
