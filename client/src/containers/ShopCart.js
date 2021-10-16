@@ -22,6 +22,7 @@ const mapStateToProps = ({ cart }, { id }) => ({
     items: uniqBy(cart.items, o => o.id),
     fav: uniqBy(cart.fav, o => o.id),
   addedCount: cart.items.reduce((count, product) => count + (product.id === id ? 1 : 0), 0),
+
 })
 
 

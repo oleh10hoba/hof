@@ -64,8 +64,8 @@ class App extends Component{
             </Route>
           <Route path="/pay">
             {isLogged 
-              ? 
-                <Pay/>
+              ?
+                <Pay  />
               :
                 <Login isLogged={isLogged}/>
             } 

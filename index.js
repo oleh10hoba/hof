@@ -71,13 +71,14 @@ app.post('/addOrder', async(req, res) => {
     const address = req.body.address
     const mobile = req.body.mobile
     const shopId = req.body.shopId
+    const selfpickup = req.body.selfpickup
     db.query("SELECT * from `order` where user_id = ?",[userId],
         (err,result) => {
             if (err) {
                 console.log(err)
             } else {
             if(result[0] === undefined) {
-                db.query('INSERT into `order` (status,total,address,mobile,created_at,isSelfPickup,shopId,user_id) values ("wykonanie",?,?,?,Now(),1,?,?)',[total,address,mobile,shopId,userId],
+                db.query('INSERT into `order` (status,total,address,mobile,created_at,isSelfPickup,shopId,user_id) values ("wykonanie",?,?,?,Now(),?,?,?)',[total,address,mobile,selfpickup,shopId,userId],
                     (err,result) => {
                         if (err) {
                             console.log(err)
@@ -104,8 +105,7 @@ app.post('/addOrder', async(req, res) => {
                     '      JOIN `order` o ON o.id = oi.order_id\n' +
                     '     WHERE o.user_id = ?',[userId])
                 db.query('delete from `order` where user_id = ?',[userId])
-                db.query('INSERT into `order` (status,total,address,mobile,created_at,isSelfPickup,shopId,user_id) values ("wykonanie",?,?,?,Now(),1,?,?)',[total,address,mobile,shopId,userId],
-                    (err,result) => {
+                db.query('INSERT into `order` (status,total,address,mobile,created_at,isSelfPickup,shopId,user_id) values ("wykonanie",?,?,?,Now(),?,?,?)',[total,address,mobile,selfpickup,shopId,userId],(err,result) => {
                         if (err) {
                             console.log(err)
                         }
