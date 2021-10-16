@@ -2,11 +2,14 @@ import React, {useEffect} from 'react'
 import axios from 'axios'
 import Account from "./Account";
 import {useLocation, link, Link} from 'react-router-dom'
+import { useHistory } from "react-router-dom";
+
 
 const Pay = ({ totalPrice,account }) =>
 {
     const location = useLocation()
     const {shop,rec} = location.params
+    const history = useHistory();
 
 
     const payOrder = (e) => {
@@ -24,7 +27,8 @@ const Pay = ({ totalPrice,account }) =>
             shopId: shop.selected,
             selfpickup: selfpickup
         })
-        window.location.reload()
+        history.push("/shop", { from: "pay" })
+        window.location.reload();
     }
 
     return(
