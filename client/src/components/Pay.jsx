@@ -1,29 +1,35 @@
 import React, {useEffect} from 'react'
 import axios from 'axios'
+import Account from "./Account";
+import {useLocation, link, Link} from 'react-router-dom'
 
-
-const Pay = ({ totalPrice ,method }) =>
+const Pay = ({ totalPrice,account }) =>
 {
+    const location = useLocation()
+    const {shop,rec} = location.params
+
 
     const payOrder = (e) => {
+        var selfpickup = 1
+        if(rec.selected === 'delivery'){
+            selfpickup = 0
+        }
         e.preventDefault()
         console.log(totalPrice)
         axios.post("http://localhost:3001/addOrder",{
         userId: localStorage.getItem("id"),
         total: totalPrice,
-            address : "nadbystrzycka 41A",
-            mobile: "+380973333830",
-            shopId: 1
-
+            address : account.delivery_address,
+            mobile: account.mobile,
+            shopId: shop.selected,
+            selfpickup: selfpickup
         })
-
+        window.location.reload()
     }
 
     return(
         <>
             <div className="card">
-            {/* {console.log("class: ",document.getElementsByClassName("rece"))} */}
-            {console.log("IIid: ",document.getElementById("shops").value)}
                     <form className="checkout">
                     <div className="Pay">
                         <div className="checkout-header">
@@ -63,6 +69,7 @@ const Pay = ({ totalPrice ,method }) =>
                     <button type="submit" formTarget="_blank" >Zapłać {totalPrice} zł z BLIK(PayU)</button>
                 </form >
             </div>
+
         </>
     )
 }

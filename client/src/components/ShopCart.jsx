@@ -3,6 +3,7 @@ import { List, Button, Image } from 'semantic-ui-react';
 import {Link} from "react-router-dom";
 import axios from "axios";
 import Select from 'react-select'
+import Account from "./Account";
 
 
 const CartComponent = (product) => {
@@ -67,9 +68,10 @@ const CartComponent = (product) => {
 };
 
 const ShopCart = (props) => {
-     const {  totalPrice,addedCount, count, items, account, shops, isReady,setCart, addToCart,removeFromCart } = props;
-  
+     const {  totalPrice,addedCount, count, items, shops, isReady,setCart, addToCart,removeFromCart } = props;
 
+     const [shopSelected,setShopSelected] = useState({selected:null})
+    const [recSelected,setRecSelected] = useState({selected:null})
 
     const receptions = [
         { value: 'delivery', label: 'Dostawa do domu' },
@@ -84,7 +86,6 @@ const ShopCart = (props) => {
             ({value:shop.id,key:i, label:shop.address}))
 
     const [shops_Sel,setShops_sel] = useState("")
-
 
 
     return(
@@ -104,24 +105,28 @@ const ShopCart = (props) => {
 
                         {/* <Select options={receptions} id="rec" className="rece" placeholder="Wybierz dostawę lub odbior osobisty w sklepie:"/> */}
                         {/* <Select options={shops_sel}  placeholder="Wybierz slep z którego chcesz produkty:"/> */}
-                        <select id="shops">
-                        {shops_sel.map((option) => (
-                            <option value={option.value}>{option.label}</option>
+                        <select onChange={e => setShopSelected({ selected: e.target.value || null })}  value={shopSelected.selected} id="shops">
+                            <option value="" selected disabled hidden>Choose here</option>
+                        {shops_sel.map((option, i) => (
+                            <option key={i} value={option.value}>{option.label}</option>
                             ))}
                         </select>
-                        <select id="rec">
-                        {receptions.map((option) => (
-                            <option value={option.value}>{option.label}</option>
+                        <select onChange={e => setRecSelected({ selected: e.target.value || null })}  value={recSelected.selected} id="rec">
+                            <option value="" selected disabled hidden>Choose here</option>
+                        {receptions.map((option, i) => (
+                            <option key={i} value={option.value}>{option.label}</option>
                             ))}
                         </select>
                         {/* <Select  options={payments} placeholder="Wybierz metodę płatności:"/> */}
-                        <Link to={{
-                                    pathname:"/pay",
-                                    state: {
-                                        totalPrice:totalPrice
-                                    }
-                                }}
-                            >
+
+                        <Link
+                            to={{
+                                pathname: "/pay",
+                                params: {shop: shopSelected,
+                                rec: recSelected
+                                }
+                            }}
+                        >
                                 <button type = "submit" value = "Submit"><h2>Zapłać {totalPrice}</h2></button>
                         </Link>
                 </form>
