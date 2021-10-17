@@ -102,24 +102,18 @@ const ShopCart = (props) => {
                     <form 
                         // onSubmit = {this.onTrigger}
                     >
-
-                        {/* <Select options={receptions} id="rec" className="rece" placeholder="Wybierz dostawę lub odbior osobisty w sklepie:"/> */}
-                        {/* <Select options={shops_sel}  placeholder="Wybierz slep z którego chcesz produkty:"/> */}
-                        <select onChange={e => setShopSelected({ selected: e.target.value || null })}  value={shopSelected.selected} id="shops">
-                            <option value="" selected disabled hidden>Choose here</option>
+                        <select required onChange={e => setShopSelected({ selected: e.target.value || null })}  value={shopSelected.selected} id="shops">
                         {shops_sel.map((option, i) => (
                             <option key={i} value={option.value}>{option.label}</option>
                             ))}
                         </select>
-                        <select onChange={e => setRecSelected({ selected: e.target.value || null })}  value={recSelected.selected} id="rec">
-                            <option value="" selected disabled hidden>Choose here</option>
+                        <select  required onChange={e => setRecSelected({ selected: e.target.value || null })}  value={recSelected.selected} id="rec">
+                            
                         {receptions.map((option, i) => (
                             <option key={i} value={option.value}>{option.label}</option>
                             ))}
                         </select>
-                        {/* <Select  options={payments} placeholder="Wybierz metodę płatności:"/> */}
-
-                        <Link
+                        <div><Link
                             to={{
                                 pathname: "/pay",
                                 params: {shop: shopSelected,
@@ -128,7 +122,7 @@ const ShopCart = (props) => {
                             }}
                         >
                                 <button type = "submit" value = "Submit"><h2>Zapłać {totalPrice}</h2></button>
-                        </Link>
+                        </Link></div>
                 </form>
                 :   <h2>Kosz jest pusty</h2>
 
