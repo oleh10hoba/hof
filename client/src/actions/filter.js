@@ -7,7 +7,3 @@ export const setSearchQuery = e => ({
     type: 'SET_QUERY',
     payload: e
 }); 
-
-// export const setSearchQuery = e => {
-//   console.log(e)
-// }

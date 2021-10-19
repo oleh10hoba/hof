@@ -1,13 +1,13 @@
 import React from 'react';
 import { Input, Menu } from 'semantic-ui-react';
-import { setSearchQuery } from '../actions/filter';
+// import { setSearchQuery } from '../actions/filter';
 
 const con = () =>{
    console.log("Yes")     
 }
-const Filter = ({ setFilter, filterBy, searchQuery }) =>{
+const Filter = ({ setFilter, filterBy, searchQuery, setSearchQuery }) =>{
     function handleChange(e){
-        console.log(e.target.value)
+        console.log(e)
       }
     return(
     <Menu secondary>
@@ -42,7 +42,7 @@ const Filter = ({ setFilter, filterBy, searchQuery }) =>{
                 icon='search' 
                 value={searchQuery} 
                 onChange={ e=> setSearchQuery(e.target.value)}
-                // onChange={handleChange}
+                // onChange={e => handleChange(e.target.value)}
                 placeholder="Szukaj..."
             />
         </Menu.Item>
