@@ -59,8 +59,8 @@ const CartComponent = (product) => {
                     </Button>
                 </List.Content>
                 <Image avatar style={{'fontSize':64}} src={product.image} />
-
-                <List.Content>{product.name} {addedCount}</List.Content>
+                {addedCount > 0  && `(${addedCount})`}
+                <List.Content>{product.name} {product.addedCount}</List.Content>
 
             </List.Item>
         </List>
@@ -69,6 +69,8 @@ const CartComponent = (product) => {
 
 const ShopCart = (props) => {
      const {  totalPrice,addedCount, count, items, shops, isReady,setCart, addToCart,removeFromCart } = props;
+
+
 
      const [shopSelected,setShopSelected] = useState({selected:null})
     const [recSelected,setRecSelected] = useState({selected:null})
