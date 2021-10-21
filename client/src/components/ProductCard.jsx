@@ -5,7 +5,7 @@ import axios from "axios";
 
 const ProductCard = ( product) => {
  
-    const { name, description, image, price, addToCart, addedCount, addToFavourites, isFavorite, removeFromFavourite} = product;
+    const { name, description, image, price, addToCart, addedCount, addToFavourites, isFavorite, removeFromFavourite,Category_Name} = product;
 
     const addCart = () => {
         const res = axios.post('http://localhost:3001/addCart', {
@@ -31,6 +31,9 @@ const ProductCard = ( product) => {
         <Card.Meta>
           <span className="date">{description}</span>
         </Card.Meta>
+            <Card.Meta>
+                <span className="date">{Category_Name}</span>
+            </Card.Meta>
       </Card.Content>
       <Card.Content extra>
           <Icon name="money" />

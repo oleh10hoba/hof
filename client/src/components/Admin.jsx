@@ -2,6 +2,8 @@ import Axios from "axios";
 import {Field, reduxForm} from "redux-form";
 import {Input} from "../utils/validators/formcontrols";
 import {required} from "../utils/validators/validator";
+import {Router, Route} from "react-router-dom";
+import React from "react";
 
 const AdminAdd = (props) => {
     return(

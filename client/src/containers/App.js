@@ -29,6 +29,7 @@ const filterProducts = (products, searchQuery) =>
       o.name.toLowerCase().indexOf(searchQuery.toLowerCase()) >=0 
       || 
       o.description.toLowerCase().indexOf(searchQuery.toLowerCase()) >= 0
+
 );
 
 const searchProducts = (products, filterBy, searchQuery) => {

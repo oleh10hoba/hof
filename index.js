@@ -292,7 +292,7 @@ app.post('/login',async(req,res)=> {
 })
 
 app.get("/getproducts", (req, res) => {
-    db.query("SELECT * FROM `product` WHERE `isavailable` = 1;", (err, result) => {
+    db.query("SELECT p.category_id, p.description, p.id, p.image, p.isavailable, p.isMetric, p.name, p.price, p.quantity, p.User_id,c.name as 'Category_Name' FROM `product` p INNER JOIN category c ON c.id = p.category_id  WHERE p.isavailable = 1", (err, result) => {
         if (err) {
             console.log(err);
         } else {
