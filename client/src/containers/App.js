@@ -5,9 +5,11 @@ import * as accountActions from '../actions/account';
 import * as loginAction from '../actions/auth';
 import * as shopsAction from '../actions/shops';
 import * as cartActions from '../actions/cart';
+import * as historyActions from '../actions/history';
 import App from '../components/App';
 import { bindActionCreators } from 'redux';
 import orderBy from 'lodash/orderBy.js';
+import axios from "axios";
 
 const sortBy = (products, filterBy) => {
   switch (filterBy) {
@@ -27,15 +29,21 @@ const filterProducts = (products, searchQuery) =>
   products.filter(
     o =>
       o.name.toLowerCase().indexOf(searchQuery.toLowerCase()) >=0 
-      || 
+      ||
       o.description.toLowerCase().indexOf(searchQuery.toLowerCase()) >= 0
-
+        ||
+        o.Category_Name.toLowerCase().indexOf(searchQuery.toLowerCase()) >= 0
 );
+
+axios.post('http://localhost:3001/getHistory', {
+    id: localStorage.getItem("id")}).then((data)=>{
+    return data
+})
 
 const searchProducts = (products, filterBy, searchQuery) => {
   return sortBy(filterProducts(products, searchQuery), filterBy);
 }
-const mapStateToProps = ({ products, favorites, account, filter, auth, shops }) => ({
+const mapStateToProps = ({ products, history, favorites, account, filter, auth, shops }) => ({
     products: 
       products.items &&
       searchProducts(products.items, filter.filterBy, filter.searchQuery),
@@ -43,13 +51,16 @@ const mapStateToProps = ({ products, favorites, account, filter, auth, shops }) 
       favorites.items &&
       searchProducts(favorites.items, filter.filterBy, filter.searchQuery),
     shops: shops.items,
+    history: history.items,
     isReady: favorites.isReady && products.isReady && account.isReady && shops.isReady,
     isLogged: localStorage.getItem('jwtToken'),// auth.isLogged,
     account: 
       account.items
   });
+
+
 const mapDispatchToProps = dispatch => ({
-  ...bindActionCreators(Object.assign({},cartActions,productsActions, favoritesActions, accountActions, loginAction, shopsAction), dispatch)
+  ...bindActionCreators(Object.assign({},historyActions,cartActions,productsActions, favoritesActions, accountActions, loginAction, shopsAction), dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

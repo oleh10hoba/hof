@@ -39,12 +39,14 @@ const Filter = ({ setFilter, filterBy, searchQuery, setSearchQuery }) =>{
         </Menu.Item>
         <Menu.Item>
             <Input 
-                icon='search' 
-                value={searchQuery} 
+                icon='search'
                 onChange={ e=> setSearchQuery(e.target.value)}
-                // onChange={e => handleChange(e.target.value)}
+                value={searchQuery}
                 placeholder="Szukaj..."
             />
+        </Menu.Item>
+        <Menu.Item onClick={() => {document.location.reload()}}>
+            Clear
         </Menu.Item>
     </Menu>
     

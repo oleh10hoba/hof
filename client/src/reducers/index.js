@@ -7,6 +7,7 @@ import account from './account';
 import auth from './auth';
 import shops from './shops';
 import logging from './login';
+import history from './history';
 import {reducer as formReducer} from 'redux-form'
 
 export default combineReducers({
@@ -18,6 +19,6 @@ export default combineReducers({
         filter,
         shops,
         auth,
-        
+        history,
         form:formReducer
 });

@@ -291,6 +291,17 @@ app.post('/login',async(req,res)=> {
 
 })
 
+app.post("/getHistory", (req, res) => {
+    const{id} = req.body
+    db.query("Select created_at, status from `order` where user_id = ?",[id] ,(err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            res.send(result);
+        }
+    });
+});
+
 app.get("/getproducts", (req, res) => {
     db.query("SELECT p.category_id, p.description, p.id, p.image, p.isavailable, p.isMetric, p.name, p.price, p.quantity, p.User_id,c.name as 'Category_Name' FROM `product` p INNER JOIN category c ON c.id = p.category_id  WHERE p.isavailable = 1", (err, result) => {
         if (err) {
@@ -313,7 +324,8 @@ app.get("/getshops", (req, res) => {
 
 app.post("/getfavorites", (req, res) => {
     const{id} = req.body
-    db.query("SELECT * FROM product p INNER JOIN favourite_list f ON p.id = f.product_id where f.User_id = ?;",[id], (err, result) => {
+    db.query("SELECT p.category_id, p.description, p.id, p.image, p.isavailable, p.isMetric, p.name, p.price, p.quantity, p.User_id,c.name as 'Category_Name' FROM product p INNER JOIN favourite_list f ON p.id = f.product_id INNER JOIN category c ON c.id = p.category_id where f.User_id = ?;",[id], (err, result) => {
+
         if (err) {
             console.log(err);
         } else {
