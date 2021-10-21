@@ -32,7 +32,7 @@ const ProductCard = ( product) => {
           <span className="date">{description}</span>
         </Card.Meta>
             <Card.Meta>
-                <span className="date">{Category_Name}</span>
+                <span className="Category">{Category_Name}</span>
             </Card.Meta>
       </Card.Content>
       <Card.Content extra>

@@ -71,7 +71,6 @@ const ShopCart = (props) => {
      const {  totalPrice,addedCount, count, items, shops, isReady,setCart, addToCart,removeFromCart } = props;
 
 
-
      const [shopSelected,setShopSelected] = useState({selected:null})
     const [recSelected,setRecSelected] = useState({selected:null})
 

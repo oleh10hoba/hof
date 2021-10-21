@@ -3,6 +3,7 @@ import Axios from "axios";
 import {Field, reduxForm} from "redux-form";
 import {Input} from "../utils/validators/formcontrols";
 import {required} from "../utils/validators/validator";
+import {Link} from "react-router-dom";
 
 const ChangeAddressForm = (props) => {
     return(
@@ -55,6 +56,7 @@ const Account = data => {
                 <ReduxChangeAddressForm onSubmit={onSubmit}/>
             </div>
         </div>
+        <Link to={{pathname:'/history'}}>Historia zamówień</Link>
     </div>
     );
 };

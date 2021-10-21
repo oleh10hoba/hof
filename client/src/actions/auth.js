@@ -18,7 +18,7 @@ export function logout() {
         localStorage.removeItem('jwtToken');
         localStorage.removeItem('id');
         window.location.reload(false);
-        alert("Wylogono!!!")
+        alert("Wylogowano!!!")
 }
 
 export const login  = (data) => {

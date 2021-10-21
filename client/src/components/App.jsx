@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, useState} from 'react';
 import axios from 'axios';
 import {BrowserRouter as Router, Route} from "react-router-dom";
 import Menu from '../containers/Menu';
@@ -12,13 +12,12 @@ import Contact from './Contact';
 import Registration from './Registration';
 import ShopCart from '../containers/ShopCart';
 import Admin from './Admin'
-import { login } from '../actions/auth';
-import {setCart} from "../actions/cart";
-// import  from 'lodash';
+import History from "../containers/History";
+
 
 class App extends Component{
   componentWillMount(){ 
-    const {setCart , products, setProducts, setFavorites, setAccount, setShops } = this.props;
+    const {setCart , setHistory, products, setProducts, setFavorites, setAccount, setShops } = this.props;
 
 
 
@@ -42,15 +41,24 @@ class App extends Component{
       setCart(data)
     });
 
+    axios.post('http://localhost:3001/getHistory', {
+      id: localStorage.getItem("id")}).then(({data}) => {
+      setHistory(data)
+    });
+
   }
 
 
+
   render() {
-    const { products, favorites, account, shops, isReady, isLogged, addToCart  } = this.props;
-    const isD = false;
+
+    const { products, favorites, account, shops, isReady, isLogged  } = this.props;
+
+
     return (
       <div >
         <Router className="Router">
+
           <Menu isLogged={isLogged}/>
             <Route path="/shopcart"> 
               {isLogged 
@@ -62,6 +70,17 @@ class App extends Component{
                   <Login isLogged={isLogged}/>
               }
             </Route>
+
+          <Route path="/history">
+            {isLogged
+                ?
+                !isReady
+                    ? 'Loading...':
+                    <History  isReady={isReady}/>
+                :
+                <Login isLogged={isLogged}/>
+            }
+          </Route>
           <Route path="/pay">
             {isLogged 
               ?
@@ -70,6 +89,7 @@ class App extends Component{
                 <Login isLogged={isLogged}/>
             } 
           </Route>
+
           <Route path="/admin">
             {isLogged ?
             !isReady 
@@ -166,8 +186,9 @@ class App extends Component{
               :
               <Login isLogged={isLogged}/>
             }
-
           </Route>
+
+
         </Router>
 
       </div>
