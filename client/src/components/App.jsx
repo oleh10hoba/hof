@@ -58,7 +58,6 @@ class App extends Component{
     return (
       <div >
         <Router className="Router">
-
           <Menu isLogged={isLogged}/>
             <Route path="/shopcart"> 
               {isLogged 

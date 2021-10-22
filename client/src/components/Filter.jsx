@@ -46,7 +46,7 @@ const Filter = ({ setFilter, filterBy, searchQuery, setSearchQuery }) =>{
             />
         </Menu.Item>
         <Menu.Item onClick={() => {document.location.reload()}}>
-            Clear
+            Wyczyść
         </Menu.Item>
     </Menu>
     
