@@ -72,7 +72,7 @@ app.post('/addOrder', async(req, res) => {
     const mobile = req.body.mobile
     const shopId = req.body.shopId
     const selfpickup = req.body.selfpickup
-    db.query("SELECT * from `order` where user_id = ?",[userId],
+    db.query("SELECT * from `order` where user_id = ? and status = 'wykonanie'",[userId],
         (err,result) => {
             if (err) {
                 console.log(err)
@@ -293,7 +293,7 @@ app.post('/login',async(req,res)=> {
 
 app.post("/getHistory", (req, res) => {
     const{id} = req.body
-    db.query("Select created_at, status from `order` where user_id = ?",[id] ,(err, result) => {
+    db.query("Select created_at, status, id from `order` where user_id = ?",[id] ,(err, result) => {
         if (err) {
             console.log(err);
         } else {
@@ -301,6 +301,18 @@ app.post("/getHistory", (req, res) => {
         }
     });
 });
+
+app.post("/getProductsFromOrder", (req, res) => {
+    const{id} = req.body
+    db.query("select p.name,c.quanitty from product p inner join orderitem c on c.Product_id = p.id where c.order_id = ?",[id] ,(err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            res.send(result);
+        }
+    });
+});
+
 
 app.get("/getproducts", (req, res) => {
     db.query("SELECT p.category_id, p.description, p.id, p.image, p.isavailable, p.isMetric, p.name, p.price, p.quantity, p.User_id,c.name as 'Category_Name' FROM `product` p INNER JOIN category c ON c.id = p.category_id  WHERE p.isavailable = 1", (err, result) => {
