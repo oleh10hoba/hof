@@ -1,14 +1,30 @@
 
 
+import axios from "axios";
+import {useState} from "react";
 
 const History = (props) =>
 {
 
+
+   const [products,setProducts] = useState(null)
+
+    var checker = false
+
+    async function getProductsFromOrder(id){
+        console.log(id)
+    axios.post("http://localhost:3001/getProductsFromOrder",{id:id}).then((data)=>{
+        setProducts(data.data)
+    })
+        checker = true
+    }
+    console.log(products)
+    
     const {history} = props
 if(history !== null) {
 return (
-    <div className="history">
-        <table  width="25%" border="1">
+    <div className="centered">
+        <table className="ui celled padded table" width="35%" border="1">
             <thead>
             <tr >
                 <td>&nbsp;Data</td>
@@ -20,15 +36,21 @@ return (
                 <tr key={i} >
                     <td>&nbsp;{history.created_at}</td>
                     <td>&nbsp;{history.status}</td>
+                    <button onClick={() => getProductsFromOrder(history.id)}>&nbsp;Pokaż produkty</button>
                 </tr>
             )}
             </tbody>
         </table>
 
-        <tr>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-        </tr>
+        <p> Produkty zamówione:</p>
+        {products !== null ?
+            products.map((product,i) =>
+               <div key={i}> {product.name} {product.quanitty}</div>
+                )
+        :
+           ""
+        }
+
 
 
     </div>
