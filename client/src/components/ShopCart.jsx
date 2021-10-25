@@ -4,10 +4,11 @@ import {Link} from "react-router-dom";
 import axios from "axios";
 import Select from 'react-select'
 import Account from "./Account";
+import cart from "../reducers/cart";
 
 
 const CartComponent = (product) => {
-    const { subFromCart, addedCount,removeFromCart, addToCart, count} = product;
+    const {  cartItems,removeFromCart, addToCart, count} = product;
 
 
 
@@ -59,8 +60,7 @@ const CartComponent = (product) => {
                     </Button>
                 </List.Content>
                 <Image avatar style={{'fontSize':64}} src={product.image} />
-                {addedCount > 0  && `(${addedCount})`}
-                <List.Content>{product.name} {product.addedCount}</List.Content>
+                <List.Content>{product.name} {cartItems.reduce((count, cart) => count + (cart.id === product.id ? 1 : 0), 0)}</List.Content>
 
             </List.Item>
         </List>
@@ -68,7 +68,7 @@ const CartComponent = (product) => {
 };
 
 const ShopCart = (props) => {
-     const {  totalPrice,addedCount, count, items, shops, isReady,setCart, addToCart,removeFromCart } = props;
+     const {  totalPrice,cartItems, count, items, shops, isReady,setCart, addToCart,removeFromCart } = props;
 
 
      const [shopSelected,setShopSelected] = useState({selected:null})
@@ -94,7 +94,7 @@ const ShopCart = (props) => {
 
 
             {items.map((product, i) => (
-         <CartComponent key={i} {...product} addedCount={addedCount}  removeFromCart={removeFromCart} addToCart={addToCart}/>
+         <CartComponent key={i} {...product} cartItems={cartItems}  removeFromCart={removeFromCart} addToCart={addToCart}/>
      ))}
 
             <div>
