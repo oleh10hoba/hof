@@ -34,7 +34,7 @@ return (
             <tbody>
             {history.map((history,i) =>
                 <tr key={i} >
-                    <td>&nbsp;{history.created_at}</td>
+                    <td>&nbsp;{history.created_at.slice(0, 19).replace('T', ' ')}</td>
                     <td>&nbsp;{history.status}</td>
                     <button onClick={() => getProductsFromOrder(history.id)}>&nbsp;Pokaż produkty</button>
                 </tr>
@@ -42,15 +42,28 @@ return (
             </tbody>
         </table>
 
-        <p> Produkty zamówione:</p>
+        <table className="ui red table">
+            <thead>
+            <tr>
+                <th>Nazwa produktu</th>
+                <th>Ilość</th>
+            </tr>
+            </thead>
+            <tbody>
+
         {products !== null ?
             products.map((product,i) =>
-               <div key={i}> {product.name} {product.quanitty}</div>
+                    <tr key={i}>
+                        <td>{product.name}</td>
+                        <td>{product.quanitty}</td>
+                    </tr>
                 )
         :
            ""
         }
 
+            </tbody>
+        </table>
 
 
     </div>

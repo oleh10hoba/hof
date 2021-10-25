@@ -85,7 +85,7 @@ app.post('/addOrder', async(req, res) => {
                         }
                         else {
                             db.query('INSERT IGNORE INTO orderitem (product_id, quanitty, order_id)\n' +
-                                'SELECT c.Product_id, COUNT(c.Product_id),o.id FROM cartitem c inner join `order` o on c.user_id = o.user_id WHERE c.user_id = ? GROUP BY Product_id ORDER BY COUNT(Product_id) DESC',[userId],(err,lastId) => {
+                                'SELECT c.Product_id, COUNT(c.Product_id),o.id FROM cartitem c inner join `order` o on c.user_id = o.user_id WHERE c.user_id = ? AND o.status= "wykonanie" GROUP BY Product_id ORDER BY COUNT(Product_id) DESC',[userId],(err,lastId) => {
                                     if (err) {
                                         console.log(err)
                                     }
