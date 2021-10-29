@@ -15,7 +15,7 @@ const FormLogin = (props) =>
                 <Field placeholder={"Login"} name={"login"} component={Input} validate={required} />
             </div>
             <div>
-                <Field placeholder={"Password"} name={"password"} component={Input} validate={required}/>
+                <Field placeholder={"Password"} type="password" name={"password"} component={Input} validate={required}/>
             </div>
             <div>
                 <Field component={"input"} name={"rememberMe"} type={"checkbox"}/>zapamiętaj mnie
