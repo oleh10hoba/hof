@@ -4,6 +4,7 @@ const mysql = require('mysql');
 const cors = require ('cors');
 const jwt = require('jsonwebtoken')
 
+//SELECT o.id, o.status, o.total, o.created_at, o.mobile, u.first_name, u.last_name, p.name,p.price,p.quantity from `order` o inner join user u on o.user_id = u.id inner join orderitem oi on oi.order_id = o.id inner join product p on p.id = oi.Product_id where o.status = "wykonanie"
 
 app.use(cors());
 app.use(express.json());

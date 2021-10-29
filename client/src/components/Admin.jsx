@@ -2,7 +2,7 @@ import Axios from "axios";
 import {Field, reduxForm} from "redux-form";
 import {Input} from "../utils/validators/formcontrols";
 import {required} from "../utils/validators/validator";
-import {Router, Route} from "react-router-dom";
+import {Router,Link, Route} from "react-router-dom";
 import React from "react";
 
 const AdminAdd = (props) => {
@@ -100,6 +100,32 @@ const Admin = (props) =>
         <div className="Admin">
             <ReduxAddProduct onSubmit={onSubmitAdd}/>
             <ReduxRemProduct onSubmit={onSubmitRem}/>
+            <Link to="/admin/adminListDoing">Wykonanie Zamowienia |</Link>
+            <Link to="/admin/adminListDone">| Wykonane Zamowienia</Link>
+            <Route path='/admin/adminListDoing'>
+                <table className="ui red table">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Data zamowienia</th>
+                        <th>Przycisk</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+
+                            <tr>
+                                <td>1</td>
+                                <td>Tytul</td>
+                                <td><button>Pokaż zamowienie</button></td>
+
+                            </tr>
+
+
+
+                    </tbody>
+                </table>
+            </Route>
         </div>
     )
         
