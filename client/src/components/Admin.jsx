@@ -153,9 +153,7 @@ const Admin = (props) =>
     const history = useHistory();
 
       const  GiveOrders = async() =>{
-            await Axios.post('http://localhost:3001/getOrders', {
-                id: localStorage.getItem("id")
-            }).then((response) => {
+            await Axios.get('http://localhost:3001/getOrdersAll').then((response) => {
                 const or = response.data.filter(orders => orders.status === "wykonanie")
                 const orD = response.data.filter(orders => orders.status === "wykonane")
                 setOrders(or)
