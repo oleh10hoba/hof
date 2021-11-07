@@ -28,14 +28,14 @@ const Filter = ({ setFilter, filterBy, searchQuery, setSearchQuery }) =>{
             active={filterBy === 'price_high'} 
             onClick={setFilter.bind(this, 'price_high')}
         >   
-            Drogie 
+            Najdroższe
         </Menu.Item>
         <Menu.Item 
             active={filterBy === 'price_low'} 
             onClick={setFilter.bind(this, 'price_low')}
             // onClick={handleChange}
         >
-            Tanie    
+            Najtańsze    
         </Menu.Item>
         <Menu.Item>
             <Input 
