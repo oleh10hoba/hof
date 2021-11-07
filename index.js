@@ -305,7 +305,30 @@ app.post("/getHistory", (req, res) => {
 
 app.post("/getProductsFromOrder", (req, res) => {
     const{id} = req.body
-    db.query("select p.name,c.quanitty from product p inner join orderitem c on c.Product_id = p.id where c.order_id = ?",[id] ,(err, result) => {
+    db.query("select u.first_name,o.isSelfPickup, u.delivery_address, u.mobile ,o.id,o.status,o.total, p.description,p.price, p.name,c.quanitty from product p inner join orderitem c on c.Product_id = p.id  inner join `order` o on c.order_id = o.id inner join user u on o.user_id = u.id where c.order_id = ?",[id] ,(err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            res.send(result);
+        }
+    });
+});
+
+app.post("/closeOrder", (req, res) => {
+    const{id} = req.body
+    db.query("UPDATE `order` set status = 'wykonane' WHERE id = (?) ",[id] ,(err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            res.send("Zamówienie zostało wykonane");
+        }
+    });
+});
+
+
+app.post("/getOrders", (req, res) => {
+    const id = req.body.id
+    db.query("SELECT * from `order` Where user_id = ? ",[id] ,(err, result) => {
         if (err) {
             console.log(err);
         } else {

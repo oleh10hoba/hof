@@ -15,6 +15,7 @@ import Admin from './Admin'
 import History from "../containers/History";
 
 
+
 class App extends Component{
   componentWillMount(){ 
     const {setCart , setHistory, products, setProducts, setFavorites, setAccount, setShops } = this.props;
@@ -186,8 +187,6 @@ class App extends Component{
               <Login isLogged={isLogged}/>
             }
           </Route>
-
-
         </Router>
 
       </div>

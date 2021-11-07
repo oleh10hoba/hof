@@ -3,7 +3,10 @@ import {Field, reduxForm} from "redux-form";
 import {Input} from "../utils/validators/formcontrols";
 import {required} from "../utils/validators/validator";
 import {Router,Link, Route} from "react-router-dom";
-import React from "react";
+import React, {useState} from "react";
+import axios from "axios";
+import { useHistory } from "react-router-dom";
+import { Button } from 'semantic-ui-react'
 
 const AdminAdd = (props) => {
     return(
@@ -70,6 +73,54 @@ const ReduxRemProduct = reduxForm({
     form: 'rem_product'
 })(AdminRem)
 
+
+const userTable = (order) => {
+    return(
+    <table className="ui red table">
+        <thead>
+        <tr>
+            <th>Imie Osoby</th>
+            <th>Telefon</th>
+            <th>Adres</th>
+            <th>Dostawa</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+                <td>{order[0].first_name}</td>
+                <td>{order[0].mobile}</td>
+               <td>{order[0].delivery_address}</td>
+            <td>{order[0].isSelfPickup === 0 ? "Tak" : "Nie"}</td>
+        </tr>
+        </tbody>
+    </table>
+    )
+}
+
+const orderTable = (orders,getProductsFromOrder) => {
+    return (
+        <table className="ui red table">
+            <thead>
+            <tr>
+                <th>Status</th>
+                <th>Data zamowienia</th>
+                <th>Przycisk</th>
+            </tr>
+            </thead>
+            <tbody>
+            {orders !== null ? orders.map((order,i) =>
+                <tr key ={i}>
+                    <td>&nbsp;{order.status}</td>
+                    <td>&nbsp;{order.created_at.slice(0, 19).replace('T', ' ')}</td>
+                    <td><Link onClick={() => getProductsFromOrder(order.id)} to="/admin/OrderPageInfo">Pokaż zamowienie</Link></td>
+                </tr>
+            ) : ""}
+            </tbody>
+
+        </table>
+    )
+}
+
 const Admin = (props) =>
 {
     const onSubmitRem = async(formData) =>{
@@ -96,33 +147,77 @@ const Admin = (props) =>
         }catch(err){console.log(err)}
     }
 
+    const [orders,setOrders] = useState(null)
+    const [ordersDone,setOrdersDone] = useState(null)
+    const [order,setOrder] = useState(null)
+    const history = useHistory();
+
+      const  GiveOrders = async() =>{
+            await Axios.post('http://localhost:3001/getOrders', {
+                id: localStorage.getItem("id")
+            }).then((response) => {
+                const or = response.data.filter(orders => orders.status === "wykonanie")
+                const orD = response.data.filter(orders => orders.status === "wykonane")
+                setOrders(or)
+                setOrdersDone(orD)
+
+            })
+    }
+
+
+    async function getProductsFromOrder(id) {
+        console.log(id)
+        axios.post("http://localhost:3001/getProductsFromOrder", {id: id}).then((data) => {
+            setOrder(data.data)
+
+        })
+    }
+
+        async function closeOrder(id){
+            console.log(id)
+            axios.post("http://localhost:3001/closeOrder",{id:id}).then((data) =>{
+                alert(data.data)
+                history.push("/admin", { from: "admin/OrderPageInfo" })
+            })
+
+    }
+
     return (
         <div className="Admin">
             <ReduxAddProduct onSubmit={onSubmitAdd}/>
             <ReduxRemProduct onSubmit={onSubmitRem}/>
-            <Link to="/admin/adminListDoing">Wykonanie Zamowienia |</Link>
-            <Link to="/admin/adminListDone">| Wykonane Zamowienia</Link>
+           <Button secondary> <Link onClick={GiveOrders} to="/admin/adminListDoing">Wykonanie Zamowienia</Link></Button>
+            <Button secondary><Link onClick={GiveOrders} to="/admin/adminListDone">Wykonane Zamowienia</Link></Button>
             <Route path='/admin/adminListDoing'>
+                {orderTable (orders,getProductsFromOrder) }
+            </Route>
+
+            <Route path='/admin/adminListDone'>
+                {orderTable (ordersDone,getProductsFromOrder) }
+            </Route>
+            <Route path='/admin/OrderPageInfo'>
+                {order !== null ? userTable(order) : ""}
                 <table className="ui red table">
                     <thead>
                     <tr>
-                        <th>Id</th>
-                        <th>Data zamowienia</th>
-                        <th>Przycisk</th>
+                        <th>Nazwa produktu</th>
+                        <th>Ilość</th>
+                        <th>Opis</th>
+                        <th>Cena Produktu</th>
+                        <th>Cena</th>
                     </tr>
                     </thead>
                     <tbody>
-
-
-                            <tr>
-                                <td>1</td>
-                                <td>Tytul</td>
-                                <td><button>Pokaż zamowienie</button></td>
-
-                            </tr>
-
-
-
+                {order !== null ? order.map((order,i) =>
+                    <tr key={i}>
+                        <td>{order.name}</td>
+                        <td>{order.quanitty}</td>
+                        <td>{order.description}</td>
+                        <td>{order.price}</td>
+                        <td>{(order.price * order.quanitty)}</td>
+                    </tr>
+                ) : ""}
+                {order !== null && order[0].status ==="wykonanie" ? <button onClick={() => closeOrder(order[0].id)} >Zakonczenie zamówienia</button> : ""}
                     </tbody>
                 </table>
             </Route>
