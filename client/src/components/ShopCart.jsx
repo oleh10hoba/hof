@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { List, Button, Image } from 'semantic-ui-react';
+import {Header, Table,Pagination, Button, Image, List} from 'semantic-ui-react';
 import {Link} from "react-router-dom";
 import axios from "axios";
+
 import Select from 'react-select'
 import Account from "./Account";
 import cart from "../reducers/cart";
@@ -30,40 +31,47 @@ const CartComponent = (product) => {
 
     return(
 
-        <List selection divided verticalAlign="middle">
-            <List.Item>
-                <List.Content floated="right">
-                    <Button
 
-                        // onClick={removeFromCart.bind(this, id)}
 
-                        //  onClick={addToCart.bind(this, product)}
+                <Table.Row>
+                    <Table.Cell>
+                        <Header as='h4' image>
+                            <Image src={product.image} avatar style={{'fontSize':31}} />
+                        </Header>
+                    </Table.Cell>
+                    <Table.Cell>
+                    <Header.Content>
+                        {product.name}
+                        <Header.Subheader>{product.description}</Header.Subheader>
+                    </Header.Content>
+                </Table.Cell>
+                    <Table.Cell>{product.price}</Table.Cell>
+                    <Table.Cell>{cartItems.reduce((count, cart) => count + (cart.id === product.id ? 1 : 0), 0)}</Table.Cell>
+                    <Table.Cell>
+                        <Button
                         onClick = {addCart}
-
                         color="green"
-
                     >
                         +
                     </Button>
-                    <Button
-                        //  onClick={product.subFromCart.bind(this, product.id)}
-                        color="orange"
-                    >
-                        -
-                    </Button>
-                    <Button
-                        // onClick={product.removeFromCart.bind(this, product.id)}
-                        onClick={removeCart}
-                        color="red"
-                    >
-                        Usuń
-                    </Button>
-                </List.Content>
-                <Image avatar style={{'fontSize':64}} src={product.image} />
-                <List.Content>{product.name} {cartItems.reduce((count, cart) => count + (cart.id === product.id ? 1 : 0), 0)}</List.Content>
+                        <Button
+                            color="orange"
+                        >
+                            -
+                        </Button>
+                        <Button
+                            onClick={removeCart}
+                            color="red"
+                        >
+                            Usuń
+                        </Button>
+                    </Table.Cell>
+                </Table.Row>
 
-            </List.Item>
-        </List>
+
+
+
+
     );
 };
 
@@ -92,10 +100,26 @@ const ShopCart = (props) => {
     return(
      <>
 
+<Table textAlign={"center"} basic='very' celled collapsing>
+<Table.Header>
+<Table.Row>
+<Table.HeaderCell>Obrazek</Table.HeaderCell>
+    <Table.HeaderCell>Produkt</Table.HeaderCell>
+<Table.HeaderCell>Cena</Table.HeaderCell>
+<Table.HeaderCell>Illość</Table.HeaderCell>
+<Table.HeaderCell>Działania</Table.HeaderCell>
+</Table.Row>
+</Table.Header>
+    <Table.Body>
 
             {items.map((product, i) => (
          <CartComponent key={i} {...product} cartItems={cartItems}  removeFromCart={removeFromCart} addToCart={addToCart}/>
      ))}
+
+
+                </Table.Body>
+                </Table>
+
 
             <div>
                 { totalPrice > 0
