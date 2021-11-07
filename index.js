@@ -337,6 +337,16 @@ app.post("/getOrders", (req, res) => {
     });
 });
 
+app.get("/getOrdersAll", (req, res) => {
+    db.query("SELECT * from `order` " ,(err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            res.send(result);
+        }
+    });
+});
+
 
 app.get("/getproducts", (req, res) => {
     db.query("SELECT p.category_id, p.description, p.id, p.image, p.isavailable, p.isMetric, p.name, p.price, p.quantity, p.User_id,c.name as 'Category_Name' FROM `product` p INNER JOIN category c ON c.id = p.category_id  WHERE p.isavailable = 1", (err, result) => {
