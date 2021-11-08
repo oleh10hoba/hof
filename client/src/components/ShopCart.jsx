@@ -76,28 +76,28 @@ const ShopCart = (props) => {
 
 
     return (
-        <>
-            <div div className="ShopCart">
-                <Table textAlign={"center"} basic='very' celled collapsing>
-                    <Table.Header>
-                        <Table.Row>
-                            <Table.HeaderCell>Obrazek</Table.HeaderCell>
-                            <Table.HeaderCell>Produkt</Table.HeaderCell>
-                            <Table.HeaderCell>Cena</Table.HeaderCell>
-                            <Table.HeaderCell>Illość</Table.HeaderCell>
-                            <Table.HeaderCell>Działania</Table.HeaderCell>
-                        </Table.Row>
-                    </Table.Header>
-                    <Table.Body>
-                        {items.map((product, i) => (
-                            <CartComponent key={i} {...product} cartItems={cartItems} removeFromCart={removeFromCart}
-                                           addToCart={addToCart}/>
-                        ))}
-                    </Table.Body>
-                </Table>
-                <div>
-                    {totalPrice > 0
-                        ?
+        <>   
+            {totalPrice > 0
+                ?
+                <div div className="ShopCart">
+                    <Table textAlign={"center"} basic='very' celled collapsing>
+                        <Table.Header>
+                            <Table.Row>
+                                <Table.HeaderCell>Obrazek</Table.HeaderCell>
+                                <Table.HeaderCell>Produkt</Table.HeaderCell>
+                                <Table.HeaderCell>Cena</Table.HeaderCell>
+                                <Table.HeaderCell>Illość</Table.HeaderCell>
+                                <Table.HeaderCell>Działania</Table.HeaderCell>
+                            </Table.Row>
+                        </Table.Header>
+                        <Table.Body>
+                            {items.map((product, i) => (
+                                <CartComponent key={i} {...product} cartItems={cartItems} removeFromCart={removeFromCart}
+                                                addToCart={addToCart}/>
+                            ))}
+                        </Table.Body>
+                    </Table>
+                    <div>
                         <form>
                             <select required onChange={e => setShopSelected({selected: e.target.value || null})}
                                     value={shopSelected.selected} id="shops">
@@ -121,15 +121,18 @@ const ShopCart = (props) => {
                                     }
                                 }}
                             >
-                                <button type="submit" value="Submit" className="checkout-btn">
+                                <button type="submit" value="Submit"  id="Kosz" className="checkout-btn">
                                     <h2>Zapłać {totalPrice} zł</h2></button>
                             </Link></div>
                         </form>
-                        :
-                        <h2>Kosz jest pusty</h2>
-                    }
+                    </div>
                 </div>
-            </div>
+            :
+            <h2>Kosz jest pusty</h2>
+                
+       
+        
+        }
         </>
     )
 

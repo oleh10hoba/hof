@@ -91,18 +91,6 @@ const MenuComponents = ({ totalPrice, removeFromCart, count, items, isLogged }) 
           >
             <Link to="/shopcart">Koszyk</Link>
           </Menu.Item>
-          <Popup
-            trigger={
-              <Menu.Item name="help">
-                Kosz (<b>{count}</b>)
-              </Menu.Item>
-            }
-            content={items.map((product,i) => (
-              <CartComponent removeFromCart={removeFromCart} key={i} {...product} />
-            ))}
-            on="click"
-            hideOnScroll
-          />
           {isLogged && <button onClick={logout}>Wyloguj</button>}
         </Menu.Menu>
         }
