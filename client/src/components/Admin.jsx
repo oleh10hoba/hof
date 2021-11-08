@@ -211,8 +211,8 @@ const Admin = (props) =>
                         <td>{order.name}</td>
                         <td>{order.quanitty}</td>
                         <td>{order.description}</td>
-                        <td>{order.price}</td>
-                        <td>{(order.price * order.quanitty)}</td>
+                        <td>{order.price.toFixed(2)} zł</td>
+                        <td>{(order.price * order.quanitty).toFixed(2)} zł</td>
                     </tr>
                 ) : ""}
                 {order !== null && order[0].status ==="wykonanie" ? <button onClick={() => closeOrder(order[0].id)} >Zakonczenie zamówienia</button> : ""}

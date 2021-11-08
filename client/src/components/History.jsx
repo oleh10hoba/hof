@@ -55,8 +55,8 @@ const History = (props) =>
                                 <td>{product.name}</td>
                                 <td>{product.quanitty}</td>
                                 <td>{product.description}</td>
-                                <td>{product.price}</td>
-                                <td>{(product.price * product.quanitty)}</td>
+                                <td>{product.price.toFixed(2)} zł</td>
+                                <td>{(product.price * product.quanitty).toFixed(2)} zł</td>
                             </tr>
                         )
                 :
@@ -67,7 +67,7 @@ const History = (props) =>
                 </table>
                 <div className="ui steps">
                     <div className="step">
-                        {products !== null ? <p>Total: {products[0].total}</p> : ""}
+                        {products !== null ? <p>Total: {products[0].total.toFixed(2)} zł</p> : ""}
                     </div>
                 </div>
 
