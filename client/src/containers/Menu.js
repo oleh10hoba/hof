@@ -8,7 +8,6 @@ const mapStateToProps = ({ cart }) => ({
     totalPrice: cart.items.reduce((total, product) => parseFloat((total + product.price).toFixed(2)), 0),
     count: cart.items.length,
     items: uniqBy(cart.items, o => o.id),
-    //fav: uniqBy(cart.fav, o => o.id),
   }); 
 
 const mapDispatchToProps = dispatch => ({

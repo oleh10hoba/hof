@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
 import * as cartActions from '../actions/cart';
 import { bindActionCreators } from 'redux';
-import uniqBy from 'lodash/uniqBy';
 import Pay from "../components/Pay";
 
 const mapStateToProps = ({ cart,account }) => ({

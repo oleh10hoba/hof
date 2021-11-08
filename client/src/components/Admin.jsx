@@ -2,7 +2,7 @@ import Axios from "axios";
 import {Field, reduxForm} from "redux-form";
 import {Input} from "../utils/validators/formcontrols";
 import {required} from "../utils/validators/validator";
-import {Router,Link, Route} from "react-router-dom";
+import {Link, Route} from "react-router-dom";
 import React, {useState} from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
@@ -76,24 +76,24 @@ const ReduxRemProduct = reduxForm({
 
 const userTable = (order) => {
     return(
-    <table className="ui red table">
-        <thead>
-        <tr>
-            <th>Imie Osoby</th>
-            <th>Telefon</th>
-            <th>Adres</th>
-            <th>Dostawa</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
+        <table className="ui red table">
+            <thead>
+                <tr>
+                    <th>Imie Osoby</th>
+                    <th>Telefon</th>
+                    <th>Adres</th>
+                    <th>Dostawa</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr>
                 <td>{order[0].first_name}</td>
                 <td>{order[0].mobile}</td>
-               <td>{order[0].delivery_address}</td>
-            <td>{order[0].isSelfPickup === 0 ? "Tak" : "Nie"}</td>
-        </tr>
-        </tbody>
-    </table>
+                <td>{order[0].delivery_address}</td>
+                <td>{order[0].isSelfPickup === 0 ? "Tak" : "Nie"}</td>
+            </tr>
+            </tbody>
+        </table>
     )
 }
 

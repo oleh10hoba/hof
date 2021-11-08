@@ -11,7 +11,6 @@ const cart = (state = initialState, action) => {
                 ...state,
                 items: action.payload
             };
-
         case 'ADD_PRODUCT_TO_CART':
             ;return {
             ...state,

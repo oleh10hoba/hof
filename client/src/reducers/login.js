@@ -7,7 +7,6 @@ const logging = (state = initialState, action) => {
         case 'SET_IS_LOGGED':
             return {
                 ...state,
-                // isLogged: true
                 isLogged: action.payload
             };
         default:

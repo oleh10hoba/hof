@@ -1,14 +1,7 @@
-import axios from "axios";
-
-
-
 export const setCart = (products) => ({
     type: 'SET_CART',
     payload: products
 });
-
-
-
 
 export const addToCart = obj => (
     {
@@ -20,7 +13,6 @@ export const subFromCart = id => ({
     type: 'SUB_PRODUCT_FROM_CART',
     payload: id
 });
-
 
 export const removeFromCart = id => ({
     type: 'REMOVE_PRODUCT_FROM_CART',

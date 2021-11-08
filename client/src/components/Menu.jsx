@@ -3,7 +3,6 @@ import { Menu, Popup, List, Button, Image } from 'semantic-ui-react';
 import {Link} from "react-router-dom";
 import {logout} from "../actions/auth"
 import axios from "axios";
-import {removeFromCart} from "../actions/cart";
 
 const CartComponent = ({ title, id, image, removeFromCart }) =>
 
@@ -16,20 +15,18 @@ const CartComponent = ({ title, id, image, removeFromCart }) =>
 }
 
     return(
-
-
-  <List selection divided verticalAlign="middle">
-    <List.Item>
-      <List.Content floated="right">
-        <Button onClick={removeCart} color="red">
-          Usuń
-        </Button>
-      </List.Content>
-      <Image avatar src={image} />
-      <List.Content>{title}</List.Content>
-    </List.Item>
-  </List>
-);
+      <List selection divided verticalAlign="middle">
+        <List.Item>
+          <List.Content floated="right">
+            <Button onClick={removeCart} color="red">
+              Usuń
+            </Button>
+          </List.Content>
+          <Image avatar src={image} />
+          <List.Content>{title}</List.Content>
+        </List.Item>
+      </List>
+    );
 
 }
 

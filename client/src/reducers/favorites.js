@@ -5,7 +5,7 @@ const initialState = {
     items: null,
 };
 
- const favorites = (state = initialState, action) => {
+const favorites = (state = initialState, action) => {
     switch (action.type) {
         case 'SET_FAVORITES':
             return {

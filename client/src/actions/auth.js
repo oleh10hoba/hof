@@ -1,5 +1,4 @@
 import axios from 'axios';
-import {Link} from "react-router-dom";
 
 const setLog = (data) => {
     axios.post('http://localhost:3001/login').then(({ data }) => {

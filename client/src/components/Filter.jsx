@@ -1,6 +1,6 @@
 import React from 'react';
 import { Input, Menu } from 'semantic-ui-react';
-// import { setSearchQuery } from '../actions/filter';
+
 
 const con = () =>{
    console.log("Yes")     

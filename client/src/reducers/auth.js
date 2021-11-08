@@ -11,7 +11,7 @@ const auth = (state = initialState, action = {}) => {
         case 'SET_CURRENT_USER':
             return {
                 isAuthenticated: !isEmpty(action.user),
-                isLogged: true,// !isEmpty(action.user),
+                isLogged: true,
                 user: action.user
             };
         default: return state;

@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react'
 import axios from 'axios'
-import Account from "./Account";
-import {useLocation, link, Link} from 'react-router-dom'
+import {useLocation} from 'react-router-dom'
 import { useHistory } from "react-router-dom";
 
 
@@ -57,7 +56,7 @@ const Pay = ({ totalPrice,account }) =>
                     </div>
                 </form>
             </div>
-            <div>
+            <div className="BLIK">
                 <form method="post" action="https://secure.payu.com/api/v2_1/orders">
                     <input type="hidden" name="continueUrl" value="http://shop.url/continue"/>
                     <input type="hidden" name="currencyCode" value="PLN"/>
@@ -70,7 +69,6 @@ const Pay = ({ totalPrice,account }) =>
                     <input type="hidden" name="products[0].unitPrice" value="1000"/>
                     <input type="hidden" name="totalAmount" value="1000"/>
                     <input type="hidden" name="OpenPayu-Signature" value="sender=145227;algorithm=SHA-256;signature=bc94a8026d6032b5e216be112a5fb7544e66e23e68d44b4283ff495bdb3983a8"/>
-                    {/* <button type="submit" formTarget="_blank" onClick={payOrder} >Zapłać {totalPrice} zł z BLIK(PayU)</button> */}
                     <input type="submit" formTarget="_blank" onClick={payOrder} value={'Zapłać '.concat(totalPrice, ' zł z BLIK(PayU)')} className="checkout-btn"/>
                 </form >
             </div>

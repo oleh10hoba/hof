@@ -20,9 +20,6 @@ class App extends Component{
   componentWillMount(){ 
     const {setCart , setHistory, products, setProducts, setFavorites, setAccount, setShops } = this.props;
 
-
-
-
     axios.post('http://localhost:3001/getfavorites', {id : localStorage.getItem("id")}).then(({ data }) => {
       setFavorites(data);
     });
@@ -49,12 +46,9 @@ class App extends Component{
 
   }
 
-
-
   render() {
 
     const { products, favorites, account, shops, isReady, isLogged  } = this.props;
-
 
     return (
       <div >

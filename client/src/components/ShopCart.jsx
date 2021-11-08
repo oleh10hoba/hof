@@ -1,12 +1,7 @@
 import React, { useState } from 'react';
-import {Header, Table,Pagination, Button, Image, List} from 'semantic-ui-react';
+import {Header, Table, Button, Image} from 'semantic-ui-react';
 import {Link} from "react-router-dom";
 import axios from "axios";
-
-import Select from 'react-select'
-import Account from "./Account";
-import cart from "../reducers/cart";
-
 
 const CartComponent = (product) => {
     const {  cartItems,removeFromCart, addToCart, count} = product;
@@ -30,130 +25,108 @@ const CartComponent = (product) => {
     }
 
     return(
-
-
-
-                <Table.Row>
-                    <Table.Cell>
-                        <Header as='h4' image>
-                            <Image src={product.image} avatar style={{'fontSize':31}} />
-                        </Header>
-                    </Table.Cell>
-                    <Table.Cell>
-                    <Header.Content>
-                        {product.name}
-                        <Header.Subheader>{product.description}</Header.Subheader>
-                    </Header.Content>
-                </Table.Cell>
-                    <Table.Cell>{product.price}</Table.Cell>
-                    <Table.Cell>{cartItems.reduce((count, cart) => count + (cart.id === product.id ? 1 : 0), 0)}</Table.Cell>
-                    <Table.Cell>
-                        <Button
-                        onClick = {addCart}
-                        color="green"
-                    >
-                        +
-                    </Button>
-                        <Button
-                            color="orange"
-                        >
-                            -
-                        </Button>
-                        <Button
-                            onClick={removeCart}
-                            color="red"
-                        >
-                            Usuń
-                        </Button>
-                    </Table.Cell>
-                </Table.Row>
-
-
-
-
-
+        <Table.Row>
+            <Table.Cell>
+                <Header as='h4' image>
+                    <Image src={product.image} avatar style={{'fontSize':31}} />
+                </Header>
+            </Table.Cell>
+            <Table.Cell>
+            <Header.Content>
+                {product.name}
+                <Header.Subheader>{product.description}</Header.Subheader>
+            </Header.Content>
+        </Table.Cell>
+            <Table.Cell>{product.price}</Table.Cell>
+            <Table.Cell>{cartItems.reduce((count, cart) => count + (cart.id === product.id ? 1 : 0), 0)}</Table.Cell>
+            <Table.Cell>
+                <Button
+                onClick = {addCart}
+                color="green"
+            >
+                +
+            </Button>
+                <Button
+                    color="orange"
+                >
+                    -
+                </Button>
+                <Button
+                    onClick={removeCart}
+                    color="red"
+                >
+                    Usuń
+                </Button>
+            </Table.Cell>
+        </Table.Row>
     );
 };
 
 const ShopCart = (props) => {
-     const {  totalPrice,cartItems, count, items, shops, isReady,setCart, addToCart,removeFromCart } = props;
-
-
-     const [shopSelected,setShopSelected] = useState({selected:null})
+    const {  totalPrice,cartItems, count, items, shops, isReady,setCart, addToCart,removeFromCart } = props;
+    const [shopSelected,setShopSelected] = useState({selected:null})
     const [recSelected,setRecSelected] = useState({selected:null})
 
     const receptions = [
         { value: 'delivery', label: 'Dostawa do domu' },
         { value: 'personal_pickup', label: 'Odbiór osobisty' }
     ]
-    const payments = [
-        { value: 'card', label: 'Karta' },
-        { value: 'blik', label: 'BLIK' }
-    ]
     const shops_sel =
         shops.map((shop, i) =>
             ({value:shop.id,key:i, label:shop.address}))
 
-    const [shops_Sel,setShops_sel] = useState("")
-
 
     return(
-     <>
-
-<Table textAlign={"center"} basic='very' celled collapsing>
-<Table.Header>
-<Table.Row>
-<Table.HeaderCell>Obrazek</Table.HeaderCell>
-    <Table.HeaderCell>Produkt</Table.HeaderCell>
-<Table.HeaderCell>Cena</Table.HeaderCell>
-<Table.HeaderCell>Illość</Table.HeaderCell>
-<Table.HeaderCell>Działania</Table.HeaderCell>
-</Table.Row>
-</Table.Header>
-    <Table.Body>
-
-            {items.map((product, i) => (
-         <CartComponent key={i} {...product} cartItems={cartItems}  removeFromCart={removeFromCart} addToCart={addToCart}/>
-     ))}
-
-
-                </Table.Body>
-                </Table>
-
-
-            <div>
-                { totalPrice > 0
-                ?
-                    <form 
-                        // onSubmit = {this.onTrigger}
-                    >
-                        <select required onChange={e => setShopSelected({ selected: e.target.value || null })}  value={shopSelected.selected} id="shops">
-                        {shops_sel.map((option, i) => (
-                            <option key={i} value={option.value}>{option.label}</option>
-                            ))}
-                        </select>
-                        <select  required onChange={e => setRecSelected({ selected: e.target.value || null })}  value={recSelected.selected} id="rec">
-                            
-                        {receptions.map((option, i) => (
-                            <option key={i} value={option.value}>{option.label}</option>
-                            ))}
-                        </select>
-                        <div><Link
-                            to={{
-                                pathname: "/pay",
-                                params: {shop: shopSelected,
-                                rec: recSelected
-                                }
-                            }}
-                        >
-                                <button type = "submit" value = "Submit"><h2>Zapłać {totalPrice}</h2></button>
-                        </Link></div>
-                </form>
-                :   <h2>Kosz jest pusty</h2>
-
-}
+    <>
+        <div div className="ShopCart">
+            <Table textAlign={"center"} basic='very' celled collapsing>
+            <Table.Header>
+            <Table.Row>
+            <Table.HeaderCell>Obrazek</Table.HeaderCell>
+            <Table.HeaderCell>Produkt</Table.HeaderCell>
+            <Table.HeaderCell>Cena</Table.HeaderCell>
+            <Table.HeaderCell>Illość</Table.HeaderCell>
+            <Table.HeaderCell>Działania</Table.HeaderCell>
+            </Table.Row>
+            </Table.Header>
+                <Table.Body>
+                    {items.map((product, i) => (
+                        <CartComponent key={i} {...product} cartItems={cartItems}  removeFromCart={removeFromCart} addToCart={addToCart}/>
+                    ))}
+                    </Table.Body>
+                    </Table>
+                    <div>
+                        { totalPrice > 0
+                        ?
+                            <form >
+                                <select required onChange={e => setShopSelected({ selected: e.target.value || null })}  value={shopSelected.selected} id="shops">
+                                {shops_sel.map((option, i) => (
+                                    <option key={i} value={option.value}>{option.label}</option>
+                                    ))}
+                                </select>
+                                <select  required onChange={e => setRecSelected({ selected: e.target.value || null })}  value={recSelected.selected} id="rec">
+                                    
+                                {receptions.map((option, i) => (
+                                    <option key={i} value={option.value}>{option.label}</option>
+                                    ))}
+                                </select>
+                                <div><Link
+                                    to={{
+                                        pathname: "/pay",
+                                        params: {shop: shopSelected,
+                                        rec: recSelected
+                                        }
+                                    }}
+                                >
+                                        <button type = "submit" value = "Submit" className="checkout-btn"><h2>Zapłać {totalPrice}</h2></button>
+                                </Link></div>
+                            </form>
+                        :   
+                            <h2>Kosz jest pusty</h2>
+                        }
+                    </div>
             </div>
-         </>
+        </>
     )
         
 };

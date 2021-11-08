@@ -52,12 +52,17 @@ body{
     padding: 50px 0;
 } */
 
-.Registration, .Login, .Account, .Contact{
+.Registration, .Login, .Account, .Contact, .ShopCart{
     background-color: #Eaeaee;
     border-radius: 5%;
     text-align: center;
     margin: 5% 20%;
     padding: 5%;
+}
+
+.BLIK{
+  width: 300px;
+  margin: auto;
 }
 
 .Registration label {

@@ -15,11 +15,8 @@ const ChangeAddressForm = (props) => {
                 <button type="submit"> Zmień adres </button>
             </div>
         </form>
-
-
     )
 }
-
 
 const ReduxChangeAddressForm = reduxForm({
     form: 'changeaddress'
@@ -34,30 +31,30 @@ const Account = data => {
             }).then((response) => {alert(response.data);window.location.reload(false);})
         }catch(err){console.log(err)
         }
-        }
+    }
     return(
-    <div className='Account'>
-        <div>
-            <h2>{data.first_name}</h2>
-        </div>
-        <div>
-            <h2>{data.last_name}</h2>
-        </div>
-        <div>
-            <h2>{data.email}</h2>
-        </div>
-        <div>
-            <h2>{data.mobile}</h2>
-        </div>
-        <div>
-            <h2>Adres dostawy: {data.delivery_address}</h2>
-            <div className="">
-                <h3>Zmieniamy adres dostawy?</h3>
-                <ReduxChangeAddressForm onSubmit={onSubmit}/>
+        <div className='Account'>
+            <div>
+                <h2>{data.first_name}</h2>
             </div>
+            <div>
+                <h2>{data.last_name}</h2>
+            </div>
+            <div>
+                <h2>{data.email}</h2>
+            </div>
+            <div>
+                <h2>{data.mobile}</h2>
+            </div>
+            <div>
+                <h2>Adres dostawy: {data.delivery_address}</h2>
+                <div className="">
+                    <h3>Zmieniamy adres dostawy?</h3>
+                    <ReduxChangeAddressForm onSubmit={onSubmit}/>
+                </div>
+            </div>
+            <Link to={{pathname:'/history'}}>Historia zamówień</Link>
         </div>
-        <Link to={{pathname:'/history'}}>Historia zamówień</Link>
-    </div>
     );
 };
 
