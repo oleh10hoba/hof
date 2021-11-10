@@ -26,7 +26,6 @@ const Filter = ({ setFilter, filterBy, searchQuery, setSearchQuery }) =>{
         <Menu.Item 
             active={filterBy === 'price_low'} 
             onClick={setFilter.bind(this, 'price_low')}
-            // onClick={handleChange}
         >
             Najtańsze    
         </Menu.Item>
