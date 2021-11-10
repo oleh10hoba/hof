@@ -12,7 +12,7 @@ const ChangeAddressForm = (props) => {
                 <Field placeholder={"Wprowadź nowy adres"} name={"addressState"} component={Input} validate={required}/>
             </div>
             <div>
-                <button type="submit"> Zmień adres </button>
+                <button id="Waski" className="checkout-btn" type="submit"> Zmień adres </button>
             </div>
         </form>
     )

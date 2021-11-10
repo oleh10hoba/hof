@@ -28,7 +28,7 @@ const RegistrationForm = (props) => {
                 <Field placeholder={"Adres dostawy"} name={"addressState"}component={Input} validate={required}/>
             </div>
             <div>
-                <button type="submit"> Submit </button>
+                <button type="submit" id="Waski" className="checkout-btn"> Zarejestruj mnie </button>
             </div>
         </form>
 

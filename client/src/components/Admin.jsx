@@ -39,7 +39,7 @@ const AdminAdd = (props) => {
                         <Field placeholder={"Ilość"} name={"quantity"}component={Input} validate={required}/>
                     </div>
                     <div>
-                        <button type="submit"> Dodaj produkt </button>
+                        <button  id="Waski"  className="checkout-btn" type="submit"> Dodaj produkt </button>
                     </div>
                 </form>
             </div>
@@ -57,7 +57,7 @@ const AdminRem = (props) => {
                         <Field placeholder={"ID"} name={"idState"}component={Input} validate={required}/>
                     </div>
                     <div>
-                        <button type="submit"> Usuń produkt o podanym id</button>
+                        <button id="Waski"  className="checkout-btn" type="submit"> Usuń produkt o podanym id</button>
                     </div>
                 </div>
             </form>
@@ -184,7 +184,7 @@ const Admin = (props) =>
         <div className="Admin">
             <ReduxAddProduct onSubmit={onSubmitAdd}/>
             <ReduxRemProduct onSubmit={onSubmitRem}/>
-           <Button secondary> <Link onClick={GiveOrders} to="/admin/adminListDoing">Wykonanie Zamowienia</Link></Button>
+           <Button secondary> <Link onClick={GiveOrders} to="/admin/adminListDoing">Zamowienia w trakcie realizacji</Link></Button>
             <Button secondary><Link onClick={GiveOrders} to="/admin/adminListDone">Wykonane Zamowienia</Link></Button>
             <Route path='/admin/adminListDoing'>
                 {orderTable (orders,getProductsFromOrder) }
@@ -215,7 +215,7 @@ const Admin = (props) =>
                         <td>{(order.price * order.quanitty).toFixed(2)} zł</td>
                     </tr>
                 ) : ""}
-                {order !== null && order[0].status ==="wykonanie" ? <button onClick={() => closeOrder(order[0].id)} >Zakonczenie zamówienia</button> : ""}
+                {order !== null && order[0].status ==="wykonanie" ? <button className="checkout-btn" onClick={() => closeOrder(order[0].id)} >Zaznacz jako wykonane</button> : ""}
                     </tbody>
                 </table>
             </Route>

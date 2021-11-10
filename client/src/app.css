@@ -194,8 +194,12 @@ input {
   width: 45px;
 }
 
-#Kosz{
+#Kosz, #Waski{
   width: 40%;
+}
+#Wyloguj{
+  width: auto;
+  height: 100%;
 }
 
 .checkout-btn {

@@ -91,7 +91,7 @@ const MenuComponents = ({ totalPrice, removeFromCart, count, items, isLogged }) 
           >
             <Link to="/shopcart">Koszyk</Link>
           </Menu.Item>
-          {isLogged && <button onClick={logout}>Wyloguj</button>}
+          {isLogged && <button id="Wyloguj" className="checkout-btn" onClick={logout}>Wyloguj</button>}
         </Menu.Menu>
         }
       </Menu> 

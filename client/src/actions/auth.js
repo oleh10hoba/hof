@@ -24,7 +24,7 @@ export const login  = (data) => {
         return axios.post('http://localhost:3001/login', { login: data.login, password: data.password}
             ).then(res => {
             if (!res.data.token) {
-                alert("Invalid username or password")
+                alert("Niepoprawny login lub hasło")
                 return
             }
             else{
