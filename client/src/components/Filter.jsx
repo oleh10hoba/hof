@@ -1,10 +1,6 @@
 import React from 'react';
 import { Input, Menu } from 'semantic-ui-react';
-
-
-const con = () =>{
-   console.log("Yes")     
-}
+   
 const Filter = ({ setFilter, filterBy, searchQuery, setSearchQuery }) =>{
     function handleChange(e){
         console.log(e)
