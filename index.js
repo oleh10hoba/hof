@@ -3,6 +3,8 @@ const app = express();
 const mysql = require('mysql');
 const cors = require ('cors');
 const jwt = require('jsonwebtoken')
+const bcrypt = require("bcrypt");
+
 
 //SELECT o.id, o.status, o.total, o.created_at, o.mobile, u.first_name, u.last_name, p.name,p.price,p.quantity from `order` o inner join user u on o.user_id = u.id inner join orderitem oi on oi.order_id = o.id inner join product p on p.id = oi.Product_id where o.status = "wykonanie"
 
@@ -27,6 +29,12 @@ app.post('/create', async(req, res) => {
     const mobile = req.body.mobileState
     const address = req.body.addressState
 
+    const salt = await bcrypt.genSalt(10);
+
+    const newpassword = await bcrypt.hash(password, salt)
+
+
+
 
     db.query("SELECT * from user WHERE username = ? OR email = ?",[login,email],
         (err,result) => {
@@ -37,7 +45,7 @@ app.post('/create', async(req, res) => {
                 return res.send('Użytkownik już istnieje')
             }
             else{
-                db.query("INSERT INTO user (first_name,last_name ,username,passwd,email,mobile,User_Type_id, delivery_address) VALUES (?,?,?,?,?,?,?,?)",[name,lastName,login,password,email,mobile,2, address],
+                db.query("INSERT INTO user (first_name,last_name ,username,passwd,email,mobile,User_Type_id, delivery_address) VALUES (?,?,?,?,?,?,?,?)",[name,lastName,login,newpassword,email,mobile,2, address],
                     (err,result) => {
                         if (err) {
                             res.send(err)
@@ -227,15 +235,22 @@ app.post('/login',async(req,res)=> {
     try{
         const{login,password} = req.body
         if (login && password) {
-            db.query('SELECT id, User_Type_id FROM user WHERE username = ? AND passwd = ?', [login, password], function(error, result) {
+
+
+
+
+            db.query('SELECT id, passwd, User_Type_id FROM user WHERE username = ?', [login, password], function(error, result) {
                 if (result.length > 0) {
+                    const validPassword =  bcrypt.compare(password, result[0].passwd);
+                    if(validPassword){
                     const id = result[0].id
-                    // const userType = result[0].User_Type_id
+
                     const token = jwt.sign({id},"DAWKODKWAPOczksokWPWKApodkwaWEKpakdoaw", {
                         expiresIn: 300
                     })
                     res.json({auth: true, token: token, id: result[0].id, userType: result[0].User_Type_id})
-                    
+                    }
+                    else res.send('Incorrect Username and/or Password!')
 
                 } else {
                     res.send('Incorrect Username and/or Password!');
