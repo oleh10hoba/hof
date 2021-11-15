@@ -121,7 +121,7 @@ const ShopCart = (props) => {
                                     }
                                 }}
                             >
-                                <button type="submit" value="Submit"  id="Kosz" className="checkout-btn">
+                                <button type="submit" value="Submit"   className="checkout-btn2">
                                     <h2>Zapłać {totalPrice} zł</h2></button>
                             </Link></div>
                         </form>

@@ -9,10 +9,10 @@ const ChangeAddressForm = (props) => {
     return(
         <form onSubmit={props.handleSubmit}>
             <div>
-                <Field placeholder={"Wprowadź nowy adres"} name={"addressState"} component={Input} validate={required}/>
+                <Field  style={{width: "30%"}} placeholder={"Wprowadź nowy adres"} name={"addressState"} component={Input} validate={required}/>
             </div>
             <div>
-                <button id="Waski" className="checkout-btn" type="submit"> Zmień adres </button>
+                <button  className="checkout-btn2" type="submit"> Zmień adres </button>
             </div>
         </form>
     )
@@ -35,16 +35,13 @@ const Account = data => {
     return(
         <div className='Account'>
             <div>
-                <h2>{data.first_name}</h2>
-            </div>
-            <div>
-                <h2>{data.last_name}</h2>
+                <h2>{data.first_name} {data.last_name}</h2>
             </div>
             <div>
                 <h2>{data.email}</h2>
             </div>
             <div>
-                <h2>{data.mobile}</h2>
+                <h2>Telefon:    {data.mobile}</h2>
             </div>
             <div>
                 <h2>Adres dostawy: {data.delivery_address}</h2>

@@ -39,7 +39,7 @@ const AdminAdd = (props) => {
                         <Field placeholder={"Ilość"} name={"quantity"}component={Input} validate={required}/>
                     </div>
                     <div>
-                        <button  id="Waski"  className="checkout-btn" type="submit"> Dodaj produkt </button>
+                        <button    className="checkout-btn2" type="submit"> Dodaj produkt </button>
                     </div>
                 </form>
             </div>
@@ -57,7 +57,7 @@ const AdminRem = (props) => {
                         <Field placeholder={"ID"} name={"idState"}component={Input} validate={required}/>
                     </div>
                     <div>
-                        <button id="Waski"  className="checkout-btn" type="submit"> Usuń produkt o podanym id</button>
+                        <button className="checkout-btn2" type="submit"> Usuń produkt o podanym id</button>
                     </div>
                 </div>
             </form>
@@ -215,7 +215,7 @@ const Admin = (props) =>
                         <td>{(order.price * order.quanitty).toFixed(2)} zł</td>
                     </tr>
                 ) : ""}
-                {order !== null && order[0].status ==="wykonanie" ? <button className="checkout-btn" onClick={() => closeOrder(order[0].id)} >Zaznacz jako wykonane</button> : ""}
+                {order !== null && order[0].status ==="wykonanie" ? <button className="checkout-btn2" onClick={() => closeOrder(order[0].id)} >Zaznacz jako wykonane</button> : ""}
                     </tbody>
                 </table>
             </Route>
