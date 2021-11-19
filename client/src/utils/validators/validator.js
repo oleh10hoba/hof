@@ -1,4 +1,4 @@
 export const required = value => {
     if (value) return undefined;
-    return 'Field is required';
+    else return 'Field is required';
 }

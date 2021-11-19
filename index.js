@@ -21,37 +21,64 @@ const db = mysql.createConnection({
 
 
 app.post('/create', async(req, res) => {
-    const name = req.body.nameState
-    const lastName = req.body.lastNameState
-    const login = req.body.loginState
+    const name = (req.body.nameState).trim()
+    const lastName = (req.body.lastNameState).trim()
+    const login = (req.body.loginState).trim()
     const password = req.body.passwordState
     const email = req.body.emailState
-    const mobile = req.body.mobileState
+    const mobile = (req.body.mobileState).trim()
     const address = req.body.addressState
+    const house =  req.body.houseState
+    const flat = req.body.flatState
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+    if(name.length < 2 || lastName.length < 2 || login.length < 3 || password.length < 6 || email.length < 3  || address.length < 3){
+        return res.send ("Sprawdź długość wprowadzonych danych")
+    }
+
+    if(name.indexOf(' ') >= 0 || lastName.indexOf(' ') >= 0 || login.indexOf(' ') >= 0 || mobile.indexOf(' ') >= 0){
+        return res.send ("Sprawdź spacji")
+    }
+
+    if(login.match(/^\d/)) {
+        return res.send ("Początek loginu zawiera cyfy")
+    }
+
+    if((/\d/.test(name)) || (/\d/.test(lastName)) || (/\d/.test(address)) ){
+        return res.send("Imie lub nazwisko, lub adres nie może zawierać cyfry")
+    }
+
+    if(mobile.length !== 9 ){
+        return res.send("Wprowadzony numer telefonu jest nie poprawny")
+    }
+
+    if(!(re.test(String(email).toLowerCase()))){
+        return  res.send("Wprowadzony email jest nie poprawny")
+    }
+
+    const finalAddress = addressChecker(address, house, flat)
 
     const salt = await bcrypt.genSalt(10);
 
     const newpassword = await bcrypt.hash(password, salt)
 
 
-
-
-    db.query("SELECT * from user WHERE username = ? OR email = ?",[login,email],
+    db.query("SELECT * from user WHERE username = ? OR email = ? OR mobile = ? ",[login,email,mobile],
         (err,result) => {
             if(err){
-                res.send(err)
+               return res.send(err)
             }
             if(result.length!==0) {
                 return res.send('Użytkownik już istnieje')
             }
             else{
-                db.query("INSERT INTO user (first_name,last_name ,username,passwd,email,mobile,User_Type_id, delivery_address) VALUES (?,?,?,?,?,?,?,?)",[name,lastName,login,newpassword,email,mobile,2, address],
+                db.query("INSERT INTO user (first_name,last_name ,username,passwd,email,mobile,User_Type_id, delivery_address) VALUES (?,?,?,?,?,?,?,?)",[name,lastName,login,newpassword,email,mobile,2, finalAddress],
                     (err,result) => {
                         if (err) {
-                            res.send(err)
+                          return   res.send(err)
                         }
                         else {
-                            res.send('Użytkownik został stworzony');
+                            return res.send('Success');
                         }
                     }
                 )
@@ -358,11 +385,37 @@ app.post("/getfavorites", (req, res) => {
         }
     });
 });
+
+const addressChecker = (address,house,flat) => {
+    if(!(/^\d+$/.test(house))){
+        return res.send("Nie podany poprawny numer domu")
+    }
+
+    if(flat) {
+        if(!(/^\d+$/.test(flat))){
+            return res.send("Nie podany poprawny numer mieszkania")
+        }
+    }
+
+    var finalAddress = address + " " + house
+
+    if(flat) {
+        finalAddress = finalAddress + " p." + flat
+    }
+    return finalAddress
+}
+
 app.post("/changeaddress", (req, res) => {
     const address = req.body.addressState
+    const house =  req.body.houseState
+    const flat = req.body.flatState
     const id = req.body.idState
-    // console.log("ID:", id, address);
-    db.query("UPDATE user SET `delivery_address` = ? WHERE id = ?",[address,id], (err, result) => {
+
+    const finalAddress = addressChecker(address, house, flat)
+
+
+
+    db.query("UPDATE user SET `delivery_address` = ? WHERE id = ?",[finalAddress,id], (err, result) => {
         if (err) {
             console.log(err);
         } else {

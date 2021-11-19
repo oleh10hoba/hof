@@ -9,7 +9,13 @@ const ChangeAddressForm = (props) => {
     return(
         <form onSubmit={props.handleSubmit}>
             <div>
-                <Field  style={{width: "30%"}} placeholder={"Wprowadź nowy adres"} name={"addressState"} component={Input} validate={required}/>
+                <Field placeholder={"Ulica"} name={"addressState"} component={Input} validate={required}/>
+            </div>
+            <div>
+                <Field placeholder={"Nr Domu"} name={"houseState"} component={Input} validate={required}/>
+            </div>
+            <div>
+                <Field placeholder={"Nr mieszkania"} name={"flatState"}component={Input}/>
             </div>
             <div>
                 <button  className="checkout-btn2" type="submit"> Zmień adres </button>
@@ -27,6 +33,8 @@ const Account = data => {
         try{
             await Axios.post('http://localhost:3001/changeAddress', {
                 addressState:formData.addressState,
+                houseState: formData.houseState,
+                flatState: formData.flatState,
                 idState:data.id,
             }).then((response) => {alert(response.data);window.location.reload(false);})
         }catch(err){console.log(err)
