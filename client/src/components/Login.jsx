@@ -1,10 +1,9 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {Field, reduxForm} from "redux-form";
 import  {required} from "../utils/validators/validator"
 import {Input} from "../utils/validators/formcontrols";
 import Axios from 'axios'
 import {login} from "../actions/auth"
-import {logout} from "../actions/auth"
 
 
 const FormLogin = (props) =>
@@ -40,18 +39,27 @@ const ReduxLoginForm = reduxForm({
 
 const Login = (props) => {
 
+    const  [responseData,setResponse] = useState("")
+
     const onSubmit = async(formData) =>{
         const data = {
            login: formData.login,
            password: formData.password
         }
-        login(data)
+        login(data).then((response) => {
+            if(response === false){
+                setResponse("Nie poprawnie wprowadzone dane")
+            }
+            else setResponse("")
+        })
+
     }
 
     return (
         <div className="Login">
         <h1>Login</h1>
-        <ReduxLoginForm isLogged={props.isLogged}  onSubmit={onSubmit}/>    
+        <ReduxLoginForm isLogged={props.isLogged}  onSubmit={onSubmit}/>
+        {responseData === "" ? "" : <div className="ui warning message"><p>{responseData}</p></div>}
         </div>
     )
 }

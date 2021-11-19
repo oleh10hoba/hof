@@ -16,6 +16,7 @@ const setLogg = (data) =>
 export function logout() {
         localStorage.removeItem('jwtToken');
         localStorage.removeItem('id');
+    localStorage.removeItem('userType');
         window.location.reload(false);
         alert("Wylogowano!!!")
 }
@@ -24,13 +25,10 @@ export const login  = (data) => {
         return axios.post('http://localhost:3001/login', { login: data.login, password: data.password}
             ).then(res => {
             if (!res.data.token) {
-                alert("Niepoprawny login lub hasło")
-                return
+                return false
             }
             else{
                 setLog(data);
-                alert("Zalogowano!!!")
-                
             }
             const token = res.data.token;
             localStorage.setItem('jwtToken', token);

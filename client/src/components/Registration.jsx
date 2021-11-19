@@ -83,7 +83,6 @@ const Registration = (props) =>
         <div className="Registration">
             <h1>Rejestracja</h1>
             <ReduxRegistrationForm onSubmit={onSubmit}/>
-
                 {responseData === "" ? "" : <div className="ui warning message"><p>{responseData}</p></div>}
 
 

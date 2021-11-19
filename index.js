@@ -41,15 +41,15 @@ app.post('/create', async(req, res) => {
     }
 
     if(login.match(/^\d/)) {
-        return res.send ("Początek loginu zawiera cyfy")
+        return res.send ("Początek loginu zawiera cyfry")
     }
 
     if((/\d/.test(name)) || (/\d/.test(lastName)) || (/\d/.test(address)) ){
-        return res.send("Imie lub nazwisko, lub adres nie może zawierać cyfry")
+        return res.send("Imie lub nazwisko, lub adres nie mogą zawierać cyfry")
     }
 
     if(mobile.length !== 9 ){
-        return res.send("Wprowadzony numer telefonu jest nie poprawny")
+        return res.send("Wprowadzony numer telefonu nie jest poprawny")
     }
 
     if(!(re.test(String(email).toLowerCase()))){
@@ -59,7 +59,6 @@ app.post('/create', async(req, res) => {
     const finalAddress = addressChecker(address, house, flat)
 
     const salt = await bcrypt.genSalt(10);
-
     const newpassword = await bcrypt.hash(password, salt)
 
 
