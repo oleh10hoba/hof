@@ -60,7 +60,7 @@ const Login = (props) => {
 
     return (
         <div className="Login">
-        <h1>Login</h1>
+        <h1>Logowanie</h1>
         <ReduxLoginForm isLogged={props.isLogged}  onSubmit={onSubmit}/>
         {responseData === "" ? "" : <div className="ui warning message"><p>{responseData}</p></div>}
         </div>

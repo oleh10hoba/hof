@@ -9,44 +9,46 @@ import { useHistory } from "react-router-dom";
 
 const RegistrationForm = (props) => {
     return(
-        <div className="ui fluid card">
+        <div id="Reg" className="ui fluid card">
             <div className="content">
         <form className="ui form" onSubmit={props.handleSubmit}>
             <div className="field">
-                <label>Imie</label>
+                {/* <td><label className="Label">Imie</label></td> */}
                 <Field placeholder={"Imię"} name={"nameState"} component={Input} validate={required}/>
+                
+                
             </div>
             <div className="field">
-                <label>Nazwisko</label>
+                {/* <label>Nazwisko</label> */}
                 <Field placeholder={"Nazwisko"} name={"lastNameState"} component={Input} validate={required} />
             </div>
             <div className="field">
-                <label>Login</label>
+                {/* <label>Login</label> */}
                 <Field placeholder={"Login"} name={"loginState"} component={Input} validate={required} />
             </div>
             <div className="field">
-                <label>Imie</label>
+                {/* <label>Hasło</label> */}
                 <Field placeholder={"Hasło"} type = {"password"} name={"passwordState"} component={Input} validate={required}/>
             </div>
             <div className="field">
-                <label>e-mail</label>
+                {/* <label>e-mail</label> */}
                 <Field placeholder={"e-mail"} name={"emailState"} component={Input} validate={required}/>
             </div>
             <div className="field">
-                <label>Numer telefonu</label>
+                {/* <label>Numer telefonu</label> */}
                 <Field placeholder={"Numer telefonu"} name={"mobileState"} component={Input} validate={required}/>
             </div>
             <div className="field">
-                <label>Ulica</label>
+                {/* <label>Ulica</label> */}
                 <Field placeholder={"Ulica"} name={"addressState"} component={Input} validate={required}/>
             </div>
             <div className="field">
-                <label>Nr Domu</label>
+                {/* <label>Nr Domu</label> */}
                 <Field placeholder={"Nr Domu"} name={"houseState"} component={Input} validate={required}/>
             </div>
             <div className="field">
-                <label>Nr mieszkania(Nie obowiązkowo)</label>
-                <Field placeholder={"Nr mieszkania"} name={"flatState"}component={Input}/>
+                {/* <label>Nr mieszkania(Nie obowiązkowo)</label> */}
+                <Field placeholder={"Nr mieszkania(Nie obowiązkowo)"} name={"flatState"}component={Input}/>
             </div>
                 <button  className="ui primary labeled icon button" type="submit" id="Waski" className="checkout-btn"> Zarejestruj mnie </button>
         </form>

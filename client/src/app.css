@@ -65,7 +65,6 @@ body{
   border-radius: 2%;
   text-align: center;
   margin: 2% 32%;
-  padding: 3%;
   width: 35%;
 }
 
@@ -84,7 +83,7 @@ body{
 }
 
 .Registration label {
-    margin: 50px  auto;
+    margin: 10px  20px;
 }
 
 
@@ -202,6 +201,7 @@ input {
 
   .lt-ie9 & { line-height: 30px; } */
 }
+
 
 .checkout-name { width: 150px; }
 .checkout-card { width: 210px; }
