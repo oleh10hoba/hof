@@ -28,10 +28,7 @@ const RegistrationForm = (props) => {
             </div>
             <div className="field">
 
-                <label>Hasło</label>
-
-  
-
+                {/* <label>Hasło</label> */}
                 <Field placeholder={"Hasło"} type = {"password"} name={"passwordState"} component={Input} validate={required}/>
             </div>
             <div className="field">

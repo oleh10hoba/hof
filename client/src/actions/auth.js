@@ -18,7 +18,7 @@ export function logout() {
         localStorage.removeItem('id');
     localStorage.removeItem('userType');
         window.location.reload(false);
-        alert("Wylogowano!!!")
+        
 }
 
 export const login  = (data) => {

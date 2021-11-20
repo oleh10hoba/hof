@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 20 Lis 2021, 16:57
+-- Czas generowania: 20 Lis 2021, 18:42
 -- Wersja serwera: 10.4.14-MariaDB
 -- Wersja PHP: 7.2.34
 
@@ -232,7 +232,7 @@ CREATE TABLE `user` (
   `first_name` varchar(45) NOT NULL,
   `last_name` varchar(45) NOT NULL,
   `username` varchar(45) NOT NULL,
-  `passwd` varchar(45) NOT NULL,
+  `passwd` char(190) NOT NULL,
   `email` varchar(45) NOT NULL,
   `mobile` varchar(45) NOT NULL,
   `User_Type_id` int(11) NOT NULL,
@@ -255,7 +255,10 @@ INSERT INTO `user` (`id`, `first_name`, `last_name`, `username`, `passwd`, `emai
 (14, 'Dober', 'Bober', 'tester15', '$2b$10$qcu1GNQkydKfLgQmXgnXkeUgDuwKxSbFl4nxEC', 'olvd@gma.com', '12345678', 1, 'Narutowicza 9 p.22'),
 (24, 'Oleh', 'Foliush', 'tester18', '$2b$10$ojtYl95vxAiQqBiUDQ6yveIOb73cFxYaHsMAeV', 'olv1b@i.uaa', '123456789', 2, 'Nadbystr 1 p.12'),
 (26, 'Oleh', 'Dober', 'Bober', '$2b$10$zogDtCF9H8Dv9JRXHPa4YuISiZIp2k36Sajenk', 'olvb@i.ua', '123456784', 2, 'Dobermana 9'),
-(35, 'Admin', 'Admin', 'admin', '$2b$10$nzi1MIph61NaxOY3ZR0rJ.W9ob96TDiDM0V4h/', 'admin@i.ua', '888888888', 1, 'Adminowicha 1');
+(35, 'Admin', 'Admin', 'admin', '$2b$10$nzi1MIph61NaxOY3ZR0rJ.W9ob96TDiDM0V4h/', 'admin@i.ua', '888888888', 1, 'Adminowicha 1'),
+(36, 'Oleh', 'Barcelona', 'logat', '$2b$10$rGo.FXEWQQcsdCIFcKuqG.Y7Gu0TrhB3zw9Qxf', 'olvbbbbbb@i.ua', '123456388', 2, 'Narko 4'),
+(38, 'Opa', 'Europa', 'dolgove', '$2b$10$nY7FfAKiXzhqWvjNe9iQn.8oSnVF2vDkjLq5nt', 'dolgove@i.ua', '121212121', 2, 'Ulica 1'),
+(39, 'admika', 'adminka', 'adminka', '$2b$10$Z5lO//Tnb75KdkGt4SiXbO5bn0xhpkVOFDW4RJfFlfPuWeZWD5nYW', 'adminka@com.com', '987654321', 2, 'Adminkovka 2');
 
 -- --------------------------------------------------------
 
@@ -393,7 +396,7 @@ ALTER TABLE `shops`
 -- AUTO_INCREMENT dla tabeli `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT dla tabeli `user_type`
