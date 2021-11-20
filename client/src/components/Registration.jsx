@@ -27,7 +27,11 @@ const RegistrationForm = (props) => {
                 <Field placeholder={"Login"} name={"loginState"} component={Input} validate={required} />
             </div>
             <div className="field">
-                {/* <label>Hasło</label> */}
+
+                <label>Hasło</label>
+
+  
+
                 <Field placeholder={"Hasło"} type = {"password"} name={"passwordState"} component={Input} validate={required}/>
             </div>
             <div className="field">
@@ -67,7 +71,6 @@ const ReduxRegistrationForm = reduxForm({
 const Registration = (props) =>
 {
     const history = useHistory();
-    const  [responseData,setResponse] = useState("")
 
     const onSubmit = async(formData) =>{
     try{
@@ -82,11 +85,12 @@ const Registration = (props) =>
             houseState: formData.houseState,
             flatState: formData.flatState
         }).then((response) => {
-            if (response.data !== "Success"){
-            setResponse(response.data)}
+            if (response.data === "Success"){
+           alert("Użytkownik został stworzony")
+                history.push('/login')}
             else {
-                setResponse("")
-                history.push('/login')
+                alert(response.data)
+
             }
         })
     }catch(err){console.log(err)}
@@ -96,9 +100,6 @@ const Registration = (props) =>
         <div className="Registration">
             <h1>Rejestracja</h1>
             <ReduxRegistrationForm onSubmit={onSubmit}/>
-                {responseData === "" ? "" : <div className="ui warning message"><p>{responseData}</p></div>}
-
-
         </div>
 
     )

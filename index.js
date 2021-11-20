@@ -257,26 +257,37 @@ app.get("/isAuth",verifyJWT, (req,res)=>{
     res.send("Logged In")
 })
 
+
+const passChecker = (password,respass) => {
+    const bool = bcrypt.compareSync(password, respass)
+    return bool
+}
+
 app.post('/login',async(req,res)=> {
     try{
         const{login,password} = req.body
+
         if (login && password) {
 
 
 
 
             db.query('SELECT id, passwd, User_Type_id FROM user WHERE username = ?', [login, password], function(error, result) {
+                const id = result[0].id
                 if (result.length > 0) {
-                    const validPassword =  bcrypt.compare(password, result[0].passwd);
-                    if(validPassword){
-                    const id = result[0].id
 
-                    const token = jwt.sign({id},"DAWKODKWAPOczksokWPWKApodkwaWEKpakdoaw", {
-                        expiresIn: 300
-                    })
-                    res.json({auth: true, token: token, id: result[0].id, userType: result[0].User_Type_id})
+                    const validpassword = passChecker(password,result[0].passwd)
+
+                    if(validpassword){
+                            const token = jwt.sign({id},"DAWKODKWAPOczksokWPWKApodkwaWEKpakdoaw", {
+                                expiresIn: 300
+                            })
+                            res.json({auth: true, token: token, id: result[0].id, userType: result[0].User_Type_id})
+
                     }
-                    else res.send('Incorrect Username and/or Password!')
+
+                else res.send("Nie poprawne dane")
+
 
                 } else {
                     res.send('Incorrect Username and/or Password!');

@@ -42,7 +42,7 @@ const ReduxLoginForm = reduxForm({
 
 const Login = (props) => {
 
-    const  [responseData,setResponse] = useState("")
+
 
     const onSubmit = async(formData) =>{
         const data = {
@@ -51,9 +51,8 @@ const Login = (props) => {
         }
         login(data).then((response) => {
             if(response === false){
-                setResponse("Nie poprawnie wprowadzone dane")
+                alert("Nie poprawnie wprowadzone dane")
             }
-            else setResponse("")
         })
 
     }
@@ -62,7 +61,6 @@ const Login = (props) => {
         <div className="Login">
         <h1>Logowanie</h1>
         <ReduxLoginForm isLogged={props.isLogged}  onSubmit={onSubmit}/>
-        {responseData === "" ? "" : <div className="ui warning message"><p>{responseData}</p></div>}
         </div>
     )
 }
