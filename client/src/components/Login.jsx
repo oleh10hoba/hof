@@ -9,26 +9,29 @@ import {login} from "../actions/auth"
 const FormLogin = (props) =>
 {
     return (
-        <form onSubmit={props.handleSubmit}>
-            <div>
+        <div className="ui fluid card">
+            <div className="content">
+        <form className="ui form" onSubmit={props.handleSubmit}>
+            <div className="field">
+                <label>Login</label>
                 <Field placeholder={"Login"} name={"login"} component={Input} validate={required} />
             </div>
-            <div>
+            <div className="field">
+                <label>Password</label>
                 <Field placeholder={"Password"} type="password" name={"password"} component={Input} validate={required}/>
-            </div>
-            <div>
-                <Field component={"input"} name={"rememberMe"} type={"checkbox"}/>zapamiętaj mnie
             </div>
             <div>
                 <button  
                     type="submit"
-                    id="Waski" 
-                    className="checkout-btn"
-                > 
+                    id="Waski"
+                    className="ui primary labeled icon button">
+                    <i className="unlock alternate icon"></i>
                     ZALOGUJ
                 </button>
             </div>
         </form>
+            </div>
+        </div>
     )
 
 }
