@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.0.3
 -- https://www.phpmyadmin.net/
 --
--- Хост: 127.0.0.1
--- Время создания: Ноя 15 2021 г., 11:41
--- Версия сервера: 10.4.21-MariaDB
--- Версия PHP: 7.3.31
+-- Host: 127.0.0.1
+-- Czas generowania: 20 Lis 2021, 16:57
+-- Wersja serwera: 10.4.14-MariaDB
+-- Wersja PHP: 7.2.34
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- База данных: `webapp`
+-- Baza danych: `webapp`
 --
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `cartitem`
+-- Struktura tabeli dla tabeli `cartitem`
 --
 
 CREATE TABLE `cartitem` (
@@ -33,21 +33,10 @@ CREATE TABLE `cartitem` (
   `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Дамп данных таблицы `cartitem`
---
-
-INSERT INTO `cartitem` (`id`, `Product_id`, `user_id`) VALUES
-(671, 6, 14),
-(672, 6, 14),
-(673, 6, 14),
-(674, 11, 14),
-(675, 11, 14);
-
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `category`
+-- Struktura tabeli dla tabeli `category`
 --
 
 CREATE TABLE `category` (
@@ -57,7 +46,7 @@ CREATE TABLE `category` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Дамп данных таблицы `category`
+-- Zrzut danych tabeli `category`
 --
 
 INSERT INTO `category` (`id`, `name`, `description`) VALUES
@@ -74,7 +63,7 @@ INSERT INTO `category` (`id`, `name`, `description`) VALUES
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `favourite_list`
+-- Struktura tabeli dla tabeli `favourite_list`
 --
 
 CREATE TABLE `favourite_list` (
@@ -83,16 +72,21 @@ CREATE TABLE `favourite_list` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Дамп данных таблицы `favourite_list`
+-- Zrzut danych tabeli `favourite_list`
 --
 
 INSERT INTO `favourite_list` (`product_id`, `user_id`) VALUES
-(11, 14);
+(3, 14),
+(11, 14),
+(11, 35),
+(42, 35),
+(43, 14),
+(46, 14);
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `order`
+-- Struktura tabeli dla tabeli `order`
 --
 
 CREATE TABLE `order` (
@@ -108,10 +102,18 @@ CREATE TABLE `order` (
   `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Zrzut danych tabeli `order`
+--
+
+INSERT INTO `order` (`id`, `status`, `total`, `address`, `mobile`, `created_at`, `updated_at`, `isSelfPickup`, `shopId`, `user_id`) VALUES
+(72, 'wykonanie', 13, 'Aberta 1 ds. 1', '12345678', '2021-11-17 11:36:35', NULL, 1, NULL, 14),
+(73, 'wykonane', 208.62, 'Aberta 1 ds. 1', '12345678', '2021-11-17 15:03:26', NULL, 1, 2, 14);
+
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `orderitem`
+-- Struktura tabeli dla tabeli `orderitem`
 --
 
 CREATE TABLE `orderitem` (
@@ -121,10 +123,21 @@ CREATE TABLE `orderitem` (
   `order_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Zrzut danych tabeli `orderitem`
+--
+
+INSERT INTO `orderitem` (`id`, `quanitty`, `Product_id`, `order_id`) VALUES
+(203, 2, 34, 72),
+(204, 3, 32, 73),
+(205, 2, 3, 73),
+(206, 2, 49, 73),
+(207, 2, 11, 73);
+
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `product`
+-- Struktura tabeli dla tabeli `product`
 --
 
 CREATE TABLE `product` (
@@ -141,7 +154,7 @@ CREATE TABLE `product` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Дамп данных таблицы `product`
+-- Zrzut danych tabeli `product`
 --
 
 INSERT INTO `product` (`id`, `name`, `description`, `price`, `isavailable`, `image`, `User_id`, `category_id`, `isMetric`, `quantity`) VALUES
@@ -190,7 +203,7 @@ INSERT INTO `product` (`id`, `name`, `description`, `price`, `isavailable`, `ima
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `shops`
+-- Struktura tabeli dla tabeli `shops`
 --
 
 CREATE TABLE `shops` (
@@ -200,7 +213,7 @@ CREATE TABLE `shops` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Дамп данных таблицы `shops`
+-- Zrzut danych tabeli `shops`
 --
 
 INSERT INTO `shops` (`id`, `name`, `address`) VALUES
@@ -211,7 +224,7 @@ INSERT INTO `shops` (`id`, `name`, `address`) VALUES
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `user`
+-- Struktura tabeli dla tabeli `user`
 --
 
 CREATE TABLE `user` (
@@ -227,7 +240,7 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Дамп данных таблицы `user`
+-- Zrzut danych tabeli `user`
 --
 
 INSERT INTO `user` (`id`, `first_name`, `last_name`, `username`, `passwd`, `email`, `mobile`, `User_Type_id`, `delivery_address`) VALUES
@@ -239,12 +252,15 @@ INSERT INTO `user` (`id`, `first_name`, `last_name`, `username`, `passwd`, `emai
 (11, 'Oleh30', 'Hoba30', 'G30', '12345678', 'g30@gmail.com', '882059519', 2, ''),
 (12, 'Ojezhyk', 'Hoba', 'g31', '12345678', 'oleh100hoba@gmail.com', '882059519', 2, 'Nadbystrzycka42/406 lublin 20-501'),
 (13, 'Oleh', 'Hoba', 'g33', '1234567890', 'g33oleggoba@gmail.com', '882059519', 2, 'Nadbystrzycka 42/411'),
-(14, 'Dober', 'Bober', 'tester15', '$2b$10$qcu1GNQkydKfLgQmXgnXkeUgDuwKxSbFl4nxEC', 'olvd@gma.com', '12345678', 1, 'Aberta 1 ds. 1');
+(14, 'Dober', 'Bober', 'tester15', '$2b$10$qcu1GNQkydKfLgQmXgnXkeUgDuwKxSbFl4nxEC', 'olvd@gma.com', '12345678', 1, 'Narutowicza 9 p.22'),
+(24, 'Oleh', 'Foliush', 'tester18', '$2b$10$ojtYl95vxAiQqBiUDQ6yveIOb73cFxYaHsMAeV', 'olv1b@i.uaa', '123456789', 2, 'Nadbystr 1 p.12'),
+(26, 'Oleh', 'Dober', 'Bober', '$2b$10$zogDtCF9H8Dv9JRXHPa4YuISiZIp2k36Sajenk', 'olvb@i.ua', '123456784', 2, 'Dobermana 9'),
+(35, 'Admin', 'Admin', 'admin', '$2b$10$nzi1MIph61NaxOY3ZR0rJ.W9ob96TDiDM0V4h/', 'admin@i.ua', '888888888', 1, 'Adminowicha 1');
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `user_type`
+-- Struktura tabeli dla tabeli `user_type`
 --
 
 CREATE TABLE `user_type` (
@@ -253,7 +269,7 @@ CREATE TABLE `user_type` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Дамп данных таблицы `user_type`
+-- Zrzut danych tabeli `user_type`
 --
 
 INSERT INTO `user_type` (`id`, `Utypename`) VALUES
@@ -261,11 +277,11 @@ INSERT INTO `user_type` (`id`, `Utypename`) VALUES
 (2, 'Client');
 
 --
--- Индексы сохранённых таблиц
+-- Indeksy dla zrzutów tabel
 --
 
 --
--- Индексы таблицы `cartitem`
+-- Indeksy dla tabeli `cartitem`
 --
 ALTER TABLE `cartitem`
   ADD PRIMARY KEY (`id`),
@@ -273,14 +289,14 @@ ALTER TABLE `cartitem`
   ADD KEY `fk_cartItem_user1_idx` (`user_id`);
 
 --
--- Индексы таблицы `category`
+-- Indeksy dla tabeli `category`
 --
 ALTER TABLE `category`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `name_UNIQUE` (`name`);
 
 --
--- Индексы таблицы `favourite_list`
+-- Indeksy dla tabeli `favourite_list`
 --
 ALTER TABLE `favourite_list`
   ADD PRIMARY KEY (`product_id`,`user_id`),
@@ -288,7 +304,7 @@ ALTER TABLE `favourite_list`
   ADD KEY `fk_product_has_user_product1_idx` (`product_id`);
 
 --
--- Индексы таблицы `order`
+-- Indeksy dla tabeli `order`
 --
 ALTER TABLE `order`
   ADD PRIMARY KEY (`id`),
@@ -296,7 +312,7 @@ ALTER TABLE `order`
   ADD KEY `user_id` (`user_id`);
 
 --
--- Индексы таблицы `orderitem`
+-- Indeksy dla tabeli `orderitem`
 --
 ALTER TABLE `orderitem`
   ADD PRIMARY KEY (`id`),
@@ -304,7 +320,7 @@ ALTER TABLE `orderitem`
   ADD KEY `fk_orderitem_order1_idx` (`order_id`);
 
 --
--- Индексы таблицы `product`
+-- Indeksy dla tabeli `product`
 --
 ALTER TABLE `product`
   ADD PRIMARY KEY (`id`,`category_id`),
@@ -312,13 +328,13 @@ ALTER TABLE `product`
   ADD KEY `fk_product_category1_idx` (`category_id`);
 
 --
--- Индексы таблицы `shops`
+-- Indeksy dla tabeli `shops`
 --
 ALTER TABLE `shops`
   ADD PRIMARY KEY (`id`);
 
 --
--- Индексы таблицы `user`
+-- Indeksy dla tabeli `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id`,`User_Type_id`),
@@ -327,105 +343,105 @@ ALTER TABLE `user`
   ADD KEY `fk_user_User_Type1_idx` (`User_Type_id`);
 
 --
--- Индексы таблицы `user_type`
+-- Indeksy dla tabeli `user_type`
 --
 ALTER TABLE `user_type`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `Utypename_UNIQUE` (`Utypename`);
 
 --
--- AUTO_INCREMENT для сохранённых таблиц
+-- AUTO_INCREMENT dla zrzuconych tabel
 --
 
 --
--- AUTO_INCREMENT для таблицы `cartitem`
+-- AUTO_INCREMENT dla tabeli `cartitem`
 --
 ALTER TABLE `cartitem`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=676;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=690;
 
 --
--- AUTO_INCREMENT для таблицы `category`
+-- AUTO_INCREMENT dla tabeli `category`
 --
 ALTER TABLE `category`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT для таблицы `order`
+-- AUTO_INCREMENT dla tabeli `order`
 --
 ALTER TABLE `order`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 
 --
--- AUTO_INCREMENT для таблицы `orderitem`
+-- AUTO_INCREMENT dla tabeli `orderitem`
 --
 ALTER TABLE `orderitem`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=199;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=208;
 
 --
--- AUTO_INCREMENT для таблицы `product`
+-- AUTO_INCREMENT dla tabeli `product`
 --
 ALTER TABLE `product`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
--- AUTO_INCREMENT для таблицы `shops`
+-- AUTO_INCREMENT dla tabeli `shops`
 --
 ALTER TABLE `shops`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT для таблицы `user`
+-- AUTO_INCREMENT dla tabeli `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
--- AUTO_INCREMENT для таблицы `user_type`
+-- AUTO_INCREMENT dla tabeli `user_type`
 --
 ALTER TABLE `user_type`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- Ограничения внешнего ключа сохраненных таблиц
+-- Ograniczenia dla zrzutów tabel
 --
 
 --
--- Ограничения внешнего ключа таблицы `cartitem`
+-- Ograniczenia dla tabeli `cartitem`
 --
 ALTER TABLE `cartitem`
   ADD CONSTRAINT `fk_cartItem_Product1` FOREIGN KEY (`Product_id`) REFERENCES `product` (`id`),
   ADD CONSTRAINT `fk_cartItem_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 
 --
--- Ограничения внешнего ключа таблицы `favourite_list`
+-- Ograniczenia dla tabeli `favourite_list`
 --
 ALTER TABLE `favourite_list`
   ADD CONSTRAINT `fk_product_has_user_product1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`),
   ADD CONSTRAINT `fk_product_has_user_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 
 --
--- Ограничения внешнего ключа таблицы `order`
+-- Ograniczenia dla tabeli `order`
 --
 ALTER TABLE `order`
   ADD CONSTRAINT `fk_shop_id` FOREIGN KEY (`shopId`) REFERENCES `shops` (`id`),
   ADD CONSTRAINT `order_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 
 --
--- Ограничения внешнего ключа таблицы `orderitem`
+-- Ograniczenia dla tabeli `orderitem`
 --
 ALTER TABLE `orderitem`
   ADD CONSTRAINT `fk_orderitem_Product1` FOREIGN KEY (`Product_id`) REFERENCES `product` (`id`),
   ADD CONSTRAINT `fk_orderitem_order1` FOREIGN KEY (`order_id`) REFERENCES `order` (`id`);
 
 --
--- Ограничения внешнего ключа таблицы `product`
+-- Ograniczenia dla tabeli `product`
 --
 ALTER TABLE `product`
   ADD CONSTRAINT `fk_Product_User1` FOREIGN KEY (`User_id`) REFERENCES `user` (`id`),
   ADD CONSTRAINT `fk_product_category1` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`);
 
 --
--- Ограничения внешнего ключа таблицы `user`
+-- Ograniczenia dla tabeli `user`
 --
 ALTER TABLE `user`
   ADD CONSTRAINT `fk_user_User_Type1` FOREIGN KEY (`User_Type_id`) REFERENCES `user_type` (`id`);
