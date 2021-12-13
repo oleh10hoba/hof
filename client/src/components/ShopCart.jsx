@@ -9,7 +9,7 @@ const CartComponent = (product) => {
 
     const addCart = () => {
         const res = axios.post('http://localhost:3001/addCart', {
-            userId: localStorage.getItem("id"),
+            token : localStorage.getItem("jwtToken"),
             productId: product.id
         })
         addToCart(product)
@@ -17,7 +17,7 @@ const CartComponent = (product) => {
 
     const removeCart = () => {
         axios.post('http://localhost:3001/removeCart', {
-            userId: localStorage.getItem("id"),
+            token : localStorage.getItem("jwtToken"),
             productId: product.id
         })
         removeFromCart(product.id)

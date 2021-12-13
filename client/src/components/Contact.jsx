@@ -1,4 +1,17 @@
 import React from 'react';
+import axios from "axios";
+
+const checkLogin = () => {
+    axios.get('http://localhost:3001/isAuth', {
+        headers:{
+            "access-token": localStorage.getItem("jwtToken")
+        }
+    }).then((response)=> {
+        console.log(response)
+    })
+
+}
+
 
 const Account = product => {
 

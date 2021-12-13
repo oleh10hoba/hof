@@ -12,7 +12,7 @@ const ChangeAddressForm = (props) => {
                 <Field placeholder={"Ulica"} name={"addressState"} component={Input} validate={required}/>
             </div>
             <div>
-                <Field placeholder={"Nr Domu"} name={"houseState"} component={Input} validate={required}/>
+                <Field placeholder={"Nr domu"} name={"houseState"} component={Input} validate={required}/>
             </div>
             <div>
                 <Field placeholder={"Nr mieszkania"} name={"flatState"}component={Input}/>

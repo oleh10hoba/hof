@@ -1,7 +1,6 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "server": "nodemon index.js",
@@ -20,5 +19,14 @@
     "mysql": "^2.18.1",
     "nodemon": "^2.0.12",
     "react-select": "^5.1.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oleh10hoba/hof.git"
+  },
+  "bugs": {
+    "url": "https://github.com/oleh10hoba/hof/issues"
+  },
+  "homepage": "https://github.com/oleh10hoba/hof#readme",
+  "description": ""
 }

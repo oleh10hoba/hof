@@ -7,8 +7,9 @@ import axios from "axios";
 const CartComponent = ({ title, id, image, removeFromCart }) =>
 
 {   const removeCart = () => {
-    axios.post('http://localhost:3001/removeCart', {
-        userId: localStorage.getItem("id"),
+    axios.post('http://localhost:3001/removeCart',
+    {
+        token : localStorage.getItem("jwtToken"),
         productId: id
     })
     removeFromCart(id)
@@ -30,7 +31,7 @@ const CartComponent = ({ title, id, image, removeFromCart }) =>
 
 }
 
-const MenuComponents = ({ totalPrice, removeFromCart, count, items, isLogged }) => (
+const MenuComponents = ({ totalPrice, removeFromCart, count, items, isLogged,isAdmin }) => (
       <Menu>
         {isLogged &&
           <Menu.Item
@@ -72,7 +73,7 @@ const MenuComponents = ({ totalPrice, removeFromCart, count, items, isLogged }) 
         >
           <Link to="/contact">Kontakt</Link>
         </Menu.Item>
-        {isLogged &&  localStorage.getItem('userType') == 1 &&
+        {isLogged &&  isAdmin &&
            <Menu.Item
               name='editorials'
             >

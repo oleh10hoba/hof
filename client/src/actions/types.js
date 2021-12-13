@@ -1,1 +1,2 @@
-export const SET_CURRENT_USER = 'SET_CURRENT_USER';
+export const GET_AUTH = 'GET_AUTH';
+export const USERS_ERROR = 'USERS_ERROR'
