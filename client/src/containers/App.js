@@ -10,6 +10,9 @@ import App from '../components/App';
 import { bindActionCreators } from 'redux';
 import orderBy from 'lodash/orderBy.js';
 import axios from "axios";
+import {getAuth} from "../actions/auth";
+
+
 
 const sortBy = (products, filterBy) => {
   switch (filterBy) {
@@ -40,10 +43,13 @@ axios.post('http://localhost:3001/getHistory', {
     return data
 })
 
+
+
 const searchProducts = (products, filterBy, searchQuery) => {
   return sortBy(filterProducts(products, searchQuery), filterBy);
 }
 const mapStateToProps = ({ products, history, favorites, account, filter, auth, shops }) => ({
+    isLogged: auth.isLogged,
     products: 
       products.items &&
       searchProducts(products.items, filter.filterBy, filter.searchQuery),
@@ -53,10 +59,13 @@ const mapStateToProps = ({ products, history, favorites, account, filter, auth, 
     shops: shops.items,
     history: history.items,
     isReady: favorites.isReady && products.isReady && account.isReady && shops.isReady,
-    isLogged: localStorage.getItem('jwtToken'),// auth.isLogged,
-    account: 
-      account.items
+    isAdmin: auth.isAdmin,
+    account:
+      account.items,
+    isChecked: auth.isChecked
   });
+
+
 
 
 const mapDispatchToProps = dispatch => ({

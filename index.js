@@ -19,6 +19,25 @@ const db = mysql.createConnection({
     database:'webapp'
 })
 
+const verifyJWT = (req,res,next) => {
+    const token = req.headers["access-token"]
+
+    if(!token){
+        res.send("Cant receive login token")
+    } else {
+        jwt.verify(token, "DAWKODKWAPOczksokWPWKApodkwaWEKpakdoaw",(err,decoded) => {
+            if(err){
+                res.send("You are not logged in")
+            }
+            else {
+                req.userId = decoded.id
+                next()
+            }
+        })
+    }
+
+
+}
 
 app.post('/create', async(req, res) => {
     const name = (req.body.nameState).trim()
@@ -57,7 +76,9 @@ app.post('/create', async(req, res) => {
     }
 
     const finalAddress = addressChecker(address, house, flat)
-
+    if (finalAddress === false){
+        return res.send("Nie poprawny adres")
+    }
     const salt = await bcrypt.genSalt(10);
     const newpassword = await bcrypt.hash(password, salt)
 
@@ -71,7 +92,9 @@ app.post('/create', async(req, res) => {
                 return res.send('Użytkownik już istnieje')
             }
             else{
-                db.query("INSERT INTO user (first_name,last_name ,username,passwd,email,mobile,User_Type_id, delivery_address) VALUES (?,?,?,?,?,?,?,?)",[name,lastName,login,newpassword,email,mobile,2, finalAddress],
+                db.query("INSERT INTO user (first_name,last_name ,username,passwd,email,mobile,User_Type_id," +
+                    "delivery_address) VALUES (?,?,?,?,?,?,?,?)",
+                    [name,lastName,login,newpassword,email,mobile,2, finalAddress],
                     (err,result) => {
                         if (err) {
                           return   res.send(err)
@@ -83,12 +106,11 @@ app.post('/create', async(req, res) => {
                 )
             }
         })
-
 })
 
-app.post('/refreshCart', async(req, res) => {
-    const userId = req.body.userId
-    db.query('SELECT p.id, p.name, p.description, p.price, p.isavailable, p.image, p.User_id, p.category_id,p.isMetric from product p inner join cartitem c on p.id = c.Product_id where c.user_id = ?',[userId],
+app.get('/refreshCart',verifyJWT, async(req, res) => {
+    const userId = req.userId
+    db.query('SELECT p.id, p.name, p.description, p.price, p.isavailable, p.image, p.User_id, p.category_id,p.isMetric from product  p inner join cartitem c on p.id = c.Product_id where c.user_id = ?',[userId],
         (err,result) => {
             if (err) {
                 console.log(err)
@@ -101,20 +123,30 @@ app.post('/refreshCart', async(req, res) => {
 })
 
 app.post('/addOrder', async(req, res) => {
-    const userId = req.body.userId
+    const token = req.body.token
+    if (token === undefined){
+        return res.send("Error")
+    }
+    const decoded = jwt.verify(token, "DAWKODKWAPOczksokWPWKApodkwaWEKpakdoaw")
+    const userId = decoded.id
     const total = req.body.total
     const address = req.body.address
     const mobile = req.body.mobile
     const shopId = req.body.shopId
     const selfpickup = req.body.selfpickup
 
-                db.query('INSERT into `order` (status,total,address,mobile,created_at,isSelfPickup,shopId,user_id) values ("wykonanie",?,?,?,Now(),?,?,?)',[total,address,mobile,selfpickup,shopId,userId],
+                db.query('INSERT into `order` (status,total,address,mobile,created_at,isSelfPickup,shopId,user_id) ' +
+                    ' values ("wykonanie",?,?,?,Now(),?,?,?)',[total,address,mobile,selfpickup,shopId,userId],
                     (err,result) => {
                         if (err) {
                             console.log(err)
                         }
                         else {
-                            db.query('INSERT IGNORE INTO orderitem (product_id, quanitty, order_id) SELECT c.Product_id, COUNT(c.Product_id),o.id FROM cartitem c inner join `order` o on c.user_id = o.user_id WHERE c.user_id = (?) AND o.status= "wykonanie" AND o.created_at = (SELECT MAX(created_at) from `order`) GROUP BY Product_id ORDER BY COUNT(Product_id) DESC',[userId],(err,lastId) => {
+                            db.query('INSERT IGNORE INTO orderitem (product_id, quanitty, order_id) '+
+                                'SELECT c.Product_id, COUNT(c.Product_id),o.id FROM cartitem c '+
+                                'inner join `order` o on c.user_id = o.user_id WHERE c.user_id = (?) AND o.status= "wykonanie"'+
+                                ' AND o.created_at = (SELECT MAX(created_at) from `order`)'+
+                                ' GROUP BY Product_id ORDER BY COUNT(Product_id) DESC',[userId],(err,lastId) => {
                                     if (err) {
                                         console.log(err)
                                     }
@@ -132,8 +164,14 @@ app.post('/addOrder', async(req, res) => {
 
 
 app.post('/addCart', async(req, res) => {
-    const userId = req.body.userId
+    const token = req.body.token
     const productId = req.body.productId
+    if (token === undefined){
+        return res.send("Error")
+    }
+    const decoded = jwt.verify(token, "DAWKODKWAPOczksokWPWKApodkwaWEKpakdoaw")
+    const userId = decoded.id
+
     db.query('INSERT INTO cartitem (Product_id,user_id) values (?,?)',[productId,userId],
         (err,result) => {
             if (err) {
@@ -147,8 +185,14 @@ app.post('/addCart', async(req, res) => {
 })
 
 app.post('/removeCart', async(req, res) => {
-    const userId = req.body.userId
+    const token = req.body.token
     const productId = req.body.productId
+    if (token === undefined){
+        return res.send("Error")
+    }
+    const decoded = jwt.verify(token, "DAWKODKWAPOczksokWPWKApodkwaWEKpakdoaw")
+    const userId = decoded.id
+
     db.query('DELETE from cartitem where user_id = ? and Product_id = ?',[userId, productId],
         (err,result) => {
             if (err) {
@@ -171,7 +215,8 @@ app.post('/addproduct', async(req, res) => {
     const category_id = req.body.categoryidState
     const isMetric = req.body.isMetric
     const quantity = req.body.quantity
-    db.query("insert into product(name,description,price,isavailable,image,User_id,category_id,isMetric, quantity) VALUES (?,?,?,?,?,10,?,?,?)",[name,description,price,isavailable,image,category_id,isMetric,quantity],
+    db.query("insert into product(name,description,price,isavailable,image,User_id,category_id,isMetric, quantity) "+
+        "VALUES (?,?,?,?,?,10,?,?,?)",[name,description,price,isavailable,image,category_id,isMetric,quantity],
         (err,result) => {
             if (err) {
                 console.log(err)
@@ -185,8 +230,13 @@ app.post('/addproduct', async(req, res) => {
 
 
 app.post('/addFavourites',async(req,res) => {
-    const userId = req.body.userId
+    const token = req.body.token
     const productId = req.body.productId
+    if (token === undefined){
+        return res.send("Error")
+    }
+    const decoded = jwt.verify(token, "DAWKODKWAPOczksokWPWKApodkwaWEKpakdoaw")
+    const userId = decoded.id
     db.query('SELECT * FROM favourite_list WHERE user_id = ? AND product_id = ?', [userId, productId],
         (err,result) => {
         if(err){
@@ -233,28 +283,20 @@ app.post('/remproduct', async(req, res) => {
     )
 })
 
-const verifyJWT = (req,res,next) => {
-    const token = req.headers["access-token"]
 
-    if(!token){
-        res.send("Cant receive login token")
-    } else {
-        jwt.verify(token, "DAWKODKWAPOczksokWPWKApodkwaWEKpakdoaw",(err,decoded) => {
-            if(err){
-                res.send("You are not logged in")
-            }
-            else {
-                req.userId = decoded.id
-                next()
-            }
-        })
-    }
-
-
-}
 
 app.get("/isAuth",verifyJWT, (req,res)=>{
-    res.send("Logged In")
+    const id = req.userId
+    db.query('SELECT User_Type_id  from user where id = ?', [id], function(error, result) {
+        if(error){
+            console.log(error)
+        }
+        else {
+
+            res.json({ islogin : true, User_Type: result[0]})
+        }
+
+    })
 })
 
 
@@ -269,18 +311,15 @@ app.post('/login',async(req,res)=> {
 
         if (login && password) {
 
-
-
-
             db.query('SELECT id, passwd, User_Type_id FROM user WHERE username = ?', [login, password], function(error, result) {
-                const id = result[0].id
-                if (result.length > 0) {
 
+                if (result.length > 0) {
+                    const id = result[0].id
                     const validpassword = passChecker(password,result[0].passwd)
 
                     if(validpassword){
                             const token = jwt.sign({id},"DAWKODKWAPOczksokWPWKApodkwaWEKpakdoaw", {
-                                expiresIn: 300
+                                expiresIn: 3600
                             })
                             res.json({auth: true, token: token, id: result[0].id, userType: result[0].User_Type_id})
 
@@ -308,8 +347,8 @@ app.post('/login',async(req,res)=> {
 
 })
 
-app.post("/getHistory", (req, res) => {
-    const{id} = req.body
+app.get("/getHistory",verifyJWT ,(req, res) => {
+    const id = req.userId
     db.query("Select created_at, status, id from `order` where user_id = ?",[id] ,(err, result) => {
         if (err) {
             console.log(err);
@@ -321,7 +360,10 @@ app.post("/getHistory", (req, res) => {
 
 app.post("/getProductsFromOrder", (req, res) => {
     const{id} = req.body
-    db.query("select u.first_name,o.isSelfPickup, u.delivery_address, u.mobile ,o.id,o.status,o.total, p.description,p.price, p.name,c.quanitty from product p inner join orderitem c on c.Product_id = p.id  inner join `order` o on c.order_id = o.id inner join user u on o.user_id = u.id where c.order_id = ?",[id] ,(err, result) => {
+    db.query("select u.first_name,o.isSelfPickup, u.delivery_address, u.mobile ,o.id,o.status,o.total,"+
+        " p.description,p.price, p.name,c.quanitty from product p inner join orderitem c on c.Product_id = p.id "+
+        " inner join `order` o on c.order_id = o.id inner join user u on o.user_id = u.id where c.order_id = ?",
+        [id] ,(err, result) => {
         if (err) {
             console.log(err);
         } else {
@@ -365,7 +407,10 @@ app.get("/getOrdersAll", (req, res) => {
 
 
 app.get("/getproducts", (req, res) => {
-    db.query("SELECT p.category_id, p.description, p.id, p.image, p.isavailable, p.isMetric, p.name, p.price, p.quantity, p.User_id,c.name as 'Category_Name' FROM `product` p INNER JOIN category c ON c.id = p.category_id  WHERE p.isavailable = 1", (err, result) => {
+    db.query("SELECT p.category_id, p.description, p.id, p.image, p.isavailable,"+
+        " p.isMetric, p.name, p.price, p.quantity, p.User_id,c.name as 'Category_Name' "+
+        "FROM `product` p INNER JOIN category c ON c.id = p.category_id  WHERE p.isavailable = 1",
+        (err, result) => {
         if (err) {
             console.log(err);
         } else {
@@ -384,9 +429,12 @@ app.get("/getshops", (req, res) => {
     });
 });
 
-app.post("/getfavorites", (req, res) => {
-    const{id} = req.body
-    db.query("SELECT p.category_id, p.description, p.id, p.image, p.isavailable, p.isMetric, p.name, p.price, p.quantity, p.User_id,c.name as 'Category_Name' FROM product p INNER JOIN favourite_list f ON p.id = f.product_id INNER JOIN category c ON c.id = p.category_id where f.User_id = ?;",[id], (err, result) => {
+app.get("/getfavorites",verifyJWT, (req, res) => {
+    const id = req.userId
+    db.query("SELECT p.category_id, p.description, p.id, p.image, p.isavailable, p.isMetric, p.name, p.price, p.quantity, "+
+        " p.User_id,c.name as 'Category_Name' FROM product p INNER JOIN favourite_list f ON p.id = f.product_id "+
+        " INNER JOIN category c ON c.id = p.category_id where f.User_id = ?;",[id],
+        (err, result) => {
 
         if (err) {
             console.log(err);
@@ -398,19 +446,19 @@ app.post("/getfavorites", (req, res) => {
 
 const addressChecker = (address,house,flat) => {
     if(!(/^\d+$/.test(house))){
-        return res.send("Nie podany poprawny numer domu")
+        return false
     }
 
     if(flat) {
         if(!(/^\d+$/.test(flat))){
-            return res.send("Nie podany poprawny numer mieszkania")
+            return false
         }
     }
 
     var finalAddress = address + " " + house
 
     if(flat) {
-        finalAddress = finalAddress + " p." + flat
+        finalAddress = finalAddress + " / " + flat
     }
     return finalAddress
 }
@@ -422,7 +470,9 @@ app.post("/changeaddress", (req, res) => {
     const id = req.body.idState
 
     const finalAddress = addressChecker(address, house, flat)
-
+    if (finalAddress === false){
+        return res.send("Nie poprawny adres")
+    }
 
 
     db.query("UPDATE user SET `delivery_address` = ? WHERE id = ?",[finalAddress,id], (err, result) => {
@@ -434,9 +484,13 @@ app.post("/changeaddress", (req, res) => {
     });
 });
 
-app.post("/getaccount", (req, res) => {
-    const{id} = req.body
-    db.query("select * from user where `id` = ?",[id], (err, result) => {
+
+
+
+app.get("/getaccount",verifyJWT,(req, res) => {
+
+   const userId = req.userId
+    db.query("select * from user where `id` = ?",[userId], (err, result) => {
         if (err) {
             console.log(err);
         } else {

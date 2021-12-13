@@ -3,7 +3,7 @@ import {Field, reduxForm} from "redux-form";
 import  {required} from "../utils/validators/validator"
 import {Input} from "../utils/validators/formcontrols";
 import Axios from 'axios'
-import {login} from "../actions/auth"
+
 
 
 const FormLogin = (props) =>
@@ -40,7 +40,9 @@ const ReduxLoginForm = reduxForm({
     form: 'login'
 })(FormLogin)
 
-const Login = (props) => {
+const Login = ({setLogin,getAuth},props) => {
+
+
 
 
 
@@ -49,11 +51,11 @@ const Login = (props) => {
            login: formData.login,
            password: formData.password
         }
-        login(data).then((response) => {
-            if(response === false){
-                alert("Nie poprawnie wprowadzone dane")
-            }
-        })
+
+    setLogin(data)
+
+
+
 
     }
 

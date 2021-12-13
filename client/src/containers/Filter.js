@@ -11,4 +11,4 @@ const mapDispatchToProps = dispatch => ({
   ...bindActionCreators(filterActions, dispatch)
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Filter);
+export  default connect(mapStateToProps, mapDispatchToProps)(Filter);

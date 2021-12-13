@@ -1,39 +1,46 @@
+import {GET_AUTH,USERS_ERROR} from './types';
 import axios from 'axios';
 
-const setLog = (data) => {
-    axios.post('http://localhost:3001/login').then(({ data }) => {
-        setLogg(data);
-    });
-};
-export const load = data => ({ type: 'SET_CURRENT_USER', data })
-const setLogg = (data) => 
-({
-    type: 'SET_CURRENT_USER',
-    payload: data
+
+export const getAuth = () => async dispatch => {
+
+    try{
+        const res = await  axios.get('http://localhost:3001/isAuth', {
+            headers:{
+                "access-token": localStorage.getItem("jwtToken")
+            }
+        })
+
+        dispatch( {
+            type: GET_AUTH,
+            payload: res.data
+        })
+    }
+    catch(e){
+        dispatch( {
+            type: USERS_ERROR,
+            payload: console.log(e),
+        })
+    }
+
+}
+
+export const setLogin = (login) => ({
+    type: 'SET_LOGIN',
+    payload: login
 });
 
+export const setLogout = (logout) => ({
+    type: 'SET_LOGOUT',
+    payload: logout
+});
 
 export function logout() {
         localStorage.removeItem('jwtToken');
-        localStorage.removeItem('id');
-    localStorage.removeItem('userType');
         window.location.reload(false);
         
 }
 
-export const login  = (data) => {
-        return axios.post('http://localhost:3001/login', { login: data.login, password: data.password}
-            ).then(res => {
-            if (!res.data.token) {
-                return false
-            }
-            else{
-                setLog(data);
-            }
-            const token = res.data.token;
-            localStorage.setItem('jwtToken', token);
-            localStorage.setItem('id', res.data.id);
-            localStorage.setItem('userType', res.data.userType);
-            window.location.reload(false);
-        });
-}
+
+
+

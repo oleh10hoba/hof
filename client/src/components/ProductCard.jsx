@@ -8,9 +8,9 @@ const ProductCard = ( product) => {
     const { name, description, image, price, addToCart, addedCount, addToFavourites, isFavorite, removeFromFavourite,Category_Name} = product;
     const addCart = () => {
         const res = axios.post('http://localhost:3001/addCart', {
-            userId: localStorage.getItem("id"),
-                productId: product.id
-            })
+            token : localStorage.getItem("jwtToken"),
+            productId: product.id
+        })
         addToCart(product)
     }
     const addFav = () => {

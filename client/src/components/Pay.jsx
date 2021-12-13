@@ -19,7 +19,7 @@ const Pay = ({ totalPrice,account }) =>
         e.preventDefault()
         console.log(totalPrice)
         axios.post("http://localhost:3001/addOrder",{
-        userId: localStorage.getItem("id"),
+        token : localStorage.getItem("jwtToken"),
         total: totalPrice,
             address : account.delivery_address,
             mobile: account.mobile,

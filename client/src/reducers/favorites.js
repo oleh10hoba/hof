@@ -20,7 +20,7 @@ const favorites = (state = initialState, action) => {
             };
         case 'ADD_FAVORITES':
             axios.post('http://localhost:3001/addFavourites', {
-                userId: localStorage.getItem("id"),
+                token : localStorage.getItem("jwtToken"),
                 productId: action.payload.id
             });
             return {
@@ -29,7 +29,7 @@ const favorites = (state = initialState, action) => {
             }
         case 'REMOVE_FAVORITES':
             axios.post('http://localhost:3001/addFavourites', {
-                userId: localStorage.getItem("id"),
+                token : localStorage.getItem("jwtToken"),
                 productId: action.payload.id
             });
             return {
