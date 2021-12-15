@@ -6,9 +6,22 @@ import { useHistory } from "react-router-dom";
 
 const Pay = ({ totalPrice,account }) =>
 {
+
     const location = useLocation()
-    const {shop,rec} = location.params
     const history = useHistory();
+    if(account === null){
+        history.push("/shop", { from: "pay" })
+        window.location.reload();
+    }
+      const {shop,rec} = location.params
+    if(shop.selected === null){
+        shop.selected = 1
+    }
+    if(rec.selected === null){
+        rec.selected = 'delivery'
+    }
+
+
 
 
     const payOrder = (e) => {
@@ -31,6 +44,7 @@ const Pay = ({ totalPrice,account }) =>
     }
 
     return(
+
         <>
             <div className="card">
                     <form className="checkout">
