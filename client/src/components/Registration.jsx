@@ -2,7 +2,7 @@ import Axios from "axios";
 import {Field, reduxForm} from "redux-form";
 import {Input} from "../utils/validators/formcontrols";
 import {required} from "../utils/validators/validator";
-import React, {useState} from "react";
+import React from "react";
 import { useHistory } from "react-router-dom";
 
 
@@ -51,7 +51,7 @@ const RegistrationForm = (props) => {
                 {/* <label>Nr mieszkania(Nie obowiązkowo)</label> */}
                 <Field placeholder={"Nr mieszkania(Nie obowiązkowo)"} name={"flatState"}component={Input}/>
             </div>
-                <button  className="ui primary labeled icon button" type="submit" id="Waski" className="checkout-btn"> Zarejestruj mnie </button>
+                <button  type="submit" id="Waski" className="checkout-btn"> Zarejestruj mnie </button>
         </form>
             </div>
         </div>

@@ -1,37 +1,12 @@
 import React from 'react';
-import { Menu, Popup, List, Button, Image } from 'semantic-ui-react';
+import { Menu } from 'semantic-ui-react';
 import {Link} from "react-router-dom";
 import {logout} from "../actions/auth"
-import axios from "axios";
 
-const CartComponent = ({ title, id, image, removeFromCart }) =>
 
-{   const removeCart = () => {
-    axios.post('http://localhost:3001/removeCart',
-    {
-        token : localStorage.getItem("jwtToken"),
-        productId: id
-    })
-    removeFromCart(id)
-}
 
-    return(
-      <List selection divided verticalAlign="middle">
-        <List.Item>
-          <List.Content floated="right">
-            <Button onClick={removeCart} color="red">
-              Usuń
-            </Button>
-          </List.Content>
-          <Image avatar src={image} />
-          <List.Content>{title}</List.Content>
-        </List.Item>
-      </List>
-    );
 
-}
-
-const MenuComponents = ({ totalPrice, removeFromCart, count, items, isLogged,isAdmin }) => (
+const MenuComponents = ({ totalPrice, isLogged,isAdmin }) => (
       <Menu>
         {isLogged &&
           <Menu.Item

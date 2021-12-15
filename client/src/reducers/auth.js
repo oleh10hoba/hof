@@ -1,4 +1,3 @@
-import isEmpty from 'lodash/isEmpty';
 import axios from "axios";
 import {GET_AUTH} from '../actions/types'
 
@@ -48,8 +47,7 @@ const auth = (state = initialState, action = {}) => {
           }
 
 
-
-
+                  break;
         default: return state;
     }
 }

@@ -5,17 +5,17 @@ const History = (props) =>
 {
    const [products,setProducts] = useState(null)
 
-    var checker = false
+
 
     async function getProductsFromOrder(id){
     axios.post("http://localhost:3001/getProductsFromOrder",{id:id}).then((data)=>{
         setProducts(data.data)
     })
-        checker = true
+
     }
     
     const {history} = props
-    if(history.length === 0) {
+    if(!history) {
         return (
             <>
                 <p>Nie ma historii</p>
