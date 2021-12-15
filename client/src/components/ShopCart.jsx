@@ -8,7 +8,7 @@ const CartComponent = (product) => {
 
 
     const addCart = () => {
-        const res = axios.post('http://localhost:3001/addCart', {
+         axios.post('http://localhost:3001/addCart', {
             token : localStorage.getItem("jwtToken"),
             productId: product.id
         })

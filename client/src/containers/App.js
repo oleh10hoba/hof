@@ -10,7 +10,7 @@ import App from '../components/App';
 import { bindActionCreators } from 'redux';
 import orderBy from 'lodash/orderBy.js';
 import axios from "axios";
-import {getAuth} from "../actions/auth";
+
 
 
 
