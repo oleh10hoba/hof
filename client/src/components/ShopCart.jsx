@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 import axios from "axios";
 
 const CartComponent = (product) => {
-    const {cartItems, removeFromCart, addToCart, count} = product;
+    const {cartItems, removeFromCart, addToCart, subFromCart} = product;
 
 
     const addCart = () => {
@@ -22,6 +22,16 @@ const CartComponent = (product) => {
         })
         removeFromCart(product.id)
     }
+
+    const subCart = () => {
+        axios.post('http://localhost:3001/subcart', {
+            token : localStorage.getItem("jwtToken"),
+            productId: product.id
+        })
+        subFromCart(product.id)
+    }
+
+
 
     return (
         <Table.Row>
@@ -46,6 +56,7 @@ const CartComponent = (product) => {
                     +
                 </Button>
                 <Button
+                    onClick={subCart}
                     color="orange"
                 >
                     -
@@ -62,7 +73,7 @@ const CartComponent = (product) => {
 };
 
 const ShopCart = (props) => {
-    const {totalPrice, cartItems, count, items, shops, isReady, setCart, addToCart, removeFromCart} = props;
+    const {totalPrice, cartItems, items, shops, addToCart,subFromCart, removeFromCart} = props;
     const [shopSelected, setShopSelected] = useState({selected: null})
     const [recSelected, setRecSelected] = useState({selected: null})
 
@@ -93,7 +104,7 @@ const ShopCart = (props) => {
                         <Table.Body>
                             {items.map((product, i) => (
                                 <CartComponent key={i} {...product} cartItems={cartItems} removeFromCart={removeFromCart}
-                                                addToCart={addToCart}/>
+                                                addToCart={addToCart} subFromCart={subFromCart}/>
                             ))}
                         </Table.Body>
                     </Table>

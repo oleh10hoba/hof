@@ -205,6 +205,29 @@ app.post('/removeCart', async(req, res) => {
     )
 })
 
+app.post('/subcart', async(req, res) => {
+    const token = req.body.token
+    const productId = req.body.productId
+    if (token === undefined){
+        return res.send("Error")
+    }
+    const decoded = jwt.verify(token, "DAWKODKWAPOczksokWPWKApodkwaWEKpakdoaw")
+    const userId = decoded.id
+
+    db.query("delete from `cartitem` where id = (SELECT DISTINCT FIRST_VALUE(id) OVER ( ORDER BY id ASC) from cartitem where user_id = ? AND Product_id = ? )",[userId, productId],
+        (err,result) => {
+            if (err) {
+                console.log(err)
+            }
+            else {
+                res.send(result)
+            }
+        }
+    )
+})
+
+
+
 
 app.post('/addproduct', async(req, res) => {
     const name = req.body.nameState
@@ -250,7 +273,7 @@ app.post('/addFavourites',async(req,res) => {
                             console.log(err)
                         }
                         if(result) {
-                            console.log("deleted")
+
                         }
                     }
 
@@ -282,6 +305,8 @@ app.post('/remproduct', async(req, res) => {
         }
     )
 })
+
+
 
 
 

@@ -15,7 +15,7 @@ const History = (props) =>
     }
     
     const {history} = props
-    if(history.length === 0) {
+    if(!history) {
         return (
             <>
                 <p>Nie ma historii</p>

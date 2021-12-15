@@ -17,7 +17,12 @@ const cart = (state = initialState, action) => {
             items: [...state.items, action.payload]
         }
         case 'SUB_PRODUCT_FROM_CART':
-            console.log("nice")
+            const removeIndex = state.items.findIndex( item => item.id === action.payload );
+            state.items.splice( removeIndex, 1 )
+            return {
+                ...state,
+                items: state.items
+            };
 
         case 'REMOVE_PRODUCT_FROM_CART':
             return {

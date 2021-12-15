@@ -1,4 +1,4 @@
-import React, {Component, useState} from 'react';
+import React, {Component} from 'react';
 import axios from 'axios';
 import {BrowserRouter as Router, Route} from "react-router-dom";
 import {Redirect} from "react-router-dom";
@@ -25,7 +25,7 @@ class App extends Component{
 
 
   componentWillMount(){
-    const {getAuth, setCart , setHistory, products, setProducts, setFavorites, setAccount, setShops,isLogged } = this.props;
+    const {getAuth, setCart , setHistory, setProducts, setFavorites, setAccount, setShops } = this.props;
 
 
 
