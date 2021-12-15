@@ -7,7 +7,7 @@ import {logout} from "../actions/auth"
 
 
 const MenuComponents = ({ totalPrice, isLogged,isAdmin }) => (
-      <Menu>
+      <Menu >
         {isLogged &&
           <Menu.Item
             name='editorials'

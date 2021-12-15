@@ -40,7 +40,7 @@ class App extends Component{
       }
     }).then(({ data }) => {
       if(data === "You are not logged in"){
-      return false
+      return
     }
       else
       setFavorites(data);
@@ -56,7 +56,7 @@ class App extends Component{
       }
     }).then(({ data }) => {
       if(data === "You are not logged in"){
-        return false
+        return
       }
       else
       setAccount(data);
@@ -71,7 +71,7 @@ class App extends Component{
       }
     }).then(({data}) => {
       if(data === "You are not logged in"){
-        return false
+        return
       }
       else
       setCart(data)
@@ -83,7 +83,7 @@ class App extends Component{
       }
     }).then(({data}) => {
       if(data === "You are not logged in"){
-        return false
+        return
       }
       else
       setHistory(data)
@@ -102,7 +102,7 @@ if(isChecked)
     return (
       <div >
         <Router className="Router">
-          <Menu isAdmin = {isAdmin} isLogged={isLogged}/>
+          <Menu  isAdmin = {isAdmin} isLogged={isLogged}/>
             <Route path="/shopcart"> 
               {isLogged 
                 ? 
